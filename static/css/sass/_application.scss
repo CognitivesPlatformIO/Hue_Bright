@@ -1,0 +1,152 @@
+// Sections
+@each $section, $values in $sections {
+  $name:  $section;
+  $color: map-get($values, color);
+  $gradient: map-get($values, gradient);
+  $background-color: map-get($values, background-color);
+  $length: length($sections);
+  .header__navigation-list {
+    li.channel-#{$name} {
+      box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.12), inset 1px 0px 0px 0px rgba(0, 0, 0, 0.12), inset 0px 2px 0px 0px $color;
+    }
+  }
+  .side-navigation__list {
+    a.channel-#{$name} {
+      &:hover {
+        color: $color;
+      }
+    }
+  }
+  .footer__navigation-list {
+    li.channel-#{$name} {
+      box-shadow: inset 0px 2px 0px 0px $color;
+    }
+  }
+  .side-navigation__link a.channel-#{$name} {
+    color: $color;
+  }
+
+	// Uncomment if you want channel specific colours.
+  // article.channel-#{$name} {
+  //   .card {
+  //     .card {
+  //       &__channel {
+	//
+  //       }
+  //       &__overlay {
+  //         background: $background-color;
+  //         background-image: $gradient!important;
+  //       }
+  //       &__no-image .card__overlay {
+  //         background: $color;
+  //       }
+  //       //&__author {
+  //       //  color: $color;
+  //       //}
+  //     }
+  //     &.card__no-image .card__overlay {
+  //       background: $color;
+  //     }
+  //   }
+  // }
+
+  // This is for if we want home page to have random
+  // colors rather than following channel colors
+
+  div.home, div.channel, div.profile {
+   div:nth-child(#{$length}n+#{$name}) {
+     .card {
+       .card {
+         &__channel {
+
+         }
+         &__overlay {
+           background: $background-color;
+           background-image: $gradient!important;
+         }
+         &__no-image .card__overlay {
+           background: $color;
+         }
+         &__author {
+           color: $color;
+         }
+       }
+       &.card__no-image .card__overlay {
+         background: $color;
+       }
+     }
+   }
+  }
+
+  div.channels {
+    a.channel-#{$name} {
+      .channel-thumb {
+        &__overlay {
+          background: $background-color;
+          background-image: $gradient!important;
+        }
+      }
+    }
+  }
+  div.channel-overview {
+    .channel-#{$section} {
+      background: $background-color!important;
+      background-image: $gradient!important;
+      .channel-overview-card__channel-overlay {
+        background: $background-color!important;
+        background-image: $gradient!important;
+      }
+    }
+  }
+  .social-modal__channel--#{$name} {
+    color: $color;
+  }
+  .card__follow.card--#{$name} {
+    background-color: $color;
+  }
+  .article--#{$name} {
+    border-color: $color;
+
+    .article {
+      &__banner {
+        border-color: $color;
+      }
+      &__category {
+        color: $color;
+        &:after{
+          background: $color;
+        }
+      }
+      &__follow {
+        background-color: $color;
+      }
+      &__caption {
+        .card {
+          &__author {
+            color: $color;
+          }
+        }
+      }
+    }
+  }
+}
+
+@each $social-color in $social-colors {
+  $name:  nth($social-color, 1);
+  $color: nth($social-color, 2);
+  i.fa.fa-#{$name} {
+    &:hover {
+      color: $color;
+    }
+  }
+  @if $name == 'facebook' {
+    i.fa.fa-facebook-f:hover {
+      color: $color;
+    }
+  }
+  @if $name == 'youtube' {
+    i.fa.fa-youtube-play:hover {
+      color: $color;
+    }
+  }
+}

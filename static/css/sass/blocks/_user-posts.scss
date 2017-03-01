@@ -1,0 +1,126 @@
+.user-posts {
+  padding: 0px 0px 140px;
+}
+
+.user-posts-header {
+  width: 100%;
+  color: white;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(117deg, rgba(163, 40, 191, 0.5), rgba(163, 40, 191, 0.0)), linear-gradient(#ff9951, #ff9951);
+  padding-bottom: 30px;
+  @include mobile {
+    justify-content: flex-start;
+    padding: 65px 0 50px;
+  }
+  @include tablet {
+    flex-direction: row;
+    padding: 0px;
+  }
+  @include desktop {
+    justify-content: flex-start;
+    padding: 0px;
+  }
+  &__image {
+    @include image_background;
+    height: 350px;
+    width: 100%;
+    @include mobile {
+      height: 400px;
+      width: 450px;
+    }
+    @include desktop {
+      height: 100%;
+      width: 33.33%;
+    }
+  }
+  &__content {
+    padding: 40px 30px 0;
+    max-width: 100%;
+    text-align: center;
+    @include tablet {
+      text-align: left;
+      padding-left: 70px;
+    }
+    @include desktop {
+      padding: 60px 0 60px 80px;
+    }
+  }
+  &__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: capitalize;
+    margin-bottom: 40px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    @include tablet {
+      flex-direction: row;
+      margin-bottom: 15px;
+    }
+  }
+  &__text {
+    margin-bottom: 20px;
+    @include tablet {
+      margin-bottom: 0px;
+      margin-right: 35px;
+    }
+  }
+  &__sub-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  &__desciption {
+    max-width: 100%;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 29px;
+    margin-bottom: 30px;
+    @include tablet {
+      max-width: 500px;
+      line-height: 35px;
+    }
+  }
+  &__social-links {
+    .social-links {
+      .fa {
+        background: none;
+        font-size: 25px;
+        margin: auto 6px;
+      }
+    }
+  }
+}
+
+.user-posts-content {
+  padding-top: 50px;
+  width: 100%;
+  &__title {
+    @include text-lg($color: $body-text, $font-weight: 600);
+    margin-bottom: 34px;
+    margin-left: 30px;
+    @include desktop {
+      margin-left: 0px;
+    }
+  }
+  &__post-section {
+    margin-bottom: 54px;
+    &__title {
+      margin-bottom: 25px;
+      margin-left: 15px;
+      h1 {
+        color: $body-text;
+      }
+      @include tablet {
+        margin-bottom: 35px;
+      }
+      @include desktop {
+        margin-left: 0px;
+      }
+    }
+  }
+}
+

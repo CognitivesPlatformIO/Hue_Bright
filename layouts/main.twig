@@ -1,0 +1,121 @@
+{% set networkData = _Network.getNetworkData() %}
+{% set blogData = _Blog.getBlog() %}
+{{ this.beginPage() }}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{_AppHelper.getLanguage()}}">
+<head>
+    <meta charset="{{_AppHelper.getCharset() }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    {{ Html.csrfMetaTags | raw }}
+    <title>{{this.title | raw}}</title>
+    
+    {% set favicon = ''%}
+    {% if networkData.favMedia | length > 0 %}
+        {% set favicon = _Media.getMediaUrl(networkData.favMedia, 80, 80)%}
+    {% endif %}
+    
+    {% if favicon != '' %}
+    <link rel="shortcut icon" href="{{favicon}}" type="image/x-icon" />
+    <link rel="icon" href="{{favicon}}" sizes="any" type="image/svg+xml" />
+    {% endif %}
+    
+    {% set primaryFont = networkData['styling']['fonts']['primaryFont'] %}
+    {% set secFont = networkData['styling']['fonts']['secondaryFont'] %}
+
+    {% if primaryFont != "" %}
+        <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
+    {% endif %}
+    {% if secFont != "" %}
+        <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
+    {% endif %}
+    
+    <link rel="alternate" type="application/rss+xml" title="{{_Network.getNetworkTitle()}} -  RSS Feeds" href="http://{{networkData.defaultDomain['domain']}}/feed/rss"/>
+
+    <!-- Google Tag Manager -->
+    {% if networkData.thirdPartyIntegrations['googleTagManager'] | length > 0 %}
+        {{networkData.thirdPartyIntegrations['googleTagManager']['script'] | raw}}
+    {% endif %}
+    
+    {% if _AppHelper.getApplicationEnv() == 'PROD'%}
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1488363737238" type="text/css" media="all">
+    {% else %}
+        <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.fancybox/source/jquery.fancybox.css" />
+        <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.noty-2.3.8/demo/animate.css" />
+        <link type="text/css" rel="stylesheet" href="{{_AppHelper.getAssetsSDKPath()}}/js/media-player/mediaelementplayer.css" />
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/index.css" type="text/css" media="all">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans:400,600,700|Chivo:400,900|PT+Sans:400,700" rel="stylesheet">
+    {% endif %}
+    
+    <style>
+    body, .body, p, a.header__navigation-link {
+    font-family: "Open Sans", sans-serif;
+    }
+    .article p, .article li, figcaption {
+    font-family: 'PT Sans', sans-serif;
+    }
+    
+    {% set customCss = networkData['styling']['customStyleSheet'] %}
+    {% if customCss != "" %}
+        {{customCss | raw }}
+    {% endif %}
+    </style>
+    
+    {% if blogData.settings['GoogleAnalyticsID'] is defined and  blogData.settings['GoogleAnalyticsID'] is not empty  %}
+        <!-- Google Analytics -->
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', '{{blogData.settings['GoogleAnalyticsID']}}', 'auto');
+        ga('send', 'pageview');
+        </script>
+        <!-- End Google Analytics -->
+    {% endif %}
+{{ this.head() }}
+</head>
+
+<body>
+    {{ this.beginBody() }}
+    
+    <!-- Google Tag Manager(noscript) -->
+    {% if networkData.thirdPartyIntegrations['googleTagManager'] | length > 0 %}
+        {{networkData.thirdPartyIntegrations['googleTagManager']['noscript'] | raw}}
+    {% endif %}
+    
+    <div id="container">
+        <header class="header">
+            {{ this.render('partials/_header.twig', {network: networkData, blogData: blogData}) | raw }}
+
+            {{ this.render('partials/_header-navigation.twig', {network: networkData, blogData: blogData}) | raw }}
+
+            {{ this.render('partials/_side-navigation.twig', {network: networkData, blogData: blogData}) | raw }}
+        </header>
+
+        <main id="content" role="main">
+            {{ content | raw}}
+        </main>
+
+        <div class="modal" role="dialog">
+            <div class="modal-dialog modal-extlg" role="document">
+                <div class="modal-content social-modal">
+                </div>
+            </div>
+        </div>
+        {{ this.render('partials/_footer.twig', {networkData: networkData, blogData: blogData}) | raw }}
+    </div>
+
+    <div class="SwappingHelper" style="display:none">
+        <div style="width: 270px; height: 105px; padding: 3px; background-color: #FFF; max-width: 270px; max-height: 105px; overflow: hidden; z-index: 999 !important;">
+            <img class="article-image" src="{{networkData.placeHolder100x100}}" style="width:97px; height: 97px; float: left;" />
+            <p class="article-text" style="width: 165px; float: left; padding-left: 3px;color: #394659;font-size: 14px; font-family: Droid Serif,serif; line-height: 20px; margin-top:0px;">Dummy text  </p>
+        </div>
+    </div>
+    {{ this.render('partials/account-modal.twig', {network: networkData}) | raw }}
+    {{ this.render('partials/_javascript.twig', {networkData: networkData}) | raw }}
+    {{ this.endBody() }}
+    </body>
+</html>
+{{ this.endPage() }}

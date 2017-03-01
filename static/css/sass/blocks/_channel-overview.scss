@@ -1,0 +1,16 @@
+.channel-overview {
+	padding-bottom: 60px;
+	&__header-container {
+		background: rgba(#b4b8c5, 0.1);
+		width: 100%;
+	}
+	&__header {
+		@extend .container;
+		@include text-md($color: $body-text, $font-weight: 600, $font-multiplier: 1.38);
+    display: flex;
+		padding: 50px 20px 20px;
+		@include desktop {
+			padding: 50px 0px 20px;
+		}
+	}
+}

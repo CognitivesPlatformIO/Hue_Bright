@@ -1,0 +1,88 @@
+<div class="header__navigation">
+    <div class="container">
+        <div class="header__navigation-row">
+            <ul class="header__navigation-list">
+                {% set menuItems = blogData.blogHeaderMenu %}
+                {% for i in 0..4 %}
+                    {% if menuItems[i] is defined %}
+                        {% set activeClass = (menuItems[i].link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                        {% set externalClass = (menuItems[i].isExternal) ? 'external-link' : '' %}  
+                        {% set link = menuItems[i].link |raw %}
+                        {% set toggleClass = '' %}
+                        {% if menuItems[i].children is defined and menuItems[i].children | length > 0 %}
+                            {% set link = '#' %}
+                            {% set toggleClass = 'dropdown' %}
+                        {% endif %}
+                        <li class="header__navigation-item channel-{{i}} {{toggleClass}}">
+                            <a href="{{link}}" {% if toggleClass %}id="dropdown{{i}}1"{% endif %} class="header__navigation-link {{activeClass}} {{externalClass}}" {% if menuItems[i].target != "" %}target="{{menuItems[i].target}}"{% endif %}>
+                                {{ ((menuItems[i].label is empty) ? ((menuItems[i].pageTitle is empty)? menuItems[i].blogTitle : menuItems[i].pageTitle) : menuItems[i].label )}} {% if menuItems[i].children is defined and menuItems[i].children | length > 0 %} <i class="fa fa-angle-down"></i> {% endif %}
+                            </a>
+                            {% if menuItems[i].children is defined and menuItems[i].children | length > 0 %}
+                                <ul class="dropdown-menu">
+                                    {% for childItem in menuItems[i].children%}
+                                        {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
+                                        <li class="channel-6">
+                                            <a href="{{childItem.link |raw}}" class="{{externalClass}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
+                                                {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty)? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if menuItems[5] is defined %}
+                    <li class="header__navigation-item dropdown">
+                         <a href="javascript:void(0)" class="header__navigation-link" type="button" id="dropdown">
+                                More <i class="fa fa-angle-down"></i>
+                            </a>
+                        <ul class="dropdown-menu">
+                            {% for i in 5..(menuItems |length - 1)%}
+                                {% set menuItem = menuItems[i] %}
+                                {% set externalClass = (menuItem.isExternal) ? 'external-link' : '' %}
+                                {% set toggleClass = '' %}
+                                {% if menuItem.children is defined and menuItem.children | length > 0 %}
+                                    {% set link = '#' %}
+                                    {% set toggleClass = 'dropdown' %}
+                                {% endif %}
+                                <li class="channel-6 {{ menuItem.blogTitle|lower }} {{toggleClass}}">
+                                    <a href="{{ menuItem.link }}" {% if toggleClass %}id="dropdown{{i}}1"{% endif %} class="{{activeClass}} {{externalClass}}" {% if menuItem.target != "" %}target="{{menuItem.target}}"{% endif %}>
+                                        {{ ((menuItem.label is empty) ? ((menuItem.pageTitle is empty)? menuItem.blogTitle : menuItem.pageTitle) : menuItem.label )}} {% if menuItems[i].children is defined and menuItems[i].children | length > 0 %} <i class="fa fa-angle-down"></i> {% endif %}
+                                    </a>
+                                    {% if menuItems[i].children is defined and menuItems[i].children | length > 0 %}
+                                        <ul class="dropdown-menu">
+                                            {% for childItem in menuItems[i].children%}
+                                                {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
+                                                <li class="channel-6">
+                                                    <a href="{{childItem.link |raw}}" class="{{externalClass}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
+                                                        {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty)? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+            {% set blogInfo = _Blog.getHomeBlogSettings()%}
+            <div class="social-links">
+                {% if blogInfo.social['twitter'] is not empty %}
+                    <a href="{{blogInfo.social['twitter']}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                {% endif %}
+                {% if blogInfo.social['youtube'] is not empty %}
+                    <a href="{{blogInfo.social['youtube']}}" target="_blank"><i class="fa fa-youtube-play"></i></a>
+                {% endif %}
+                {% if blogInfo.social['google'] is not empty %}
+                    <a href="{{blogInfo.social['google']}}" target="_blank"><i class="fa fa-google-plus"></i></a>
+                {% endif %}
+                {% if blogInfo.social['facebook'] is not empty %}
+                    <a href="{{blogInfo.social['facebook']}}" target="_blank"><i class="fa fa-facebook-f"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

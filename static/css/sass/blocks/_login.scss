@@ -1,0 +1,175 @@
+.login {
+	padding-bottom: 50px;
+	width: 100%;
+	@include tablet {
+		border-top: 1px solid rgba(0,0,0,0.1);
+		padding-top: 80px;
+	}
+
+	&__content {
+		flex-direction: column;
+		padding: 0!important;
+		background: white;
+		max-width: 800px;
+		margin: auto auto -20px;
+		z-index: 999;
+		position: relative;
+		border-top: 1px solid rgba(0,0,0,0.1);
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		@include mobile {
+			border: 1px solid rgba(0,0,0,0.075);
+			padding-top: 40px;
+		}
+		.forgot-password .login__form-title {
+			margin-top: 0;
+			padding-top: 60px;
+		}
+	}
+	&__tabs {
+		display: flex;
+		li {
+			display: block;
+			float:left;
+			width: 50%;
+
+			&.active a {
+				background: white;
+				color: #576b73;
+			}
+		}
+		a {
+			width: 100%;
+			text-align: center;
+			background: rgba(0,0,0,0.03);
+			display: block;
+			float: left;
+			max-width: none;
+			padding: 20px 0;
+			@include text-sm($letter-spacing: 0.21px, $color: #576b73, $font-multiplier: 1, $font-weight: 400);
+		}
+		&:first-child a {
+			margin-right: 15px;
+		}
+	}
+	.login, .sign-up {
+		padding-bottom: 50px;
+		background: rgba(255, 255, 255, 0.1);
+		.form__error {
+			text-align: center;
+			@include text-sm($letter-spacing: 0.21px, $color: rgba(201,8,8,0.8), $font-multiplier: 0.78, $font-weight: 600);
+			padding: 9px 0 10px;
+			background: #EFD7D7;
+			border: 1px solid rgba(201,8,8,0.46);
+			border-radius: 4px;
+			margin-bottom: 20px;
+		}
+		&__o-login_button-wrap {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			border-bottom: 1px solid rgba(255,255,255,0.2);
+			padding: 40px 40px 0px;
+			@include mobile {
+				flex-direction: row;
+				padding: 80px 40px 40px;
+		  }
+		}
+		&__button {
+			padding: 10px 20px;
+			border-radius: 4px;
+			i, &-text {
+				color: #fff;
+			}
+			&.facebook-login, &.facebook-sign-up {
+				background: #3b5898;
+				margin-bottom: 20px;
+				@include mobile {
+			    margin-right: 10px;
+					margin-bottom: 0px;
+			  }
+			}
+			&.twitter-login, &.twitter-sign-up {
+				background: #55acee;
+				@include mobile {
+			    margin-left: 10px;
+			  }
+			}
+		}
+		// &__no-account {
+		//
+		// }
+		&__form-title {
+			margin-top: 50px;
+			margin-bottom: 20px;
+			text-align: center;
+			@include text-sm($letter-spacing: 0.21px, $color: #576b73, $font-multiplier: 1, $font-weight: 600);
+		}
+	}
+	.login-form, .sign-up-form {
+
+	}
+	form {
+		padding: 0 30px;
+		.form-control {
+			margin-top: 10px;
+			border: none;
+			background: rgba(255,255,255,0.8);
+			&:hover, &:active {
+				background: #fff;
+			}
+		}
+		button[type="submit"] {
+			background: rgba(255,255,255,1);
+			border-radius: 4px;
+			border: none;
+			color: rgba(0,0,0,0.1);
+			padding: 8px 19px 9px;
+			@include text-sm($color: rgba(0,0,0,0.6), $font-multiplier: 0.8, $font-weight: 600);
+			margin-left: 20px;
+			border: 1px solid rgba(0,0,0,0.1);
+			&:hover {
+				background: rgba(0,0,0,0.3);
+				color: #fff;
+			}
+
+		}
+		#email, .captcha {
+			margin-top: 30px;
+		}
+	}
+}
+
+.form__input-wrap {
+	display: flex;
+	justify-content: space-between;
+	input:first-child {
+		margin-right: 20px;
+	}
+}
+
+.button-set {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+	color: rgba(0,0,0,0.6);
+	&__forgot {
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	&__left {
+		position: relative;
+		color: rgba(0,0,0,0.6);
+		input {
+			position: relative;
+			top: -2px;
+		}
+	}
+	&__right {
+		display: flex;
+		justify-content: space-between;
+	}
+
+}

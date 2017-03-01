@@ -1,0 +1,764 @@
+.account-modal {
+	flex: 1 1 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	max-width: 958px;
+	margin-bottom: auto;
+	width: calc(100% - 30px);
+	background: white;
+	box-shadow: 0 0 30px rgba($black, 0.2);
+	cursor: auto;
+	@include tablet {
+		flex-direction: row;
+	}
+	&__container {
+		@include transition(all $transition ease);
+		overflow-y: scroll;
+		position: fixed;
+		top: 0;
+		left: 0;
+		display: flex;
+		justify-content: center;
+		padding: 35px 10px 35px;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.5);
+		cursor: pointer;
+		opacity: 0;
+		&.active {
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	&__navigation {
+		width: 100%;
+		background: rgba(84,90,109,0.4);
+		flex-shrink: 0;
+		box-shadow: inset -125px 0px 185px -66px rgba(0,0,0,0.25);
+		@include tablet {
+			width: 280px;
+		}
+		&_info {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 40px 28px;
+		}
+		&_logo {
+			height: 43px;
+			margin-bottom: 20px;
+		}
+		&_text {
+			@include text-md($color: $white, $font-multiplier: 0.778, $line-height: 1.38, $letter-spacing: 0px, $font-weight: 600);
+			opacity: 1;
+			text-align: center;
+			max-width: 224px;
+		}
+		&_list {
+		}
+		&_item {
+			@include text-md($color: $white, $font-multiplier: 0.945, $line-height: 1.38, $letter-spacing: 0px, $font-weight: 500);
+			@include transition(all $transition ease);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0px 20px;
+			height: 60px;
+			border-top: 1px solid rgba(0,0,0,0.2);
+			cursor: pointer;
+			&:hover {
+				background-color: rgba(0,0,0,0.1);
+				color: $white;
+			}
+			&:nth-of-type(1) {
+				border-top: none;
+			}
+			&:last-of-type {
+				//border-bottom: 1px solid rgba(0,0,0,0.2);
+			}
+			&.active {
+				background-color: rgba(0,0,0,0.3);
+				border-top-color: rgba(0,0,0,0);
+			}
+		}
+	}
+	&__progress {
+		width: 100px;
+		&_label {
+			@include text-md($color: $white, $font-multiplier: 0.667, $font-weight: 700);
+			margin-bottom: 2px;
+		}
+		&_bar {
+			width: 100%;
+			height: 5px;
+			background: $black;
+			border-radius: 100px;
+			overflow: hidden;
+		}
+		&_fill {
+			width: 80%;
+			height: 5px;
+			background: $account-modal-highlight;
+			border-radius: 100px;
+		}
+	}
+	&__content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		padding: 20px 20px 60px;
+		@include tablet-lg {
+			padding: 34px 50px 50px;
+		}
+		&_cross {
+			position: absolute;
+			top: 18px;
+			right: 18px;
+			cursor: pointer;
+		}
+		&_section {
+			display: none;
+			flex-direction: column;
+			align-items: flex-start;
+			width: 100%;
+			&.active {
+				display: flex;
+			}
+		}
+		&_title {
+			@include text-md($color: $account-modal-highlight, $font-multiplier: 1.112, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.35);
+			margin-bottom: 21px;
+			&--red {
+				color: $account-modal-red;
+			}
+			&--green {
+				color: $account-modal-green;
+			}
+			&--no-margin {
+				margin-bottom: 5px!important;
+			}
+		}
+		&_social {
+			display: flex;
+			width: 100%;
+			margin-bottom: 30px;
+			li {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				width: 100%;
+				&:first-child {
+					margin-right: 5px;
+				}
+				&:last-child {
+					margin-left: 5px;
+				}
+				&.twitter a {
+					background: #55acee;
+					&:hover {
+						background: #2795e9;
+					}
+				}
+				a {
+					display: block;
+					background: #3b5998;
+					color: #fff;
+					text-decoration: none;
+					width: 100%;
+					text-align: center;
+					border-radius: 2px;
+					padding: 8px 0 11px;
+					box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.1);
+					&:hover {
+						background: #2d4373;
+					}
+				}
+			}
+		}
+		p {
+			@include text-md($color: rgba(0,0,0,0.43), $font-multiplier: 0.889, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+			margin-bottom: 20px;
+		}
+		a {
+			@include text-md($color: $account-modal-highlight, $font-multiplier: 0.889, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+			text-decoration: underline;
+		}
+		&_container {
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+			width: 100%;
+			margin-bottom: 15px;
+			@include mobile {
+				flex-direction: row;
+			}
+			&--margin-bottom {
+				margin-bottom: 50px;
+			}
+			&--medium-margin-bottom {
+				margin-bottom: 35px;
+			}
+		}
+		&_button-container {
+			width: 100%;
+			margin: 64px 0px 50px;
+			.account-button {
+				margin-right: 7px;
+			}
+		}
+		&_item-container {
+			display: inline-flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			width: 100%;
+			@include mobile {
+				width: 48%;
+			}
+		}
+	}
+	&__select {
+		margin-bottom: 43px;
+		width: 100%;
+		&.active {
+			.account-modal__select_content {
+				border-left: 1px solid #9EA6BF;
+				border-right: 1px solid #9EA6BF;
+				border-top: 1px solid #9EA6BF;
+				background-color: #F5F7FF;
+			}
+			.account-modal__select_list {
+				height: 160px;
+				border-width: 1px;
+				z-index: 10;
+				opacity: 0.99;
+			}
+			.account-modal__select_arrow {
+				transform: rotate(180deg);
+			}
+			.account-modal__select_label {
+				@include text-md($font-multiplier: 0.723, $letter-spacing: 0px, $font-weight: 700, $line-height: 1.4);
+				top: 3px;
+				color: $account-modal-highlight!important;
+			}
+		}
+		&.selected {
+			.account-modal__select_label {
+				@include text-md($color: rgba($black, 0.43), $font-multiplier: 0.723, $letter-spacing: 0px, $font-weight: 700, $line-height: 1.4);
+				top: 3px;
+			}
+			.account-modal__select_content {
+				border-bottom: 2px solid $account-modal-highlight;
+			}
+		}
+		&.changed {
+			.account-modal__select_content {
+				border-bottom: 2px solid $account-modal-green;
+			}
+		}
+		&_content {
+			@include transition(all $transition ease);
+			position: relative;
+			border: 1px solid transparent;
+			border-bottom: 1px solid rgba($black, 0.43);
+			padding: 15px 0px 0px;
+			cursor: pointer;
+		}
+		&_label {
+			@include text-md($color: rgba($black, 0.43), $font-multiplier: 0.889, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+			@include transition(all $transition ease);
+			position: absolute;
+			left: 2px;
+			top: 20px;
+			z-index: 1;
+			cursor: pointer;
+		}
+		&_arrow {
+			@include transition(all $transition ease);
+			cursor: pointer;
+			position: absolute;
+			right: 8px;
+			bottom: 14px;
+		}
+		&_selected-item-container {
+			@include text-md($color: $black, $font-multiplier: 0.889, $line-height: 1.4s, $font-weight: 600);
+			display: flex;
+			flex-wrap: wrap;
+			padding-left: 2px;
+			padding-top: 5px;
+			padding-right: 30px;
+			min-height: 27px;
+			margin-bottom: 5px;
+		}
+		&_selected-item {
+			@include text-md($color: $black, $font-multiplier: 0.889, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+		}
+		&_selected-item-multi {
+			@include text-md($color: $white, $font-multiplier: 0.778, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+			background-color: $account-modal-highlight;
+			border-radius: 2px;
+			padding: 1px 8px 2px;
+			margin: 5px 5px 0px 0px;
+			cursor: pointer;
+		}
+		&_list {
+			@include transition(all $transition ease);
+			position: absolute;
+			top: 100%;
+			left: -1px;
+			width: calc(100% + 2px);
+			height: 0;
+			overflow: hidden;
+			background: $white;
+			border: 0px solid #9EA6BF;
+			box-sizing: border-box;
+			overflow-y: scroll;
+		}
+		&_list-item {
+			@include text-md($color: $black, $font-multiplier: 0.834, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+			cursor: pointer;
+			padding: 5px 8px;
+			&:hover {
+				background-color: #f4f6ff;
+			}
+			&.active {
+				background-color: rgba($account-modal-highlight, 0.1);
+			}
+		}
+		&_requirement {
+			@include text-md($color: rgba(0,0,0,0.43), $font-multiplier: 0.723, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+			display: flex;
+			justify-content: space-between;
+			padding: 6px 2px 0px;
+			img {
+				display: none;
+			}
+		}
+		&--required {
+			&.selected {
+				.account-modal__select_requirement {
+					color: $account-modal-green;
+					img {
+						display: block;
+					}
+				}
+			}
+		}
+		&--multiple {
+			.account-modal__select_selected-item-container {
+				padding-left: 5px;
+			}
+		}
+		&--no-margin {
+			margin-bottom: 25px!important;
+		}
+		&--more-margin {
+			margin-bottom: 57px!important;
+		}
+	}
+	&__input-container {
+		@include transition(all $transition ease);
+		position: relative;
+		display: inline-flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		width: 100%;
+		margin-bottom: 10px;
+		&.active {
+			.account-modal__input_label {
+				@include text-md($color: $account-modal-highlight, $font-multiplier: 0.723, $letter-spacing: 0px, $font-weight: 700, $line-height: 1.4);
+				top: 1px;
+			}
+			.account-modal__input_content {
+				background-color: #F5F7FF;
+				border-color: $account-modal-highlight;
+			}
+			.account-modal__input_requirement {
+				border-color: $account-modal-highlight;
+				color: $account-modal-highlight;
+			}
+			.account-modal__input_requirement--standard {
+				opacity: 0;
+			}
+			.account-modal__input_requirement--active {
+				opacity: 1;
+			}
+		}
+		&.answered {
+			.account-modal__input_label {
+				@include text-md($color: #9f9f9f, $font-multiplier: 0.723, $letter-spacing: 0px, $font-weight: 700, $line-height: 1.4);
+				top: 1px;
+			}
+			.account-modal__input_content {
+				background-color: transparent;
+				border-color: $account-modal-green;
+			}
+			.account-modal__input_requirement {
+				border-color: $account-modal-green;
+				color: $account-modal-green;
+			}
+			.account-modal__input_requirement--tick {
+				opacity: 1;
+			}
+			.account-modal__input_requirement--standard {
+				opacity: 0;
+			}
+			.account-modal__input_requirement--active {
+				opacity: 1;
+			}
+		}
+		&.error {
+			.account-modal__input_label {
+				@include text-md($color: #9f9f9f, $font-multiplier: 0.723, $letter-spacing: 0px, $font-weight: 700, $line-height: 1.4);
+				top: 1px;
+			}
+			.account-modal__input_content {
+				background-color: transparent;
+				border-color: $account-modal-red;
+			}
+			.account-modal__input_requirement {
+				border-color: $account-modal-red;
+				color: $account-modal-red;
+			}
+			.account-modal__input_requirement--cross {
+				opacity: 1;
+			}
+			.account-modal__input_requirement--standard {
+				opacity: 0;
+			}
+			.account-modal__input_requirement--error {
+				opacity: 1;
+			}
+		}
+		&.unchanged {
+			.account-modal__input_content {
+				background-color: $white;
+			}
+			.account-modal__input_label {
+				@include text-md($color: #9f9f9f, $font-multiplier: 0.723, $letter-spacing: 0px, $font-weight: 700, $line-height: 1.4);
+			}
+		}
+		&--textarea {
+			margin-bottom: 8px!important;
+			.account-modal__input_content {
+				height: 74px;
+			}
+			.account-modal__input_label {
+				top: 46px;
+			}
+		}
+		&--no-requirement {
+			.account-modal__input_requirement {
+				height: 0px!important;
+			}
+		}
+		&--no-margin {
+			margin-bottom: 0px;
+		}
+	}
+	&__input {
+		@include text-md($color: $black, $font-multiplier: 0.889, $line-height: 1.4s, $font-weight: 600);
+		@include placeholder($color: #9f9f9f);
+		border: none;
+		padding-bottom: 4px;
+		background: none;
+		resize: none;
+		&_content {
+			@include transition(all $transition ease);
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			height: 50px;
+			padding-left: 2px;
+			border-bottom: 1px solid #9f9f9f;
+		}
+		&_label {
+			@include text-md($color: #9f9f9f, $font-multiplier: 0.889, $line-height: 1.4s, $font-weight: 600);
+			@include transition(all $transition ease);
+			position: absolute;
+			top: 22px;
+		}
+		&_requirement {
+			@include text-md($color: #9f9f9f, $font-multiplier: 0.723);
+			@include transition(all $transition ease);
+			position: relative;
+			border-top: 1px solid transparent;
+			padding-top: 2px;
+			padding-left: 2px;
+			height: 23px;
+			&--active {
+				opacity: 0;
+			}
+			&--error {
+				opacity: 0;
+			}
+			span {
+				@include transition(all $transition ease);
+				position: absolute;
+			}
+			img {
+				@include transition(all $transition ease);
+				position: absolute;
+				right: 0;
+				top: 4px;
+				opacity: 0;
+			}
+		}
+	}
+	&__image {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
+		@include mobile {
+			width: 48%;
+		}
+		&.active {
+			.account-modal__image_caption {
+				span {
+					left: 22px;
+					color: $account-modal-green;
+				}
+				.account-modal__image_caption--tick,
+				.account-modal__image_caption--success {
+					opacity: 1;
+				}
+				.account-modal__image_caption--standard {
+					opacity: 0;
+				}
+			}
+			.account-modal__image_upload {
+				background-size: auto 100%;
+			}
+			.account-modal__image_label {
+				color: $black;
+			}
+		}
+		&.error {
+			.account-modal__image_caption {
+				span {
+					left: 25px;
+					color: $account-modal-red;
+				}
+				.account-modal__image_caption--error {
+					opacity: 1;
+				}
+				.account-modal__image_caption--standard {
+					opacity: 0;
+				}
+				.account-modal__image_caption--cross {
+					opacity: 1;
+				}
+			}
+			.account-modal__image_label {
+				color: $black;
+			}
+			.account-modal__image_upload {
+				background-image: url('/static/images/icons/account-modal-image-upload.svg');
+			}
+		}
+		&_content {
+			display: flex;
+		}
+		&_label {
+			@include text-md($color: rgba(0,0,0,0.43), $font-multiplier: 0.889, $font-weight: 600);
+			@include transition(all $transition ease);
+			margin-bottom: 6px;
+			margin-left: 4px;
+		}
+		&_upload-container {
+			flex-shrink: 0;
+			border-radius: 100%;
+			border: 2px solid #9EA6BF;
+			width: 70px;
+			height: 70px;
+			margin-right: 12px;
+		}
+		&_upload {
+			width: 100%;
+			height: 100%;
+			border-radius: 100%;
+			border: 2px solid $white;
+			cursor: pointer;
+			background-image: url('/static/images/icons/account-modal-image-upload.svg');
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+		&_button-container {
+			width: 100%;
+		}
+		&_input {
+			display: none!important;
+		}
+		&_caption {
+			@include text-md($color: rgba(0,0,0,0.43), $font-multiplier: 0.723, $font-weight: 600);
+			position: relative;
+			padding-top: 8px;
+			span {
+				@include transition(all $transition ease);
+				position: absolute;
+				left: 0px;
+			}
+			img {
+				@include transition(all $transition ease);
+				position: absolute;
+				opacity: 0;
+				top: 10px;
+			}
+			&--success,
+			&--error {
+				opacity: 0;
+			}
+		}
+	}
+	&__checkbox {
+		margin: 0px 10px 0px 0px!important; // Override default bootstrap checkbox styling.
+		outline: none!important;
+		position: relative;
+		&:checked {
+			&:before {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 1px;
+				left: 0px;
+				border-radius: 3px;
+				background-image: url('/static/images/icons/checkbox-tick.png');
+				@include image-background();
+			}
+		}
+		&_container {
+			display: flex;
+			align-items: center;
+			margin-bottom: 2px;
+		}
+		&_label {
+			display: inline-block;
+			@include text-md($color: $black, $font-multiplier: 0.889, $font-weight: 600);
+		}
+	}
+	&__forgotten-password-link {
+		@include text-md($color: $account-modal-blue, $font-multiplier: 0.889);
+		margin-top: 30px;
+		width: 100%;
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
+		&.active {
+			.account-modal__forgotten-password_link {
+				color: $account-modal-highlight;
+			}
+		}
+	}
+	&__error {
+		@include transition(all $transition ease);
+		background-color: rgba($account-modal-red, 0.1);
+		width: 100%;
+		padding: 17px 20px;
+		opacity: 0;
+		overflow: hidden;
+		height: 0px;
+		padding: 0px 20px;
+		border: none;
+		&.active {
+			height: auto;
+			border: 1px solid $account-modal-red;
+			padding: 17px 20px;
+			margin-bottom: 20px;
+			opacity: 1;
+		}
+		&_title {
+			@include text-md($color: $account-modal-red, $font-multiplier: 0.945, $font-weight: 700);
+		}
+		&_text {
+			@include text-md($color: $account-modal-red, $font-multiplier: 0.778, $font-weight: 600);
+		}
+	}
+	&__buttons {
+		&_delete-account {
+			margin-top: 24px;
+		}
+	}
+	&__delete-account {
+		width: 100%;
+		&.active {
+			.account-modal__delete-account_content {
+				height: 150px;
+			}
+		}
+		&_content {
+			@include transition(all $transition ease);
+			height: 0px;
+			overflow: hidden;
+		}
+	}
+}
+
+.forgotten-password-modal {
+	flex: 1 1 100%;
+	position: relative;
+	max-width: 700px;
+	margin-bottom: auto;
+	width: calc(100% - 30px);
+	padding: 40px 50px;
+	background: white;
+	box-shadow: 0 0 30px rgba($black, 0.2);
+	cursor: auto;
+	&__container {
+		@include transition(all $transition ease);
+		overflow-y: scroll;
+		position: fixed;
+		top: 0;
+		left: 0;
+		display: flex;
+		justify-content: center;
+		padding: 35px 10px 35px;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.5);
+		cursor: pointer;
+		opacity: 0;
+		&.active {
+			opacity: 1;
+			z-index: 1;
+		}
+		&.success {
+			.forgotten-password-modal {
+				border: 2px solid $account-modal-green;
+			}
+		}
+		&.delete {
+			.forgotten-password-modal {
+				border: 2px solid $account-modal-red;
+			}
+		}
+	}
+	&__cross {
+		position: absolute;
+		top: 18px;
+		right: 18px;
+		cursor: pointer;
+	}
+	&__content {
+		display: none;
+		&.active {
+			display: block;
+		}
+		p {
+			@include text-md($color: rgba(0,0,0,0.43), $font-multiplier: 0.889, $letter-spacing: 0px, $font-weight: 600, $line-height: 1.4);
+		}
+	}
+}
+
+.account-modal__content_section--signup_social {
+	max-width: 660px;
+	border: 1px solid rgba(0,0,0,0.2);
+	border-radius: 4px;
+	padding: 20px 30px 30px;
+}

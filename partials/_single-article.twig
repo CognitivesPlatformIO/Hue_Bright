@@ -1,0 +1,146 @@
+{% set networkData = _Network.getNetworkData() %}
+{% if article.articleId > 0 %}
+    {% set imgWidth = 383 %}
+    {% set imgHeight = 260 %}
+    {% if containerClass == 'col-full' %}
+        {% set imgWidth = 1170 %}
+        {% set imgHeight = 470 %}
+    {% endif %}
+    {% set articleImg = '' %}
+    {% set bgImg = '' %}
+    {% set cardImageClass = 'card__no-image' %}
+    {% if article.featuredMedia | length > 0 and article.featuredMedia['id'] is not empty %}
+        {% set cardImageClass = '' %}
+        {% set articleImg = _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ) %}
+        {% set bgImg = "background-image: url('"~articleImg~"');" %}
+    {% endif %}
+{% set blogClass = 'card--blog_'~article.blog['id'] %}
+<div itemscope itemtype="http://schema.org/NewsArticle" class="{{containerClass}}">
+    <article class="card--article channel-6 {{blogClass}} swap" id="Article{{article.articleId}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}">
+        <a   itemprop="url" href="{{article.url}}" class="card card--entertainment link {{cardImageClass}}" style="{{bgImg}}">
+        <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
+        {% if article.featuredMedia['media'] is defined and  article.featuredMedia['media'] | length > 0%}
+            <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                <meta itemprop="url" content="{{article.featuredMedia['media']['url']}}"/>
+                <meta itemprop="width" content="{{article.featuredMedia['media']['width']}}"/>
+                <meta itemprop="height" content="{{article.featuredMedia['media']['height']}}"/>
+            </div>
+        {% endif %}
+        {% if article.publisher['url'] is not empty %}
+            <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                <meta itemprop="name" content="{{article.publisher['name']}}"/>
+                <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                    <meta itemprop="url" content="{{article.publisher['url']}}"/>
+                    <meta itemprop="width" content="{{article.publisher['width']}}"/>
+                    <meta itemprop="height" content="{{article.publisher['height']}}"/>
+                </div>
+            </div>
+        {% endif %}
+        {% set metaPublishDate = _AppHelper.getDefaultTimezoneDateTime(article.metaPublishDate) %}
+        {% set metaUpdateDate = _AppHelper.getDefaultTimezoneDateTime(article.metaUpdateDate) %}
+        <meta itemprop="datePublished" content="{{_AppHelper.getDateTimeBasedOnTimezone(metaPublishDate,'META')}}"/>
+        <meta itemprop="dateModified" content="{{_AppHelper.getDateTimeBasedOnTimezone(metaUpdateDate,'META')}}"/>
+            <div class="card__overlay">
+                <div class="card__content-wrap">
+                    {% if article.userHasBlogAccess == '1' %}
+                    <div class="admin-actions">
+                        <div class="admin-actions__action admin-actions__action--hide HideBlogArticle" data-guid="{{article.guid}}" data-social="0">
+                            <span>HIDE</span>
+                            <img src="{{networkData.templatePath}}/static/images/icons/editor/hide.svg" alt="hide card">
+                        </div>
+                        {% set pinTitle = 'Pin Article' %}
+                        {% set pinTxt = 'PIN' %}
+                        {% set pinCls = '' %}
+                        {% if article.isPinned == 1 %}
+                            {% set pinTitle = 'Un-Pin Article' %}
+                            {% set pinTxt = 'UN-PIN' %}
+                            {% set pinCls = 'selected' %}
+                        {% endif %}
+                        <div class="admin-actions__action admin-actions__action--pin PinArticleBtn {{pinCls}}" data-position="{{position}}" data-social="0" data-id="{{article.articleId}}" title="{{pinTitle}}" data-status="{{article.isPinned}}">
+                            <span>{{pinTxt}}</span>
+                            <img src="{{networkData.templatePath}}/static/images/icons/editor/pin.svg" alt="pin card">
+                        </div>
+                        <div class="admin-actions__action admin-actions__action--edit" onclick="window.location = '{{article.editUrl}}'; return false;">
+                            <span>EDIT</span>
+                            <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="card__content">
+                        <div class="card__channel-wrap">
+                            <h5 class="card__channel">{{article.label | raw}}</h5>
+                        </div>
+                        <h3 class="card__headline" itemprop="headline">{{article.title | raw}}</h3>
+                        <p class="card__text" itemprop="description">{{Html.encode(article.excerpt) | raw}}</p>
+                         <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+                             <meta itemprop="name" content="{{article.createdBy['displayName']}}"/>
+                        </div>
+                        <div class="card__read-time_wrap">
+                            <p class="card__read-time"><img src="{{networkData.templatePath}}/static/images/icons/paragraph.svg" alt="paragraph icon"> {{Helper.renderReadingTime(article.readingTime) | raw}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </article>
+</div>
+                            
+{% else %}                            
+    {% set social = article.social %}
+    {% set mediaClass = 'card__no-image' %}
+    {% set bgImgSocial = '' %}
+    {% if social.hasMedia %}
+        {% set mediaClass = '' %}
+        {% set bgImgSocial = "background-image: url('"~social.media['path']~"');" %}
+    {% endif %}    
+<div class="{{containerClass}}">
+    <article class="card--social channel-4 swap {{social.media.type}}" id="Social{{article.socialId}}" data-source="{{social.source}}"  data-id="{{article.socialId}}" data-la2bel="{{social.blog['title']}}" data-position="{{position}}" data-social="1" data-article-image="{{social.media['path']}}" data-article-text="{{Helper.htmlToText(social.content, -1) | raw | escape('html')}}" data-user-image="{{social.user['media']['path']}}" data-user-name="{{ social.user['name'] | lower }}">
+        <a href="{{ social.url }}" class="card card--{{social.blog['title'] | raw }} link card__{{social.source}} {{mediaClass}} socialCard" style="{{bgImgSocial}}" target="_blank" data-blog-guid="{{social.blog['guid']}}" data-guid="{{social.guid}}">
+            <div class="card__overlay">
+                <div class="card__content-wrap">
+                    {% if article.userHasBlogAccess == '1' %}
+                    <div class="admin-actions">
+                        <div class="admin-actions__action admin-actions__action--hide HideBlogArticle" data-guid="{{social.guid}}" data-social="1">
+                            <span>HIDE</span>
+                            <img src="{{networkData.templatePath}}/static/images/icons/editor/hide.svg" alt="hide card">
+                        </div>
+                        {% set pinTitle = 'Pin Article' %}
+                            {% set pinTxt = 'PIN' %}
+                            {% set pinCls = '' %}
+                            {% if article.isPinned == 1 %}
+                                {% set pinTitle = 'Un-Pin Article' %}
+                                {% set pinTxt = 'UN-PIN' %}
+                                {% set pinCls = 'selected' %}
+                            {% endif %}    
+                        <div class="admin-actions__action admin-actions__action--pin PinArticleBtn {{pinCls}}" data-position="{{position}}" data-social="1" data-id="{{article.socialId}}" title="{{pinTitle}}" data-status="{{article.isPinned}}">
+                            <span>{{pinTxt}}</span>
+                            <img src="{{networkData.templatePath}}/static/images/icons/editor/pin.svg" alt="pin card">
+                        </div>
+                        <div class="admin-actions__action admin-actions__action--edit" data-social="1" onClick="window.open('/admin/social-funnel/update-social?guid={{social.blog['guid']}}&socialguid={{social.guid}}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=360,height=450'); return false;">
+                            <span>EDIT</span>
+                            <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
+                        </div>
+                    </div>	
+                    {% endif %}
+                    <div class="card__content">
+                        <div class="card__channel-wrap">
+                            <h5 class="card__channel">{{social.blog['title'] | raw }}</h5>
+                        </div>
+                        {% if social.media['type'] == 'video' and social.media['videoUrl'] is not empty %}
+                        <div class="card__text-wrap">
+                            <img class="card__play-button video-player" data-source="{{social.source}}" data-url="{{social.media['videoUrl']}}" data-poster="{{social.media['path']}}" src="{{networkData.templatePath}}/static/images/icons/play-white.svg" alt="Play video button">
+                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:50] ~ '...'  | raw }}</p>
+                        </div>
+                        <p class="card__author">@{{social.user['name'] | lower }}</p>
+                        {% else %}
+                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:50] ~ '...'  | raw }}</p>
+                            <p class="card__author">{{ (social.source == _SocialFeed.getSocialArticleSourceIsTwitter()) ? '@' : ''}}{{ social.user['name'] | lower }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </a>
+    </article>
+</div>    
+                            
+{% endif %}

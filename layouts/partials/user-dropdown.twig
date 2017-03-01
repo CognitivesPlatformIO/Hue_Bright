@@ -1,0 +1,25 @@
+<div id="user-dropdown" class="user-dropdown">
+	<div class="user-dropdown__container">
+		<div class="user-dropdown__menu">
+			<div class="user-dropdown__menu-profile">
+				<div class="user-dropdown__menu-image" style="background-image:url('{{ _Media.getMediaUrl(user.profileMedia, 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }}');"></div>
+				<div class="user-dropdown__menu-content">
+					<div class="user-dropdown__menu-name">{{(user.firstname ~" "~ user.lastname) | truncate(15) | title}}</div>
+					<div class="user-dropdown__menu-email">{{user.email | truncate(23)}}</div>
+				</div>
+			</div>
+			<ul class="user-dropdown__menu-navigation">
+				<li><a href="{{_AppHelper.buildUrl('user/my-news')}}" class="user-dropdown__menu-navigation-link">My News</a></li><!-- don't open modal, goes to /my-news -->
+                                <li><a href="javascript:void(0);" class="user-dropdown__menu-navigation-link account-modal-link link--following">Following</a></li><!-- open modal at Following Tab -->
+                                <li><a class="user-dropdown__menu-navigation-link account-modal-link link--profile">Profile</a></li><!-- open modal at Profile Tab -->
+				{% if _User.isAdminUser() %}
+                                    <li><a class="user-dropdown__menu-navigation-link" href="http://{{network.defaultDomain['domain']}}/admin/user/account">Settings</a></li>
+                                    <li><a class="user-dropdown__menu-navigation-link" href="http://{{network.defaultDomain['domain']}}/admin">Admin</a></li><!-- need to not bring up the modal, just go direct to /admin -->
+                                {% endif %}
+                                <li><a href="javascript:void(0);" class="user-dropdown__menu-navigation-link account-modal-link link--account">My Account</a></li><!-- open modal at My Account Tab -->
+				<li><a class="user-dropdown__menu-navigation-link sign-out" href="{{_AppHelper.getLogoffUrl()}}">Sign Out</a></li>
+			</ul>
+		</div>
+                        
+	</div>
+</div>

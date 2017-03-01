@@ -1,0 +1,68 @@
+{{ set(this, 'title', 'Contact Us') }}  
+ {% set businessDetails = _Blog.getHomeBlogSettings() %}
+    <div class="contact">
+            {{this.render('layouts/partials/messages.twig') | raw }}
+            {% set mapAddress = businessDetails.contact['address']%}
+            {% if businessDetails.contact['city'] is not empty %}
+                {% set mapAddress = (mapAddress is not empty) ? mapAddress ~ ', ' ~ businessDetails.contact['city'] : businessDetails.contact['city'] %}
+            {% endif %}
+            {% if businessDetails.contact['state'] is not empty %}
+                {% set mapAddress = (mapAddress is not empty) ? mapAddress ~ ', ' ~ businessDetails.contact['state'] : businessDetails.contact['state'] %}
+            {% endif %}
+            {% if businessDetails.contact['country'] is not empty %}
+                {% set mapAddress = (mapAddress is not empty) ? mapAddress ~ ', ' ~ businessDetails.contact['country'] : businessDetails.contact['country'] %}
+            {% endif %}
+            {% if mapAddress is not empty %}
+                <iframe
+                            src="https://maps.google.com/maps?q={{mapAddress | url_encode}}&amp;output=embed"
+                            width="1580"
+                            height="470"
+                            frameborder="0"
+                            style="border:0"
+                            class="contact__map"
+                            allowfullscreen>
+            </iframe>
+            {% endif %}
+            <div class="contact__container">
+                    <div class="contact__form">
+
+                        <form id="contactForm" action="{{_AppHelper.getContactFormUrl()}}" method="post" autoComplete="off">
+                            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                            <input type="text" name="name" placeholder="Name" class="contact__form--control">
+                            <input type="email" id="contactform-email" name="email" placeholder="Email" class="contact__form--control">
+                            <input type="text" placeholder="Phone" class="contact__form--control">
+                            <textarea type="text" name="message" placeholder="Message" class="contact__form--control" id="contactMessage"></textarea>
+                            <div class="clearfix"><!-- Blank Tag --></div>
+                            <button type="submit" href="#" class="contact__submit">Submit</button>
+                        </form>
+                    </div>
+
+
+                    <div class="contact__content_wrap">
+                            <div class="contact__content">
+                                    <h1 class="contact__headline">Contact Details:</h1>
+                                    <div class="contact__text">You can contact us direct by:</div>
+                                    <div class="contact__number">{{businessDetails.contact['phone']}}</div>
+                                    <div class="contact__address">{{businessDetails.contact['address']}}<br />
+                            {{businessDetails.contact['city']}}, {{businessDetails.contact['state']}}
+                            <br />
+                            {{businessDetails.contact['country']}} {{businessDetails.contact['postcode']}}</div>
+                                    <div class="social-links">
+                                            {% if businessDetails.social['twitter'] is not empty %}
+                                                <a href="{{businessDetails.social['twitter']}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                            {% endif %}
+                                            {% if businessDetails.social['youtube'] is not empty %}
+                                                <a href="{{businessDetails.social['youtube']}}" target="_blank"><i class="fa fa-youtube-play"></i></a>
+                                            {% endif %}
+                                            {% if businessDetails.social['google'] is not empty %}
+                                                <a href="{{businessDetails.social['google']}}" target="_blank"><i class="fa fa-google-plus"></i></a>
+                                            {% endif %}
+                                            {% if businessDetails.social['facebook'] is not empty %}
+                                                <a href="{{businessDetails.social['facebook']}}" target="_blank"><i class="fa fa-facebook-f"></i></a>
+                                            {% endif %}
+                                    </div>
+
+                            </div>
+                    </div>
+            </div>
+    </div>

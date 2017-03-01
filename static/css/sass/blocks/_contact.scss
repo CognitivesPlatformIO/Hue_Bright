@@ -1,0 +1,137 @@
+.contact {
+  @extend .container;
+  padding: 0 15px;
+  @include tablet {
+    padding: 0 20px;
+  }
+  @include desktop {
+    padding:0;
+  }
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    @include tablet-lg {
+      flex-wrap: no-wrap;
+    }
+  }
+  &__form {
+    // top: -180px;
+    background: #EBECEC;
+    flex: 1 1 500px;
+    height: 560px;
+    padding: 66px 30px 46px;
+    text-align: center;
+    order: 1;
+    margin-left: -15px;
+    margin-right: -15px;
+    @include tablet {
+      padding: 66px 0px 46px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    @include tablet-lg {
+      order: 0;
+      flex: 0 0 50%;
+      position: relative;
+      margin-bottom: -120px;
+      border-right: 4px solid white;
+      border-top: 4px solid white;
+    }
+    @include desktop {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    #contactMessage {
+      min-height: 100px;
+      height:100px;
+    }
+    &--control {
+      background: #FFFFFF;
+      @include text-md($font-weight: 600, $color: #A9B0BC, $font-multiplier: 1.1, $letter-spacing: 0);
+      padding:14px 25px 16px;
+      display: block;
+      border: none;
+      margin: 0 auto 20px;
+      width: 90%;
+      resize: none;
+      @include tablet {
+        width:75%;
+      }
+    }
+  }
+  &__submit {
+    @include text-md($font-weight: 600, $color: #88D3AA, $font-multiplier: 1.1, $letter-spacing: 1.66px);
+    @include transition(all $transition ease);
+    background: #FFFFFF;
+    border: 1px solid #88D3AA;
+    border-radius: 2px;
+    padding: 16px 72px;
+    margin-top: 28px;
+    &:hover {
+      background-color: #e7f7ee;
+    }
+  }
+  &__content_wrap {
+    flex: 1 1 500px;
+    align-self: flex-start;
+    text-align: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 70px 0px 100px;
+    @include tablet-lg {
+      padding: 215px 0px 0px 130px;
+      flex: 0 0 496px;
+      text-align: left;
+    }
+    @include desktop-lg {
+      padding: 215px 0px 0px 250px;
+    }
+  }
+  &__content {
+  }
+  &__headline {
+    @include text-lg($color: #3F475E);
+    margin-bottom: 25px;
+  }
+  &__text {
+    @include text-md($font-weight: 600, $color: #3F475E, $font-multiplier: 1.4);
+    width: 300px;
+    margin: 0px auto 25px;
+    @include tablet-lg {
+      margin: 0px 0px 25px;
+    }
+  }
+  &__number {
+    @include text-md($line-height: 1.8, $color: #4A4A4A, $letter-spacing: 0);
+  }
+  &__address {
+    @extend .contact__number;
+    margin-bottom: 35px;
+  }
+  &__social-links {
+    .fa {
+      color: $white;
+      width: 30px;
+      display: inline-block;
+      height: 30px;
+      border-radius: 100px;
+      background-color: #b4b8c5;
+      padding-top: 8px;
+      margin: auto 5px auto auto;
+      text-align:center;
+      @include transition(color 0.5s ease);
+      &:hover {
+        color: #36647E;
+      }
+    }
+  }
+  &__map {
+    width: 100%;
+    @include tablet-lg {
+      margin-bottom: -180px;
+    }
+  }
+}

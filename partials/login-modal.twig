@@ -1,0 +1,141 @@
+{{ set(this, 'title', 'Login / Signup') }}
+{% set network = _Network.getNetworkData()%}
+
+{{this.registerJs('AuthController.loginOrSignup()')}}
+
+<div class="modal-dialog modal-extlg" role="document">
+        <div class="modal-content social-modal">
+            <button type="button" class="close close__lg-modal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Close</title><g stroke="#6395AA" stroke-width="3" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M17.803 2L2 17.803M2.08 2.08l15.803 15.803"/></g></svg>
+                    <div class="close__text">esc</div>
+                </span>
+            </button>
+
+            <div class="login">
+                <div class="login__content">
+                    <ul class="login__tabs" role="tablist">
+                        <li role="presentation" class="loginTab active"><a class="" href="#signIn" aria-controls="signIn" role="tab" data-toggle="tab">Login</a></li>
+                        {% if not _Network.isNetworkClosed(network)%}
+                        <li role="presentation" class="signupTab {{ (signup is defined and signup == 'TRUE') ? 'active' : '' }}"><a  href="#signUp" aria-controls="signUp" role="tab" data-toggle="tab">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane login  active" id="signIn">
+                        <div class="login__o-login_button-wrap">
+                            <a href="{{_AppHelper.getSocialFacebookUrl(1)}}" class="login__button facebook-login">
+                                <i class="fa fa-facebook"></i>
+                                <span class="login__button-text">Login with facebook</span>
+                            </a>
+                            <a href="{{_AppHelper.getSocialTwitterUrl(1)}}" class="login__button twitter-login">
+                                <i class="fa fa-twitter"></i>
+                                <span class="login__button-text">Login with twitter</span>
+                            </a>
+                        </div>
+                        {#
+                        {% if not _Network.isNetworkClosed(network)%}
+                            <div class="login__no-account ">
+                                Don't have an account? <a href="#signUp" class="signupBtn" aria-controls="signUp" role="tab" data-toggle="tab">Sign Up</a>
+                            </div> 
+                        {% endif %}
+                        #}
+
+                        <form name="loginForm" id="loginForm" class="login-form" action="{{_AppHelper.getLoginUrl()}}" method="post" autocomplete="off" novalidate="novalidate" _lpchecked="1">
+                            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                            <div class="login__form-title">Login with email</div>
+                            {% if errors | length > 0 %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <ul>
+                                        {% for errorArr in errors %}
+                                            {% for error in errorArr %}
+                                                <li>{{error}}</li>
+                                                {% endfor %}
+                                            {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                             {{_AppForm.input({type:'text', name: 'username', value: form.username, class: 'form-control', placeholder: 'Username or email'}) | raw }}
+                             {{_AppForm.input({type:'password', name: 'password', value: form.password, class: 'form-control', placeholder: 'Password'}) | raw }}
+                            <div class="button-set">
+                                <label class="button-set__left">
+                                    {% set isRememberMeChecked = (form.rememberMe == 1) ? 'checked' : '' %}
+                                    {{_AppForm.input({type:'checkbox', name: 'rememberMe', value: form.rememberMe, 'checked': isRememberMeChecked}) | raw }}
+                                    <span><!-- fake checkbox --></span>Remember Me
+                                </label>
+                                <div class="button-set__left">
+                                    <a href="{{_AppHelper.getForgotPasswordUrl()}}" class="button-set__forgot"><span class="green">Forgot Password?</span></a>
+                                    {{_AppForm.button({type:'submit', name: 'submitLoginForm', class: 'button-set__submit'}) | raw }}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                                
+            {% if not _Network.isNetworkClosed(network)%}
+                    <div role="tabpanel" class="tab-pane sign-up {{ (signup is defined and signup == 'TRUE') ? 'active' : '' }}" id="signUp">
+                        <div class="sign-up__o-login_button-wrap">
+                            <a href="{{_AppHelper.getSocialFacebookUrl()}}" class="sign-up__button facebook-sign-up">
+                                <i class="fa fa-facebook"></i>
+                                <span class="sign-up__button-text">Sign up with facebook</span>
+                            </a>
+                            <a href="{{_AppHelper.getSocialTwitterUrl()}}" class="sign-up__button twitter-sign-up">
+                                <i class="fa fa-twitter"></i>
+                                <span class="sign-up__button-text">Sign up with twitter</span>
+                            </a>
+                        </div>
+
+                        <div class="sign-up__form-title">
+                            Sign up with email
+                        </div>
+                        <form name="signupForm" id="signupForm" class="sign-up-form" action="{{_AppHelper.getSignupUrl()}}" method="post" autocomplete="off" novalidate="novalidate">
+                            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                            {% if errors | length > 0 %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Warning!</strong> Better check yourself, you're not looking too good.
+                                    <ul>
+                                        {% for errorArr in errors %}
+                                            {% for error in errorArr %}
+                                                <li>{{error}}</li>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            <div class="form__input-wrap">
+                                {{_AppForm.input({name: 'firstname', value: form.firstname, class: 'form-control', placeholder: 'Firstname'}) | raw }}
+                                {{_AppForm.input({name: 'lastname', value: form.lastname, class: 'form-control', placeholder: 'Lastname'}) | raw }}
+                            </div>
+
+                            {{_AppForm.input({name: 'email', value: form.email, class: 'form-control', placeholder: 'Email'}) | raw }}
+                            {{_AppForm.input({type : 'password', value: form.password, name: 'password', class: 'form-control', placeholder: 'Password', id: 'password'}) | raw }}
+                            {{_AppForm.input({type : 'password', value: form.verifypassword, name: 'verifypassword', class: 'form-control', placeholder: 'Verify Password'}) | raw }}
+                            {{_AppForm.input({ name: 'username', value: form.username, class: 'form-control', placeholder: 'Username'}) | raw }}
+
+                            <div class="controls-full captcha">
+                                <span class='help-block'>This is how you'll be known on {{_Network.getNetworkTitle()}}</span>
+                                {{_AppForm.captcha({class: 'form-control', placeholder: 'Please enter tha captcha text above'}) | raw }}
+                            </div>
+
+                            <div class="button-set">
+                                <label class="hide button-set__left">
+                                    <input type="checkbox" id="AcceptTerms" name="acceptterms" value="1" {{(form.acceptterms == '1') ? 'CHECKED' : ''}}><span></span>
+                                    I agree to the terms & conditions
+                                </label>
+
+                                <div class="button-set__right">
+                                    {{_AppForm.button({type:'submit', name: 'submitSignupForm', class: 'button'}) | raw }}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+             {% endif %}
+                </div>
+            </div>
+            </div>
+    
+        </div>
+</div>

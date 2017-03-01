@@ -1,0 +1,210 @@
+.article, .static-page__body {
+  padding: 0 15px;
+  @include desktop {
+    padding:0;
+  }
+  img {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 20;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: $body-text;
+  }
+  h1 {
+    margin-top: 30px;
+    @include text-lg($color: $body-text, $line-height: 1.11);
+  }
+  h2 {
+    margin-top: 30px;
+    @include text-lg($color: $body-text, $line-height: 1.23, $font-multiplier-sm: 1.5, $font-multiplier: 1.94);
+  }
+  h3 {
+    margin-top: 30px;
+    @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1.3, $font-multiplier: 1.4);
+  }
+  h4 {
+    margin-top: 30px;
+    @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1.1);
+  }
+  p {
+    @include text-md($font-multiplier: 0.94, $color: $article-body-text, $line-height: 1.65);
+    margin-top: 26px;
+  }
+  p + ol, p + ul {
+    color: $article-body-text;
+  }
+  li {
+    @include text-md($font-multiplier: 0.94, $color: $article-body-text);
+  }
+  ol, ul {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    li {
+      list-style-position: inside;
+    }
+  }
+  ul li {
+    list-style-type: disc;
+  }
+  ol li {
+    list-style-type: decimal;
+  }
+  img {
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    margin-right: -10px;
+    @include desktop {
+      width: 1170px;
+      margin-top: 30px;
+      margin-bottom: 60px;
+      margin-left: -200px;
+      margin-right: -200px;
+    }
+  }
+}
+
+.article {
+  &__image {
+    height:300px;
+    @include image_background;
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 90px;
+    @include tablet {
+      height: 470px;
+    }
+    @include desktop {
+      margin-left:0;
+      margin-right:0;
+      width:100%;
+      height: 670px;
+    }
+    @include desktop-lg {
+      height: 950px;
+    }
+  }
+  &__container {
+    max-width: 770px;
+    margin: 70px auto 70px;
+    @include desktop-lg {
+      max-width: 1080px;
+    }
+  }
+  &__channel_wrap {
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 15px;
+  }
+  &__header {
+    background: rgba(180, 184, 197, 0.1);
+    padding: 25px 0;
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    margin-right: -15px;
+    @include desktop {
+      margin-left:0;
+      margin-right:0;
+      width: 100%;
+    }
+    .article-user__user-image {
+      margin-right: 0;
+      @include tablet {
+        margin-right: 24px;
+      }
+    }
+    &-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      > a:first-child {
+        margin-right: 10px;
+      }
+    }
+    &-wrap {
+      text-align: center;
+      padding: 30px 0 50px;
+      border-bottom: 1px solid #C5C8D2;
+      width: calc(100% + 30px);
+      margin-left: -15px;
+      margin-right: -15px;
+      @include tablet {
+        padding: 50px auto;
+      }
+      @include desktop {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+      }
+    }
+    &-container {
+      @extend .container;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @include tablet {
+        flex-direction: row;
+        padding: 0 20px;
+      }
+      @include desktop {
+        padding: 0;
+      }
+    }
+  }
+  &__headline {
+    text-align: center;
+    margin: 0 auto 13px;
+    width: 85%;
+    @include tablet {
+      max-width: 876px;
+    }
+  }
+  &__date {
+    opacity: 0.49;
+    @include text-sm($font-multiplier:0.78, $color: $article-body-text);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  &__intro, &__intro p {
+    @include text-md($font-multiplier:1.16, $line-height: 1.57, $color: $body-text);
+    margin-bottom: 15px;
+  }
+}
+
+.comments__header {
+  margin: 10px auto;
+  padding-top: 100px;
+  text-align: center;
+}
+
+.additional-articles__header {
+  @extend .container;
+  margin: 41px auto!important;
+
+}
+
+.show-comments {
+  background: #FFFFFF;
+  border: 1px solid #7396A5;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #7396A5;
+  letter-spacing: 0px;
+  padding: 3px 15px 4px;
+  &__wrap {
+    text-align: center;
+  }
+}
+
+.DisqusCommentArea {
+    width:100%;
+    margin-top:40px;
+    display:inline-block;
+    border-top:2px solid rgba($hover-color, 0.75);
+}

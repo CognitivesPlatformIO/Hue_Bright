@@ -1,0 +1,110 @@
+{{ set(this, 'title', "Social User Signup") }}
+{% set network = _Network.getNetworkData() %}
+<div class="landing-page-content landing-page-content_reduce-padding">
+    {% if not _Network.isNetworkClosed(network)%}
+        <h2>Almost there</h2>
+        <p>Please pick a username and verify your details below to complete the sign up process.</p>
+        <form name="socialSignupForm" id="socialSignupForm" method="post" class="account-modal__content_section account-modal__content_section--signup account-modal__content_section--signup_social active">
+            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+            <div class="account-modal__content_container">
+                <div class="account-modal__content_item-container">
+                    <div class="account-modal__input-container">
+                        <div class="account-modal__input_content">
+                            <div class="account-modal__input_label">Firstname</div>
+                            <input class="account-modal__input account-modal__input--username" type="text" name="firstname" value="{{form.firstname}}">
+                        </div>
+                        <div class="account-modal__input_requirement">
+                            <span class="account-modal__input_requirement--standard">Required</span>
+                            <span class="account-modal__input_requirement--error">Required</span>
+                            <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
+                            <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
+                        </div>
+                    </div>
+                </div>
+                <div class="account-modal__content_item-container">
+                    <div class="account-modal__input-container">
+                        <div class="account-modal__input_content">
+                            <div class="account-modal__input_label">Lastname</div>
+                            <input class="account-modal__input account-modal__input--username" type="text" name="lastname" value="{{form.lastname}}">
+                        </div>
+                        <div class="account-modal__input_requirement">
+                            <span class="account-modal__input_requirement--standard">Required</span>
+                            <span class="account-modal__input_requirement--error">Required</span>
+                            <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
+                            <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-modal__content_container">
+                <div class="account-modal__content_item-container">
+                    <div class="account-modal__input-container">
+                        <div class="account-modal__input_content">
+                            <div class="account-modal__input_label">Username</div>
+                            <input class="account-modal__input account-modal__input--username" type="text" name="username">
+                        </div>
+                        <div class="account-modal__input_requirement">
+                            <span class="account-modal__input_requirement--standard">Required</span>
+                            <span class="account-modal__input_requirement--active">4-32 Characters</span>
+                            <span class="account-modal__input_requirement--error">Incorrect Length</span>
+                            <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
+                            <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
+                        </div>
+                    </div>
+                </div>
+                <div class="account-modal__content_item-container">
+                    <div class="account-modal__input-container">
+                        <div class="account-modal__input_content">
+                            <div class="account-modal__input_label">Email</div>
+                            <input class="account-modal__input account-modal__input--email" type="email" name="email" id="email">
+                        </div>
+                        <div class="account-modal__input_requirement">
+                            <span class="account-modal__input_requirement--standard">Required</span>
+                            <span class="account-modal__input_requirement--active">Valid email address</span>
+                            <span class="account-modal__input_requirement--error">Invalid email address</span>
+                            <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
+                            <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-modal__content_container">
+                <div class="account-modal__content_item-container">
+                    <div class="account-modal__input-container">
+                        <div class="account-modal__input_content">
+                            <div class="account-modal__input_label">Password</div>
+                            <input class="account-modal__input account-modal__input--password" type="password" name="password">
+                        </div>
+                        <div class="account-modal__input_requirement">
+                            <span class="account-modal__input_requirement--standard">Required</span>
+                            <span class="account-modal__input_requirement--active">4-32 Characters</span>
+                            <span class="account-modal__input_requirement--error">Incorrect Length</span>
+                            <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
+                            <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
+                        </div>
+                    </div>
+                </div>
+                <div class="account-modal__content_item-container">
+                    <div class="account-modal__input-container">
+                        <div class="account-modal__input_content">
+                            <div class="account-modal__input_label">Verify Password</div>
+                            <input class="account-modal__input account-modal__input--verifypassword" type="password" name="verifypassword">
+                        </div>
+                        <div class="account-modal__input_requirement">
+                            <span class="account-modal__input_requirement--standard">Required</span>
+                            <span class="account-modal__input_requirement--active">Verify Password</span>
+                            <span class="account-modal__input_requirement--error">Passwords dont match</span>
+                            <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
+                            <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-modal__error">
+                <div class="account-modal__error_text">Not all inputs entered correctly.</div>
+            </div>
+            <button class="account-modal__buttons_signup--social account-button" type="submit" name="submitSignupForm">Signup</button>
+        </form>
+    {% endif %}
+</div>
+

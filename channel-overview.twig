@@ -1,0 +1,40 @@
+{{ set(this, 'title', 'Sections') }}
+<div class="channel-overview">
+    <div class="channel-overview__header-container">
+        <div class="channel-overview__header">Sections</div>
+    </div>
+    {% set sections = _Blog.getSections() %}
+    {% if sections|length > 0 %}
+        <div class="card-container">
+            {% for section in sections %}
+                {% set image = '' %}
+                {% if section.media['cover']['id'] is defined and section.media['cover']['id'] is not empty %}
+                    {% set image = _Media.getMediaUrl(section.media['cover'],500, 220, {'crop': 'fill', 'gravity': 'faces'} )  %}
+                {% endif %}
+                <div class="col-third">
+                    <div class="channel-overview-card channel-card-{{ section.title|lower }} channel-1 {% if image is not defined %}channel__no-image{% endif %}">
+                        <a href="{{ section.url}}" class="channel-overview-card__channel-image" {% if image is  defined %}style="background-image: url('{{ image}}');"{% endif %}>
+                            <div class="channel-overview-card__channel-overlay">
+                                <div class="channel-overview-card__channel-text">{{ section.title }}</div>
+                            </div>
+                        </a>
+                        {% set articles = _Article.getRecentArticles({limit: 3, 'type' : 'channel','blogId' : section.id}) %}
+                        {% if articles is defined and articles | length > 0 %}
+                            <div class="channel-overview-card__content">
+                                {% for article in articles %}
+                                    <div class="channel-overview-card__articles">                                    
+                                        <a href="{{article.url}}" class="channel-overview-card__article">
+                                            <span class="channel-overview-card__text">{{article.title}}</span>
+                                            <span class="channel-overview-card__bar"></span>
+                                        </a>                                       
+                                    </div>
+                                {% endfor %} 
+                                <a href="{{ section.url}}" class="channel-overview-card__view-more">View more articles</a>
+                            </div>                            
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

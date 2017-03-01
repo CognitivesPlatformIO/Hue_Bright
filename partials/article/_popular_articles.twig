@@ -1,0 +1,9 @@
+{% set popularArticles = _Article.getPopularArticles({ limit: 4, excludeArticleIds : articleId }) %}
+{% if popularArticles|length > 0 %}
+    <h1 class="text-center additional-articles__header">You may also like ...</h1>
+    <div class="card-container">
+        {% for article in popularArticles %}
+            {{this.render('../_single-article.twig', {article: article, 'position': 0, containerClass: 'col-quarter'}) | raw}}
+        {% endfor %}
+    </div>
+{% endif %}

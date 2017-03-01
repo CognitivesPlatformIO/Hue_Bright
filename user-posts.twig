@@ -1,0 +1,61 @@
+{{ set(this, 'title', 'User Articles') }}
+{% set networkData = _Network.getNetworkData() %}
+{{this.registerJs("UserArticlesController.load()")}}
+<div class="user-posts">
+    <div class="user-posts-header">
+        {% if user.media['id'] is defined and user.media['id'] is not empty %} 
+            {% set profileImage =_Media.getMediaUrl(user.media, 500, 500, {crop: 'thumb', gravity: 'face', type:'user'} )%}
+            <div class="user-posts-header__image" style="background-image:url({{profileImage}});"></div>
+        {% endif %}
+        <div class="user-posts-header__content">
+            <div class="user-posts-header__title">
+                <h1 class="user-posts-header__text">{{Html.encode(user.firstname)}} {{Html.encode(user.lastname)}}</h1>
+                {% if _User.isGuest() %}
+                    <span class="user-posts-header__follow button button__profile-follow loginModal">Follow</span>
+                {% endif %}
+                {% if not _User.isGuest() and _User.getId() != user.id %}
+                    {% set isUserFollowing = _User.isUserFollowing('user', user.id)  %}
+                    <span class="user-posts-header__follow button button__profile-follow FollowProfileUser"  data-guid="{{user.guid}}" data-status="{% if isUserFollowing == 'TRUE' %}unfollow{% else %} follow {% endif %}">{% if isUserFollowing == 'TRUE' %} Unfollow {% else %} Follow {% endif %}</span>
+                {% endif %}
+            </div>
+            <div class="user-posts-header__desciption">{{Html.decode(user.bio) | raw }}</div>
+            <!--
+            <div class="user-posts-header__social-links">
+                <div class="social-links">
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                    <a href="#"><i class="fa fa-facebook-f"></i></a>
+                </div>
+            </div>
+            -->
+        </div>
+    </div>
+    <div class="user-posts-content">
+        <div class="user-posts-content__post-section card-container">
+            <div class="card-container" id="userArticleContainer" data-total-count="{{totalArticles}}" data-offset="0">
+                {% if userArticles | length > 0  %}
+                    {% set i = 0 %}
+                    {% for article in userArticles %}  
+                        <div class="col-third">
+                            {{this.render('//partials/_single-article.twig', {article: article, 'position': (i+1), titleTruncateLength: 70}) | raw}}
+                        </div>
+                        {%  set i = i + 1 %}
+                    {% endfor %}
+                {% else %}
+                    <p class="no-data ">No article(s) created yet.</p>
+                {% endif %}
+
+            </div>
+
+            <div id="LoadMoreArticles" class="clearfix"></div>
+            {% if totalArticles >= limit%}
+                <div class="loader">
+                    <span><img width="24" height="24" src="{{networkData.templatePath}}/static/images/loading.svg"></span>
+                    <span class="text">please wait<span class="one">.</span><span class="two">.</span><span class="three">.</span></span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

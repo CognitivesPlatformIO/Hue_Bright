@@ -1,0 +1,112 @@
+// Base Colors
+$light-color:       #fff;
+$gray-color:        #ebebeb;
+$dark-color:        #384362;
+$base-color:        #404040;
+$grey:			        #808080;
+$body-text:         #3f475e;
+$article-body-text: #384362;
+$body-color:        #fff;
+$header-color:      #fff;
+$highlight-color:   #36647E;
+$quote-color:       #662d91;
+$hover-color:       $highlight-color;
+$follow-color:      #00a651;
+$blog-follow-color: #6b7eee;
+$hashtag-color:     #55acee;
+$slide-color:       #0076a3;
+$blue:              #46a5fc;
+$transparent:       rgba(0,0,0,0);
+$border-color:      #e0e0e0;
+$placeholder:       #545a6d;
+$link-color:        #58627E;
+$signup-link-color: #56d294;
+$error-color:       #e73d4a;
+$success-color:     #4FE8C4;
+$warning:           #fecd50;
+$black:             #000000;
+$white:             #ffffff;
+$account-modal-highlight:   #00C1CB;
+$account-modal-green:   #34C87B;
+$account-modal-red:     #F54E4E;
+$account-modal-blue:    #5F6D9A;
+
+$sections: (
+  0:    (
+          color: rgb(255, 201, 117),
+          gradient: linear-gradient(-136deg, rgba(255,73,227,0.58) 0%, rgba(255,73,226,0.00) 76%),
+          background-color: rgba(255, 201, 117, 0.4)
+  ),
+  1: (
+          color: rgb(154, 110, 247),
+          gradient: linear-gradient(-135deg, rgba(19,255,255,0.46) 0%, rgba(18,255,203,0.00) 75%),
+          background-color: rgba(154, 110, 247, 0.4)
+  ),
+  2:        (
+          color: rgb(255, 152, 125),
+          gradient: linear-gradient(-136deg, rgba(178,50,132,0.58) 0%, rgba(225,69,170,0.00) 77%),
+          background-color: rgba(255, 152, 125, 0.4)
+  ),
+  3:         (
+          color: rgb(225, 119, 159),
+          gradient: linear-gradient(-136deg, rgba(88,83,206,0.58) 0%, rgba(89,84,206,0.00) 77%),
+          background-color: rgba(225, 119, 159, 0.4)
+  ),
+  4:     (
+          color: rgb(255, 117, 109),
+          gradient: linear-gradient(-136deg, #F9A3A3 0%, rgba(249,163,163,0.00) 77%),
+          background-color: rgba(255, 117, 109, 0.4)
+  ),
+  5:       (
+          color: rgb(162, 129, 234),
+          gradient: linear-gradient(-135deg, rgba(19,255,255,0.46) 0%, rgba(18,255,203,0.00) 75%),
+          background-color: rgba(162, 129, 234, 0.4)
+  ),
+  6:         (
+          color: rgb(108, 210, 248),
+          gradient: linear-gradient(-136deg, rgba(91,58,250,0.58) 0%, rgba(92,58,250,0.00) 77%),
+          background-color: rgba(108, 210, 248, 0.4)
+  ),
+  7:      (
+          color: rgb(93, 228, 216),
+          gradient: linear-gradient(-135deg, rgba(46,109,188,0.58) 0%, rgba(79,153,248,0.00) 75%),
+          background-color: rgba(93, 228, 216, 0.4)
+  ),
+  8:      (
+          color: rgb(87, 211, 149),
+          gradient: linear-gradient(-136deg, rgba(20,164,164,0.82) 0%, rgba(8,255,223,0.00) 77%),
+          background-color: rgba(87, 211, 149, 0.4)
+  )
+);
+
+$social-colors: (
+  facebook:    #3b5998,
+  featured:    #15b999,
+  google-plus: #e04a32,
+  instagram:   #9f6fc0,
+  linkedin:    #123e65,
+  twitter:     #55acee,
+  youtube:     #cc181e,
+  vimeo:       #00b3ec,
+);
+
+// Dimensions
+$screen-xs:   480px;  // Mobile
+$screen-sm:   768px;  // Tablet
+$screen-smd:  992px; // Tablet large
+$screen-md:   1200px; // Desktop
+$screen-lg:   1600px; // Large desktop
+
+$container-limiter: 30px; // Used to limit larger containers to less than screen breakpoint
+
+// Font
+$heading-font-family: "Montserrat", Helvetica, Arial, sans-serif !default;
+$base-font-family:  	"Open Sans", Helvetica, Arial, sans-serif !default;
+$text-font-family: 	  "Open Sans", Helvetica, Arial, sans-serif !default;
+$iconfont:				    FontAwesome !default;
+
+// Font Size
+$baseFontSize:			18px; /* ($baseFontSize * 1) + 0px; */
+
+// Standard transition speed
+$transition: 0.4s;

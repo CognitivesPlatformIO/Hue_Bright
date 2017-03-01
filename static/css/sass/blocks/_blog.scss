@@ -1,0 +1,144 @@
+.blog {
+  &__header {
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+    @include desktop {
+      position: relative;
+      margin-bottom: 0;
+    }
+  }
+  &__container {
+    @extend .container;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    @include tablet-lg {
+      justify-content: space-between;
+    }
+  }
+  &__heading-container {
+    background-image: linear-gradient(105deg, rgba(19, 255, 255, 0.46), rgba(18, 255, 203, 0.0)), linear-gradient(#9a6ef7, #9a6ef7);
+    @include image_background;
+    display: flex;
+    width: 100%;
+  }
+  &__heading {
+    background: rgba(0,0,0,0.25);
+    text-align: center;
+    margin: auto 0;
+    padding: 100px 30px;
+    width: 100%;
+    @include tablet {
+      padding: 120px 100px;
+    }
+  }
+  &__title {
+    @include text-lg($color: $white);
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    @include tablet {
+      margin-bottom: 20px;
+    }
+  }
+  &__description {
+    @include text-md($color: $white, $font-weight: 400);
+    display: inline-block;
+    font-size: 22px;
+    @include tablet {
+      font-size: 25px;
+    }
+    @include desktop {
+      max-width: 850px;
+      font-size: 20px;
+    }
+  }
+  &__user-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    order: 2;
+    padding: 0px 30px 40px;
+    width: 100%;
+    @include mobile {
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 0px 30px 0px;
+    }
+    @include desktop {
+      padding: 0px 0px 0px;
+    }
+    &__profile-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      top: -49px;
+      order: 1;
+      flex: 1 1 100%;
+      @include mobile {
+        order: 2;
+        flex: 1 1 auto;
+      }
+    }
+    &__profile-image {
+      @include image_background;
+      width: 100px;
+      height: 100px;
+      border: 3px solid white;
+      margin-bottom: 14px;
+      display: inline-block;
+      border-radius: 50%;
+    }
+    &__profile-name {
+      @include text-sm($color: #58627E, $font-weight: 700);
+      font-family: "Montserrat", serif !important;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+    &__button-container {
+      margin-top: -40px;
+      @include mobile {
+        margin-top: 0px;
+      }
+      &--share {
+        order: 2;
+        margin-right: 15px;
+        @include mobile {
+          order: 1;
+          margin-right: 0px;
+        }
+      }
+      &--follow {
+        order: 3;
+        @include mobile {
+          order: 3;
+        }
+      }
+    }
+  }
+  &__additional-articles {
+    padding-top: 30px;
+    @include mobile {
+      padding-top: 100px;
+    }
+    @include tablet {
+      padding-top: 200px;
+      padding-bottom: 40px;
+    }
+    &__header {
+      color: $body-text;
+      padding: 0px 0px 40px 10px;
+      @include mobile {
+        padding: 0px 0px 40px 30px;
+      }
+      @include desktop {
+        padding: 0px 0px 40px 0px;
+      }
+    }
+  }
+}
+

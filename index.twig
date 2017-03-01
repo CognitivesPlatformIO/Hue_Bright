@@ -1,0 +1,92 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+
+{{this.registerJs("HomeController.listing();")}}
+{% set limit = 17 %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+
+
+<div class="home ajaxArticles"  data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}" data-offset="{{limit}}">
+
+    {% if articles[0] is defined %}
+        {{this.render('partials/_single-article.twig', {article: articles[0], 'position': 1, containerClass: 'col-full fixed__element'}) | raw}}
+    {% endif %}
+
+    {% for i in 1..4 %}
+        {% if articles[i] %}
+            {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-quarter'}) | raw}}
+        {% endif %}
+    {% endfor %}
+
+    {% if articles[5] is defined %}
+        {{this.render('partials/_single-article.twig', {article: articles[5], 'position': 6, containerClass: 'col-full'}) | raw}}
+    {% endif %}
+
+    {% for i in 6..8 %}
+        {% if articles[i] %}
+            {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-third'}) | raw}}
+        {% endif %}
+    {% endfor %}
+
+    {% if articles[9] is defined %}
+        {{this.render('partials/_single-article.twig', {article: articles[9], 'position': 10, containerClass: 'col-two-thirds'}) | raw}}
+    {% endif %}      
+
+    {% if articles[10] is defined %}
+    <div class="col-third-container">
+        {% for i in 10..12 %}
+            {% if articles[i] %}
+                {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-third'}) | raw}}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% for i in 13..16 %}
+        {% if articles[i] %}
+            {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-quarter'}) | raw}}
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% set noDataCls = 'hide' %}
+{% if articles|length == 0 %}
+    {% set noDataCls = '' %}
+{% endif %}
+<div class=" text-center {{noDataCls}} NoArticlesMsg" style="margin-top:100px;">
+    <p class="no-data text-center">No articles found.</p>  
+</div>
+
+<div class="text-center" style="margin-top:20px;">
+    {% if articles|length >= limit %}
+        <a href="javascript:void(0)" class="button load__more-button loadMoreArticles" style="color:#000;"><i class="fa fa-arrow-down"></i> Load More</a>
+    {% endif %}
+</div>
+
+{% set sections = _Blog.getSections() %}
+{% if sections is defined and sections is not empty %}
+<div class="index__title">
+    <div class="index__title__text">Sections</div>
+</div>
+<div class="channel-thumb__container channels">
+    {% for i in 0..(sections | length - 1) %}
+        {% set section = sections[i] %}
+        {% set image = '' %}
+        {% if section.media['cover']['id'] is defined and section.media['cover']['id'] is not empty %}
+            {% set image = _Media.getMediaUrl(section.media['cover'],500, 220, {'crop': 'fill', 'gravity': 'faces'} )  %}
+        {% endif %}
+        <a href="{{section.url}}" class="channel-thumb  channel-1 {% if image is not defined and image is not empty%} channel__no-image {% endif %}" {% if image is defined and image is not empty %}style="background-image: url('{{ image }}');"{% endif %}>
+            <div class="channel-thumb__overlay">
+                <div class="channel-thumb__content_wrap">
+                    <div class="channel-thumb__content">
+                        <div class="channel-thumb__channel-wrap">
+                            <div class="channel-thumb__channel">{{ section.title }}</div>
+                        </div>
+                        <div class="channel-thumb__headline">{{Helper.shortStr(section.shortDescription, 80, false, true) | raw}}</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endif %}

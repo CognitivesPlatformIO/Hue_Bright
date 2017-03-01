@@ -1,0 +1,22 @@
+{# Page Twig template #}
+{{ set(this, 'title', page.title | raw) }}
+{% set network = _Network.getNetworkData() %}
+{% set featuredMedia = '' %}
+{% if page.media['id'] is defined and page.media['id'] is not empty %}
+    {% set featuredMedia = _Media.getMediaUrl(page.media, page.media['width'], 400, {crop: 'fill'})  %}
+{% endif %}
+<div class="static-page">
+    <div class="static-page__header" {% if featuredMedia is defined %} style="background-image: url('{{featuredMedia}}');" {% endif %}>
+        <div class="static-page__title static-page__container">
+            <h1>
+                {{page.title | raw}}
+            </h1>
+        </div>
+        
+    </div>
+    <div class="static-page__container">
+        <div class="static-page__body">
+            {{page.content | raw}}
+        </div>
+    </div>
+</div>

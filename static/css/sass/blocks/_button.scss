@@ -1,0 +1,240 @@
+.button {
+  background: $white;
+  border: 1px solid #C6D5B8;
+  border-radius: 2px;
+  padding: 7px 16px 8px 16px;
+  display: inline-block;
+  cursor: pointer;
+  flex-shrink: 0;
+  @include text-sm($color: $article-body-text);
+  @include transition(all 0.4s ease);
+  &-blue {
+    color: #0d88f1!important;
+    border-radius: 100px;
+    border: solid 1px #0d88f2!important;
+    background-color: transparent!important;
+  }
+  &-sm {
+    padding: 6px 8px 6px;
+    max-width: none ;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    &.button__share {
+      max-width: none;
+      background-size: 10px;
+      background-position: 8px 5px;
+      padding-left: 30px;
+    }
+  }
+  &:hover, &:active {
+    background-color: #D0EDF5;
+    color: $body-text;
+  }
+  &__landing-page {
+    @include text-md($color: $white, $font-multiplier: 0.9);
+    padding: 10px 25px;
+    background-image: linear-gradient(134deg, #fbda61, #f76b1c);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.3);
+    max-width: 370px;
+    align-self: center;
+    border: none;
+    &:hover {
+      box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.3);
+      background-image: linear-gradient(0deg, #fbda61, #f76b1c);
+      color: $white;
+    }
+  }
+  &__landing-page_banner {
+    @include text-md($color: #f77422, $font-multiplier: 1.22, $font-weight: 600);
+    font-family: $heading-font-family;
+    background: white;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 14px 35px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0);
+    &:hover {
+      background: rgba(white, 0.2);
+      color: white;
+      box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.4);
+    }
+  }
+  &__follow {
+    &--reverse {
+      color: $body-text;
+      background-color: #D0EDF5;
+      border: 1px solid #D0EDF5;
+      &:hover, &:active {
+        color: $white;
+      }
+    }
+    &--borderless {
+      border: none;
+    }
+  }
+  &__comments, &__share {
+    padding-left: 35px;
+    background-repeat: no-repeat;
+    background-position: 13px 8px;
+  }
+  &__comments {
+    background-image: url(/static/images/icons/comment-icon.svg);
+    background-position: center auto;
+  }
+  &__share {
+    padding-left: 12px!important;
+    padding-right: 12px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 84px;
+    svg {
+      margin-right: 10px;
+    }
+    .share-popup .share-popup__close {
+      width: auto;
+      margin: 0;
+    }
+    &--borderless {
+      border: none;
+    }
+  }
+  &__connect {
+    position: relative;
+    text-align: left;
+    width: 140px;
+    a {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-size: 12px;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      margin-right: 0!important;
+      position: absolute;
+      top: 5px;
+    }
+    .button__twitter {
+      background-image: url(/static/images/icons/twitter-white.svg);
+      background-color: #1da0f2;
+      right: 10px;
+    }
+    .button__linkedin {
+      background-image: url(/static/images/icons/linkedin-white.svg);
+      background-color: #0177b5;
+      margin-left: 10px;
+      margin-right: 4px!important;
+      right: 34px;
+    }
+  }
+  &__profile-follow {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 5px 15px;
+    font-family: Montserrat;
+    font-size: 13px;
+    border-radius: 4px;
+    &:hover {
+      color: white;
+      background-color: rgba($white, 0.3);
+    }
+  }
+  &__blog-follow {
+    border-color: $blog-follow-color;
+    color: $blog-follow-color;
+    &:hover {
+      background: rgba($blog-follow-color, 0.1);
+      color: $blog-follow-color;
+    }
+  }
+}
+
+.button-container {
+  a:first-child {
+    margin-right: 15px;
+  }
+}
+
+.profile__button-wrap {
+  display: flex;
+  > a:first-child {
+    margin-right: 5px;
+  }
+	.button {
+		border: none;
+	}
+}
+
+.account-button {
+  @include text-md($color: $white, $font-multiplier: 0.778, $letter-spacing: 0px, $font-weight: 600);
+  @include transition(all 0.4s ease);
+  cursor: pointer;
+  display: inline-block;
+  padding: 8.5px 17px 9.5px;
+  border: 0px solid #7A83A3;
+  background-color: #5F6D9A;
+  box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.20);
+  border-radius: 2px;
+  &.error {
+    background-color: $account-modal-red;
+    &:hover {
+      background-color: rgba($account-modal-red, 0.7);
+    }
+  }
+  .fa {
+    position: relative;
+    font-size: 16px;
+    margin-left: -5px;
+    margin-right: 7px;
+    top: 1px;
+    &:hover {
+      color: $white!important; // Overriding social icon hover colors.
+    }
+  }
+  &:hover {
+    background-color: rgba(#5F6D9A,0.80);
+  }
+  &--sm {
+    padding: 5px 17px 8px;
+    background-color: $account-modal-highlight;
+    &:hover {
+      background-color: rgba($account-modal-highlight, 0.7);
+    }
+  }
+  &--save {
+    @include text-md($color: $white, $font-multiplier: 0.889, $letter-spacing: 0px);
+    background: $account-modal-green;
+    border: 1px solid rgba($black, 0);
+    padding: 9px 17px;
+    border-bottom: none;
+    &:hover {
+      background-color: rgba($account-modal-green, 0.7);
+    }
+    &.active {
+      background: $white;
+      color: #7A83A3;
+      border: 1px solid #7A83A3;
+      padding: 9px 17px 8px;
+      box-shadow: inset 0px -3px 0px 0px rgba(#C0C7DB,1);
+    }
+  }
+  &--image {
+    &.active {
+      background-color: $account-modal-green;
+    }
+  }
+  &--outline {
+    background: $white;
+    color: #7A83A3;
+    border: 1px solid #7A83A3;
+    box-shadow: inset 0px -3px 0px 0px rgba(#C0C7DB,1);
+    &:hover {
+      background-color: $account-modal-red;
+      border-color: $account-modal-red;
+      color: $white;
+      box-shadow: inset 0px -3px 0px 0px rgba($black,0.3);
+    }
+  }
+}

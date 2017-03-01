@@ -1,0 +1,11 @@
+{% if myArticles | length > 0  %}
+    {% set i = 0 %}          
+    {% for articles in myArticles %} 
+        {% set article = myArticles[i] %}
+        <div class="col-quarter">
+            {{this.render('//partials/_single-article.twig', {article: article, 'position': (i+1), 'titleTruncateLength': 70}) | raw}}
+        </div>
+        {%  set i = i + 1 %}
+    {% endfor %}
+{% endif %}
+    

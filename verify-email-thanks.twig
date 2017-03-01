@@ -1,0 +1,18 @@
+{{ set(this, 'title', "Verify Email Address") }}
+<div class="auth">
+    <div class="auth__content">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane login active text-center forgot-password" id="signIn">
+                <h3 class="sub-heading">Email Verification</h3>
+                <p class="helper-text">
+                    {% if success == '1' %}
+                        Your email address has been verified successfully.
+                    {% else %}
+                        Verification of email address failed.
+                    {% endif %}
+                </p>
+                <a href="{{_AppHelper.getLoginUrl()}}" class="button has-margin-top-20">Back to login</a>
+            </div>
+        </div>
+    </div>
+</div>

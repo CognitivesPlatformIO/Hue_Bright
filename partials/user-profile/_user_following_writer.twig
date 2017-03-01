@@ -1,0 +1,41 @@
+{% if myFollowings | length > 0 %}
+    {% for writer in myFollowings %}
+        {% set buttonClass = '' %}
+        {% set followText = "Follow" %}
+        {% set btnStatus = "follow" %}
+        {% if not _User.isGuest() and _User.isUserFollowing('writer', writer.following['id']) %}
+            {% set buttonClass = 'selected' %}
+            {% set btnStatus = "unfollow" %}
+            {% set followText = "Unfollow" %}
+        {% endif %}
+        {% set imgWidth = 390 %}
+        {% set imgHeight = 220 %}
+        {% set hasImage = (writer.following['media'] is defined and writer.following['media']['path'] != '') ? 1 : 0 %}
+        {% if hasImage %}
+            {% set userImg = _Media.getMediaUrl(writer.following['media'],imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces', 'type' : 'user'} ) %}
+        {% endif %}
+        <div class="user-card__container">
+            <div class="user-card">
+                <a href="{{_AppHelper.buildUrl('profile/user-profile',{name: Html.encode(writer.following['username'])})}}" class="user-card__profile {% if not hasImage %}channel__no-image{% endif %}" {% if hasImage %}style="background-image: url('{{ userImg }}');"{% endif %}></a>
+                <div class="user-card__author-container">
+                    <a href="{{_AppHelper.buildUrl('profile/user-profile',{name: Html.encode(writer.following['username'])})}}" class="user-card__author">{{writer.following['name'] }}</a>
+                    <a href="{{_AppHelper.buildUrl('profile/user-profile',{name: Html.encode(writer.following['username'])})}}" class="user-card__username">@{{writer.following['name'] }}</a>
+                    {% if not _User.isGuest() %}
+                        {% if( _User.getId() != writer.following['id'])%}<!-- User cannot follow himself -->
+                            <a class="user-card__follow FollowProfileUser {{buttonClass}}" data-guid="{{writer.following['guid']}}" data-status="{{btnStatus}}">{{ followText}}</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="user-card__follow loginModal">Follow</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+    
+
+
+  
+        
+

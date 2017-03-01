@@ -1,0 +1,41 @@
+{% if _AppHelper.getApplicationEnv() == 'PROD'%}
+    <script type="text/javascript" src="{{networkData.templatePath}}/static/deploy/theme.min.js?rel=1488363737225"></script>
+{% else %}
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/index.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/jquery.validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/jquery.noty-2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/jquery.fancybox/source/jquery.fancybox.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/zoom.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/waypoint/lib/jquery.waypoints.min.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/handlebars-v4.0.5.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/bootstrap-modalmanager.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/plugins/bootstrap-modal.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/media-player/mediaelement-and-player.min.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/cloudinary/jquery.cloudinary.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/common.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/blog.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/article.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/search.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/disqus.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/video-player.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/user-articles.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/follow.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/image.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/uploadfile.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/yii/yii.js"></script>
+<script type="text/javascript" src="{{_AppHelper.getAssetsSDKPath()}}/js/yii/yii.captcha.js"></script>
+
+<!-- App scripts -->
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/_article-templates.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/home.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/user-articles.js"></script> 
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/auth.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/search.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/common.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/account-modal.js"></script>
+<script type="text/javascript" src="{{networkData.templatePath}}/static/dev/js/user-profile.js"></script>
+{% endif %}

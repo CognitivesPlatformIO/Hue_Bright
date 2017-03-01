@@ -1,0 +1,16 @@
+{% set network = _Network.getNetworkData() %}
+<div class="share-popup" style="right: -212px;">
+    <div class="share-popup__title-wrap">
+        <span class="share-popup__title">Share:</span>
+        <img class="share-popup__close" src="{{network.templatePath}}/static/images/icons/close-small.svg" alt="">
+    </div>
+    <input type="text" name="share-link" value="{{ shareUrl }}" readonly class="share-popup__share-link share-link">
+    <div class="share-popup__social-wrap">
+        <div class="social-icon_wrap--colored">
+            <a href="https://plus.google.com/share?url={{shareUrl}}" target="_blank"><i class="fa fa-google-plus"></i></a>
+            <a href="http://www.facebook.com/sharer/sharer.php?u={{shareUrl}}" target="_blank" ><i class="fa fa-facebook"></i></a>
+            <a href="http://twitter.com/intent/tweet?status={{shareUrl}}" target="_blank"><i class="fa fa-twitter"></i></a>
+        </div>
+        <span class="share-popup__copy-text">Copy Link</span>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+.side-navigation {
+  background-color: #fff;
+  visibility: hidden;
+  padding: 0px;
+  position: absolute;
+  z-index: 100000;
+  box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.8);
+  overflow-y: scroll;
+  &__search_container {
+    text-align: center;
+    margin-top: 40px;
+  }
+  &__search {
+    display: inline-block;
+    position: relative;
+  }
+  &__list {
+    border-bottom: 1px $gray-color solid;
+    list-style: none;
+    margin: 0px;
+    padding: 30px 0px;
+  }
+  &__item {
+    &--dropdown {
+      position: relative;
+      cursor: pointer;
+      z-index: 3;
+    }
+  }
+  &__link {
+    @include text-sm($font-multiplier: 0.78, $color: $base-color);
+    display: block;
+    padding: 0px 30px;
+    line-height: 30px;
+    text-transform: uppercase;
+    &--login {
+      cursor: pointer;
+      &:hover {
+        color: $signup-link-color;
+      }
+    }
+  }
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    display: none;
+    left: 30px;
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    width: 180px;
+    padding: 10px 10px 0px;
+    border: 1px solid rgb(222, 222, 222);
+    border-radius: 0px 0px 4px 4px;
+    &_item {
+      @include text-sm($font-multiplier: 0.78, $color: $base-color);
+      cursor: pointer;
+      display: block;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    &.active {
+      display: block;
+    }
+  }
+  &__cross {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+  &__login {
+    padding: 30px 0px;
+    display: flex;
+    flex-direction: column;
+  }
+}

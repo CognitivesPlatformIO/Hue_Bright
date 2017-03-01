@@ -1,0 +1,16 @@
+{{ set(this, 'title', name) }}
+{% set networkData = _Network.getNetworkData() %}
+<div class="auth">
+    <div class="auth__content">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane login active text-center forgot-password">
+                <img width="50" height="50" src="{{networkData.templatePath}}/static/images/icons/error.svg" class="error-icon" alt="Error" />
+                <div class="error-message">
+                    <h4 class="error-heading">{{statusCode}} <span>{{name}}</span></h4>
+                    <p class="content-section">{{_AppHelper.translator('app', message)}}</p>
+                    <a href="/" class="button red home-button" style="margin-top:30px;">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

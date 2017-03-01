@@ -1,0 +1,60 @@
+.channel-thumb {
+  display: flex;
+  position: relative;
+  flex: 1 1 220px;
+  height: 220px;
+  @include image_background;
+  @include tablet-lg {
+    flex: 1 1 25%;
+  }
+  &:hover {
+    .channel-thumb__content_wrap {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+  &__container {
+    @extend .container;
+    display: flex;
+  }
+  &__content_wrap {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 25px 30px;
+    position: relative;
+    @include transition(background-color 0.4s ease);
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  &__overlay {
+    width:100%;
+    height: 100%;
+  }
+  &__channel-wrap {
+    text-align: left;
+  }
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 1 0 100%;
+    height: 100%;
+  }
+  &__channel {
+    @extend .card__channel;
+  }
+  &__headline {
+    @include text-md($font-weight:600, $color: $white, $line-height: 1.2);
+    text-shadow: 0px 1px 0px rgba(0,0,0,0.25);
+    margin: auto auto 0 0;
+    text-align: left;
+    max-width: 100%;
+    @include desktop {
+      text-align: left;
+    }
+  }
+}
+
+.channels > .heading {
+  margin: 80px 0 45px;
+}

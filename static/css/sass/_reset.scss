@@ -1,0 +1,116 @@
+:focus {
+  outline: none;
+}
+::selection {
+  background: $highlight-color;
+  color: $light-color;
+}
+::-moz-selection {
+  background: $highlight-color;
+  color: $light-color;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: $placeholder;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: $placeholder;
+   opacity: 1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: $placeholder;
+   opacity: 1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: $placeholder;
+}
+:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+  color: $placeholder;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background-color: $body-color;
+  color: $body-text;
+  font-family: $base-font-family;
+  font-size: $baseFontSize;
+  line-height: 1.42;
+}
+
+h1 {
+  @include text-lg();
+}
+
+h2 {
+  @include text-lg($font-multiplier-sm:1.45, $font-multiplier: 2);
+}
+
+h3 {
+  @include text-md();
+}
+
+h4 {
+  @include text-md($font-multiplier: 0.9);
+}
+h5 {
+  @include text-sm($font-multiplier: 0.78);
+}
+h6 {
+  @include text-sm($font-multiplier: 0.67);
+}
+
+p {
+  font-family: $text-font-family;
+  font-size: $baseFontSize;
+  line-height: 1.4;
+}
+
+a {
+  color: $dark-color;
+  text-decoration: none;
+  outline: none;
+  transition: color 0.4s, background-color 0.4s, border-color 0.4s;
+  border: none;
+}
+a:hover, a:focus, a:active {
+  color: $hover-color;
+  text-decoration: none!important;
+  transition: color 0.4s, background-color 0.4s, border-color 0.4s;
+  outline: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset, img {
+  border: 0;
+}
+ol, ul {
+  list-style: none;
+}
+caption, th {
+  text-align: left;
+}
+
+.img__full {
+  display: block;
+  height: auto;
+  margin: 0px auto 40px;
+  width: 100%;
+  @include desktop {
+    width: $screen-md - $container-limiter;
+  }
+}
+
+svg {
+  max-width: 100%;
+  max-height: 100%;
+}

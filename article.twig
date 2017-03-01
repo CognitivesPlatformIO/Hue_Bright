@@ -1,0 +1,184 @@
+{# Article Twig template #}
+{{ set(this, 'title', article.title) }}
+
+{% set status = 'follow' %}
+{% set text = 'Follow' %}
+{% if not _User.isGuset() and _User.isUserFollowing('blog', article.blog['id'])%}
+    {% set status = 'unfollow' %}
+    {% set text = 'Unfollow' %}
+{% endif %}
+
+{% set network = _Network.getNetworkData() %}
+
+{% set publisher = {height: 60, width: 600, name: network.title, logo: ''} %}
+{% if network.logoMedia | length > 0 %}
+    {% set publisher = publisher|merge({logo:_Media.getMediaUrl(network.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
+{% endif %}
+
+{{this.registerJs("HomeController.article();")}}
+<div class="article--category_{{article.blog['id']}} article--category" itemscope itemtype="http://schema.org/NewsArticle">
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
+    <meta itemprop="url" content="{{article.url}}">
+    <meta itemprop="dateModified" content="{{article.updatedAt}}">
+    {% if publisher.logo is not empty %}
+    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="{{publisher.name}}"/>
+        <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+            <meta itemprop="url" content="{{publisher.logo}}"/>
+            <meta itemprop="width" content="{{publisher.width}}"/>
+            <meta itemprop="height" content="{{publisher.height}}"/>
+        </div>
+    </div>
+    {% endif %}
+<!-- start article banner -->
+<header class="banner">
+    <div class="banner__scroll-container">
+        <div class="banner__container">
+            <div class="banner__button-wrap">
+                {% if _User.isGuest() %}
+                    <div class="banner__button loginModal">
+                        <img class="banner__button-icon" src="{{network.templatePath}}/static/images/icons/follow.svg" alt="follow {{article.blog['title']}} icon">
+                        <span>Follow {{ article.blog['title'] | capitalize }}</span>
+                    </div> 
+                {% else %}
+                    <div class="banner__button followBlog" data-guid="{{article.blog['guid']}}" data-status="{{status}}" data-label="{{ article.blog['title'] | capitalize }}">
+                        <img class="banner__button-icon" src="{{network.templatePath}}/static/images/icons/follow.svg" alt="follow {{article.blog['title']}} icon">
+                        <span class="followTxt">{{text}} {{ article.blog['title'] | capitalize }}</span>
+                    </div>
+                {% endif %}
+           </div>
+           {% for article in _Article.getRecentArticles({excludeArticleIds:{0:article.id}, limit: 10}) %}
+                {% if article is defined %}
+                    <a class="article-thumb" href="{{ article.url }}">
+                        {% if article.featuredMedia['articleCloudinaryId'] is defined and article.featuredMedia['articleCloudinaryId'] is not empty %}
+                            {% set image = _Media.getMediaUrl(article.featuredMedia, 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'})%}
+                            <div class="article-thumb__image" style="background-image: url({{ image }})"></div>
+                        {% endif %}
+                        <div class="article-thumb__headline">{{ article.title|striptags[:50] ~ '...' }}</div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+            <div id="scrollbar"></div>
+        </div>
+    </div>
+</header>
+<!-- end article banner -->
+
+<div class="article">
+    <div class="article__header-wrap">
+        <h1 class="article__headline" itemprop="headline">{{article.title}}</h1>
+        {% set readingTime = Helper.getEstimatedReadingTime(article.content)%}
+        <span class="article__date"><span itemprop="datePublished">{{article.publishedDate}}</span>  •••  {{Helper.renderReadingTime(readingTime) | raw}}</span>
+    </div>
+        <div class="article__header">
+            <div class="article__header-container">
+                <div class="article-user__profile">
+                    {% set creatorImage = _Media.getMediaUrl(article.createdBy['media'], 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'})%}
+                    <span class="article-user__user-image" style="background-image:url('{{creatorImage}}');"></span>
+                    <div class="article-user__author-wrap">
+                        <span class="article-user__author" itemprop="author">{{article.createdBy['displayName'] | capitalize}}</span>
+                        <div class="article-user__button-wrap">
+                            
+                            {% set status = 'follow' %}
+                            {% set text = 'Follow' %}
+                            {% set userFollowClass = '' %}
+                            {% if not _User.isGuest() and _User.isUserFollowing('writer', article.createdBy['id'])%}
+                                {% set status = 'unfollow' %}
+                                {% set text = 'Unfollow' %}
+                                {% set userFollowClass = 'active' %}
+                            {% endif %}
+                            {% if _User.isGuest() %}
+                                <a href="javascript:;" class="button button-sm button__follow loginModal">Follow</a>
+                            {% elseif article.createdBy['id'] != _User.getId() %}
+                                <a href="javascript:;" class="button button-sm button__follow followArticleBtn" data-guid="{{article.createdBy['guid']}}" data-status="{{status}}">{{text}}</a>
+                            {% endif%}
+                            
+                            <span class="article-user__author-bio">{{article.createdBy['bio']}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="article__header-actions">
+                    {% if network.thirdPartyIntegrations['disqus'] | length > 0 and network.thirdPartyIntegrations['disqus']['shortName'] != '' %}
+                        <a href="#comments" class="button button__comments header_actions header_actions__comments">Comments</a>
+                    {% endif %}
+                    
+                    <div class="button button__share header_actions header_actions__share">
+                        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                        <svg width="13px" height="14px" viewBox="0 0 13 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+                            <title>Shape</title>
+                            <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                            <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Theme-3-Article---desktop" transform="translate(-1113.000000, -793.000000)" fill="#C0C2CA">
+                                    <g id="Article" transform="translate(215.000000, 216.000000)">
+                                        <g id="Comments-Share" transform="translate(735.000000, 568.000000)">
+                                            <g id="Share-button" transform="translate(151.000000, 0.000000)">
+                                                <path d="M22.0625,18.3333333 C21.5305808,18.3333333 21.0420077,18.5150222 20.650499,18.8174222 L16.6106375,16.3818889 C16.6309173,16.2572889 16.6442308,16.1302 16.6442308,16 C16.6442308,15.8694889 16.6309173,15.7427111 16.6106375,15.6179556 L20.650499,13.1824222 C21.0420077,13.4851333 21.5305808,13.6666667 22.0625,13.6666667 C23.3447721,13.6666667 24.3846154,12.6218 24.3846154,11.3333333 C24.3846154,10.0448667 23.3447721,9 22.0625,9 C20.7802279,9 19.7403846,10.0448667 19.7403846,11.3333333 C19.7403846,11.4635333 19.7536981,11.5906222 19.7742875,11.7152222 L15.734426,14.1507556 C15.3429173,13.8483556 14.8543442,13.6666667 14.3221154,13.6666667 C13.0398433,13.6666667 12,14.7115333 12,16 C12,17.2884667 13.0398433,18.3333333 14.3221154,18.3333333 C14.8543442,18.3333333 15.3429173,18.1518 15.734426,17.8490889 L19.7742875,20.2846222 C19.7536981,20.4093778 19.7403846,20.5361556 19.7403846,20.6666667 C19.7403846,21.9551333 20.7802279,23 22.0625,23 C23.3447721,23 24.3846154,21.9551333 24.3846154,20.6666667 C24.3846154,19.3782 23.3447721,18.3333333 22.0625,18.3333333 L22.0625,18.3333333 Z" id="Shape"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                        Share 
+                        <div class="share-popup" style="right:0px">
+                            <div class="share-popup__title-wrap">
+                                <span class="share-popup__title">Share:</span>
+                                <img class="share-popup__close" src="{{network.templatePath}}/static/images/icons/close-small.svg" alt="">
+                            </div>
+                            <input type="text" name="share-link" value="{{article.url}}" readonly class="share-popup__share-link share-link">
+                            <div class="share-popup__social-wrap">
+                                <div class="social-icon_wrap--colored">
+                                    <a href="https://plus.google.com/share?url={{article.url}}" target="_blank"><i class="fa fa-google-plus"></i></a>
+                                    <a href="http://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}" target="_blank" ><i class="fa fa-facebook"></i></a>
+                                    <a href="http://twitter.com/intent/tweet?status={{ article.title|url_encode }} {{article.url}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                </div>
+                                <span class="share-popup__copy-text">Copy Link</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% if article.media | length > 0 %}
+        <div class="article__image">
+            <div class="slides">
+                {% for media in article.media %}
+                    <div class="slide lazyload-remove" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" data-thumbnail="{{media.path}}" data-original="{{media.path}}" style="background-image: url({{media.path}})">
+                        <meta itemprop="url" content="{{media.path}}">
+                        <meta itemprop="height" content="{{media.height}}">
+                        <meta itemprop="width" content="{{media.width}}">
+                        {% if media.type == 'video' %} 
+                            {% set mediaUrl = "" %}
+                            {% if media.isSystemVideo == 'TRUE'%}
+                                {% set mediaUrl = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                            {% endif %}
+                            <a href="javascript:void(0)" itemprop="video" class="video-overlay" data-source="{{media.source}}" data-url="{{mediaUrl}}"  data-video-id="{{media.videoId}}" data-poster="{{media.path}}" data-caption="{{article.title | raw}}">
+                                <div class="icons">
+                                    <div class="icon"><i class="fa fa-play"></i></div>
+                                </div>
+                                {% set embed = '<iframe id="video" class="slick-video" src="'~mediaUrl~'" frameborder="0" allowfullscreen></iframe>' %}
+                                {{ embed|raw }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="article__container" itemprop="articleBody">
+        
+        {{article.content | raw}}
+        
+        <!-- Disqus Plugin Render Here -->
+        {% if network.thirdPartyIntegrations['disqus'] | length > 0 and network.thirdPartyIntegrations['disqus']['shortName'] != '' %}
+            <h3 id="comments" class="comments__header">Comments</h3>
+            {{this.render("partials/article/_disqus_comments.twig", {disqus: network.thirdPartyIntegrations['disqus'], userId: article.createdBy['id'], url:article.url, articleId: article.id}) | raw}}
+        {% endif %}
+        <!-- End Disqus Block -->
+    </div>
+</div>
+<!-- Suggested Article Here -->
+{{this.render("partials/article/_popular_articles.twig", {articleId: article.id, network: network}) | raw }}
+</div>

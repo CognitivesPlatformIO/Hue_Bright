@@ -1,0 +1,105 @@
+// Responsive sizes
+@mixin mobile {
+  @media (min-width:$screen-xs) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width:$screen-sm) {
+    @content;
+  }
+}
+
+@mixin tablet-lg {
+  @media (min-width:992px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width:$screen-md) {
+    @content;
+  }
+}
+
+@mixin desktop-lg {
+  @media (min-width:$screen-lg) {
+    @content;
+  }
+}
+
+// Default image settings when used as a css background
+@mixin image_background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+@mixin text-sm($letter-spacing: 0px, $color: $body-text, $font-weight: 600, $line-height: 1.35, $font-multiplier: 0.72) {
+  font-size: ($baseFontSize * $font-multiplier);
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $color;
+}
+
+// Lovely mixins for making all your font needs delightful
+@mixin text-md($letter-spacing: -0.0125em, $color: $body-text, $font-weight: 400, $line-height: 1.57, $font-multiplier: 1) {
+  font-size: ($baseFontSize * $font-multiplier);
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $color;
+}
+
+@mixin text-lg($letter-spacing: -0.014em, $color: $white, $font-weight: 600, $line-height: 1.03,$font-multiplier-sm: 1.8, $font-multiplier: 2.5) {
+  font-size: ($baseFontSize * $font-multiplier-sm);
+  @include tablet {
+    font-size: ($baseFontSize * $font-multiplier);
+  }
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $color;
+  font-family: $heading-font-family
+}
+
+@mixin channel-text {
+  @include text-sm($color: rgba(56,67,98,0.9),$font-weight: 700);
+  background-color: #fff;
+  margin-bottom: 25px;
+  display: inline-block;
+  padding: 4px 5px 3px 7px;
+  text-transform: uppercase;
+  font-family: 'PT Sans', sans-serif!important;
+}
+
+// Select box appearance mixin
+
+@mixin appearance($border-radius: 0px) {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: $border-radius;
+}
+
+// Helper text classes for quick bootstrapping of fonts
+.text-sm {
+  @include text-sm;
+}
+
+.text-md {
+  @include text-md;
+}
+
+.text-lg {
+  @include text-lg;
+}
+
+.visible_desktop {
+  display: none;
+  @include desktop {
+    display: block;
+  }
+}

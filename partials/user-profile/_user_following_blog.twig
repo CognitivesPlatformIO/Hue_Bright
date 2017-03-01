@@ -1,0 +1,23 @@
+{% if myBlogs | length > 0 %}
+    {% for myblog in myBlogs %}
+        {% set blog = myblog.blog %}
+        {% set imgWidth = 390 %}
+        {% set imgHeight = 220 %}
+        {% set hasImage = (blog.media['thumb'] is defined and blog.media['thumb']['path'] != '') ? 1 : 0 %}
+        {% if hasImage %}
+            {% set blogImg = _Media.getMediaUrl(blog.media['thumb'],imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ) %}
+        {% endif %}
+ <a href="{{blog.url}}" class="channel-thumb channel-2 {% if hasImage == false %}channel__no-image{% endif %}" {% if hasImage == true %}style="background-image: url('{{ blogImg }}');"{% endif %}>
+            <div class="channel-thumb__overlay">
+                <div class="channel-thumb__content_wrap">
+                    <div class="channel-thumb__content">
+                        <div class="channel-thumb__channel-wrap">
+                            <div class="channel-thumb__channel">{{ blog.title }}</div>
+                        </div>
+                        <div class="channel-thumb__headline">{{ blog.shortDescription | striptags[:80] ~ '...'}}</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+{% endfor %}
+{% endif %}

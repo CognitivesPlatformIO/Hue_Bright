@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>Close</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Theme-1---Social-Modals" transform="translate(-1534.000000, -38.000000)" stroke="#FFFFFF" stroke-width="3">
+            <g id="Portrait---Share">
+                <g id="Modal" transform="translate(33.000000, 40.000000)">
+                    <g id="Controls">
+                        <g id="Close" transform="translate(1503.000000, 0.000000)">
+                            <path d="M15.8032754,0 L0,15.8032754" id="Line-Copy"></path>
+                            <path d="M15.8826908,0.0794154596 L0.0794154596,15.8826908" id="Line-Copy-2" transform="translate(7.981053, 7.981053) scale(-1, 1) translate(-7.981053, -7.981053) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

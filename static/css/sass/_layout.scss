@@ -1,0 +1,110 @@
+// Base layout classes
+#content {
+  position: relative;
+  transition: 0.7s;
+  right: 0px;
+  &.active {
+    right: 175px;
+  }
+}
+
+.container {
+  margin-left:auto;
+  margin-right:auto;
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  @include tablet {
+    width:100%;
+  }
+  @include desktop {
+    width: $screen-md - $container-limiter;
+  }
+  @include desktop-lg {
+    width: $screen-lg - $container-limiter;
+  }
+  &::before {
+    display: none;
+  }
+  &::after {
+    display: none;
+  }
+}
+
+div.home, div.channel, div.search, div.user-posts, div.channels, div.contact {
+  @extend .container;
+  flex-wrap: wrap;
+}
+
+div.channels {
+  .heading {
+    font-weight: 300;
+    font-size: 39px;
+    margin-top: 60px;
+    color: $dark-color;
+    letter-spacing: -1.01px;
+    line-height: 45px;
+    margin-bottom: 45px;
+    width: 100%;
+    padding: 0 15px;
+    @include desktop {
+      padding: 0;
+    }
+  }
+}
+
+.card-container {
+  @extend .container;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  &-quarter,
+  &-quarter-short {
+    flex: 1 0 308px;
+    @include desktop {
+      flex: 1 0 25%;
+    }
+  }
+  &-third,
+  &-third-short {
+    flex: 1 0 308px;
+    @include desktop {
+      flex: 1 0 33.3333%;
+    }
+  }
+  &-third-container {
+    flex: 1 0 100%;
+    flex-wrap: wrap;
+    display: flex;
+    @include tablet-lg {
+      flex: 1 0 33.3333%;
+      flex-wrap: nowrap;
+      display: block;
+      flex-direction: column;
+    }
+    .col-third {
+      flex: 1 0 320px;
+      @include tablet-lg {
+        flex: 1 0 33.3333%;
+      }
+    }
+  }
+  &-half {
+    flex: 1 0 308px;
+    @include tablet-lg {
+      flex: 1 0 50%;
+    }
+  }
+  &-two-thirds,
+  &-two-thirds-short {
+    flex: 1 0 66.6666%;
+  }
+  &-three-quarters {
+    flex: 1 0 75%;
+  }
+  &-full {
+    flex: 1 0 100%;
+  }
+}

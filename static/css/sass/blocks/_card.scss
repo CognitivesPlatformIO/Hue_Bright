@@ -1,0 +1,294 @@
+.card {
+  display: flex;
+  position: relative;
+  height: 471px;
+  @include image_background;
+  &:hover {
+    .card__content-wrap {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    .admin-actions {
+      display: flex;
+    }
+  }
+  &__overlay {
+    width:100%;
+    height: 100%;
+  }
+  &__content-wrap {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.25);
+    @include transition(all 0.4s ease);
+  }
+  &__content {
+    flex-direction: column;
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+  &__author {
+    @include text-sm($color: $white);
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    max-width: 400px;
+  }
+  &__channel-wrap {
+    text-align: left;
+  }
+  &__channel {
+    @include channel-text;
+  }
+  &__headline {
+    max-width: 400px;
+    margin: auto;
+    @include text-sm($font-weight: 700, $color: $white, $font-multiplier: 1.4, $line-height: 1.2);
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 22px;
+    text-shadow: 0px 1px 0px rgba(0,0,0,0.25);
+  }
+  &__read-time {
+    @include text-md($color: $white, $font-multiplier: 0.75);
+    padding: 3px 9px 3px;
+    border:1px solid white;
+    display: inline-block;
+    background-color: rgba(0,0,0,0);
+    @include transition(background-color 0.4s ease);
+    &:hover {
+      background-color: rgba(0,0,0,0.2);
+    }
+    img  {
+      position: relative;
+      bottom: 2px;
+      margin-right: 5px;
+      width: 13px;
+    }
+  }
+  &__text {
+    max-width: 300px!important;
+    margin-bottom: 25px;
+    @include text-md($color: $white);
+    display:none;
+    word-break: break-word;
+    word-wrap: break-word;
+    margin-top: 26px;
+    font-family: $heading-font-family;
+    text-shadow: 0px 1px 0px rgba(0,0,0,0.25);
+    &-wrap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .card__play-button {
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: auto;
+        width: 74px;
+        height: 74px;
+      }
+    }
+  }
+  &__button-wrap {
+    display: flex;
+  }
+  &--channel {
+    .card {
+      &__headline {
+        margin: 0;
+      }
+      &__text {
+        display: block;
+      }
+      &__content-wrap {
+        min-height: 471px;
+        align-items: center;
+      }
+      &__content {
+        height: auto;
+      }
+    }
+  }
+}
+.card--social {
+  .card__text {
+    display: block;
+    max-width: 750px;
+    margin: auto auto auto 0;
+    font-family: $heading-font-family;
+    @include text-sm($font-weight: 700, $color: $white, $font-multiplier: 1.4, $line-height: 1.2);
+    margin-bottom: 22px;
+    &::before {
+      content: '“';
+      font-family: $heading-font-family;
+      letter-spacing: -0.6px;
+      font-size: 41px;
+      font-weight: 600;
+      position: relative;
+      top: 12px;
+      display: block;
+      height: 40px;
+    }
+  }
+}
+
+.card--article {
+  height:100%;
+}
+.col-full {
+  .card {
+    &__content-wrap {
+      display: block;
+    }
+    &__content {
+    }
+    &__headline {
+      margin-bottom: -10px;
+      @include text-lg();
+      text-shadow: 0px 1px 0px rgba(0,0,0,0.25);
+    }
+    &__text {
+      display: block;
+      font-family: $base-font-family;
+      width: 100%;
+      max-width: 70%!important;
+      max-height: 310px;
+      overflow: hidden;
+    }
+    &__author {
+      display: block;
+      font-family: $base-font-family;
+      width: 100%;
+    }
+  }
+  .card--social {
+    .card__content {
+      width: 100%;
+      text-align: center;
+      height: auto;
+      margin:auto;
+      display: block;
+    }
+    .card__content-wrap {
+      display: flex;
+    }
+    .card__author {
+      margin: 0 auto;
+    }
+    .card__text {
+      margin: 0 auto 22px;
+      @include text-lg($font-multiplier: 2, $font-multiplier-sm: 1.5, $line-height: 1.25);
+      text-shadow: 0px 1px 0px rgba(0,0,0,0.25);
+      max-width: 800px;
+      font-family: $heading-font-family;
+    }
+    .card__channel-wrap {
+      text-align: center;
+    }
+  }
+}
+
+.col-quarter {
+  @include desktop {
+
+  }
+}
+
+.col-third {
+  @include desktop {
+
+  }
+}
+
+.col-third-container {
+  display: flex;
+  .col-third {
+    flex: 1 0 100%;
+    @include tablet-lg {
+      flex: 1 0 33.33%;
+    }
+    .card {
+      height: 100%;
+      @include tablet-lg {
+        height: 157px;
+      }
+    }
+    .card__content-wrap {
+      @include tablet-lg {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+    }
+    .card__channel {
+      margin-bottom: 15px;
+    }
+    .card__headline {
+      @include text-md($font-weight: 600, $color: $white, $font-multiplier: 1.06, $line-height: 1.2);
+      margin-bottom: 0;
+      max-width: 535px;
+      max-height: 68px;
+      overflow: hidden;
+    }
+    .card__text {
+      @include text-md($font-weight: 600, $color: $white, $font-multiplier: 1.06, $line-height: 1.2);
+      margin-bottom: 0;
+      max-width: 535px;
+      max-height: 68px;
+      overflow: hidden;
+      &::before {
+        display: none;
+      }
+      br {
+        display: none;
+      }
+      &-wrap {
+        flex-direction: row;
+        height: auto;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: auto;
+        .card__text {
+          margin-top: 0;
+        }
+        .card__play-button {
+          width: 43px;
+          height: 43px;
+          margin-left: 0;
+          margin-right: 20px;
+        }
+      }
+    }
+    .card__read-time {
+      display: none;
+    }
+    .card__author {
+      display: none;
+    }
+  }
+}
+
+.col-two-thirds {
+  .card {
+    height: 100%;
+    &__text {
+      margin-bottom: 22px;
+      @include text-lg();
+      @include tablet {
+        font-size: 35px;
+        max-width: 500px!important;
+      }
+
+      &_quote {
+        display: none;
+      }
+      br {
+        display: none;
+      }
+    }
+  }
+  .card--social {
+    height: 471px;
+  }
+}
