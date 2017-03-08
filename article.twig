@@ -153,14 +153,22 @@
                             {% set mediaUrl = "" %}
                             {% if media.isSystemVideo == 'TRUE'%}
                                 {% set mediaUrl = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                                <a href="javascript:void(0)" itemprop="video" class="video-overlay" data-source="{{media.source}}" data-url="{{mediaUrl}}"  data-video-id="{{media.videoId}}" data-poster="{{media.path}}" data-caption="{{article.title | raw}}">
+                                    <div class="icons">
+                                        <div class="icon"><i class="fa fa-play"></i></div>
+                                    </div> 
+                                    <iframe class="slick-video" src="{{mediaUrl}}?autoplay=0"  frameborder="0" allowfullscreen></iframe>
+                                </a>
+                            {% else %}
+                                {% if media.source == 'youtube' %}
+                                    {% set mediaUrl = "https://www.youtube.com/embed/" ~ media.videoId  %}
+                                {% else %}
+                                    {% set mediaUrl = "http://player.vimeo.com/video/" ~ media.videoId  %}
+                                {% endif %}
+                                <a href="javascript:void(0)" itemprop="video" class="video-overlay" data-source="{{media.source}}" data-url="{{mediaUrl}}"  data-video-id="{{media.videoId}}" data-poster="{{media.path}}" data-caption="{{article.title | raw}}">
+                                    <iframe class="slick-video" src="{{mediaUrl}}" frameborder="0" allowfullscreen></iframe>
+                                </a>
                             {% endif %}
-                            <a href="javascript:void(0)" itemprop="video" class="video-overlay" data-source="{{media.source}}" data-url="{{mediaUrl}}"  data-video-id="{{media.videoId}}" data-poster="{{media.path}}" data-caption="{{article.title | raw}}">
-                                <div class="icons">
-                                    <div class="icon"><i class="fa fa-play"></i></div>
-                                </div>
-                                {% set embed = '<iframe id="video" class="slick-video" src="'~mediaUrl~'" frameborder="0" allowfullscreen></iframe>' %}
-                                {{ embed|raw }}
-                            </a>
                         {% endif %}
                     </div>
                 {% endfor %}

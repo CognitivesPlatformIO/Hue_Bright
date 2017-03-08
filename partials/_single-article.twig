@@ -3,8 +3,20 @@
     {% set imgWidth = 383 %}
     {% set imgHeight = 260 %}
     {% if containerClass == 'col-full' %}
-        {% set imgWidth = 1170 %}
-        {% set imgHeight = 470 %}
+        {% set imgWidth = 1190 %}
+        {% set imgHeight = 490 %}
+    {% endif %}
+    {% if containerClass == 'col-quarter' %}
+        {% set imgWidth = 310 %}
+        {% set imgHeight = 490 %}
+    {% endif %}
+    {% if containerClass == 'col-third' %}
+        {% set imgWidth = 410 %}
+        {% set imgHeight = 490 %}
+    {% endif %}
+    {% if containerClass == 'col-two-thirds' %}
+        {% set imgWidth = 800 %}
+        {% set imgHeight = 490 %}
     {% endif %}
     {% set articleImg = '' %}
     {% set bgImg = '' %}

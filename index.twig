@@ -9,7 +9,7 @@
 <div class="home ajaxArticles"  data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}" data-offset="{{limit}}">
 
     {% if articles[0] is defined %}
-        {{this.render('partials/_single-article.twig', {article: articles[0], 'position': 1, containerClass: 'col-full fixed__element'}) | raw}}
+        {{this.render('partials/_single-article.twig', {article: articles[0], 'position': 1, containerClass: 'col-full'}) | raw}}
     {% endif %}
 
     {% for i in 1..4 %}
