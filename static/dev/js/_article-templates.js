@@ -132,7 +132,7 @@ var socialPostPopupTemplate = '<button type="button" class="close close__lg-moda
                     '</button>'+
                     '<div class="social-modal__channel social-modal__channel--technology ">{{blog.title}}</div>'+
                     '<div class="social-modal__overflow">'+
-                            '<div class="social-modal__text">“<br>{{content}}</div>'+
+                            '<a href="{{url}}" target="_blank"><div class="social-modal__text">“<br>{{content}}</div></a>'+
                     '</div>'+
                     '<div class="social-user">'+
                         '<span class="social-user__image" style="background-image: url(\'{{user.media.path}}\');"></span>'+
