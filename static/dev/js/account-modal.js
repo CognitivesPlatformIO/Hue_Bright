@@ -120,6 +120,7 @@
             selectContainer.find('.account-modal__select_selected-item-container').append('<div class="account-modal__select_selected-item" data-title=" ' + selectedItem + '">' + selectedItem + '</div>');
             selectContainer.find('.account-modal__select_list-item').removeClass('active');
             $(this).addClass('active');
+			$('#newsletterFrequency').val(selectedId);
         }
 
         var cls = followCls == 'user-follow' ? 'user-following' : 'blog-following';

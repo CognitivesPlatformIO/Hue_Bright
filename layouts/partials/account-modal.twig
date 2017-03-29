@@ -163,6 +163,26 @@
                         </div>
                         <div class="account-modal__input_requirement"></div>
                     </div>
+					<div class="account-modal__content_item-container">
+						{% set newsletter = 'never'%}
+						{% if user.userSettings['isNewsletterEnable'] %} 
+							{% set newsletter = user.userSettings['newsletterFrequency'] %}
+						{% endif %}
+						<input type="hidden" name="newsletterFrequency" id="newsletterFrequency" value="{{user.userSettings['isNewsletterEnable']}}">
+						<div class="account-modal__select account-modal__select--more-margin">
+							<div class="account-modal__select_content">
+								<div class="account-modal__select_label">Newsletter</div>
+								<img class="account-modal__select_arrow" src="{{network.templatePath}}/static/images/icons/account-modal-select-arrow.svg" alt="Select dropdown arrow">
+								<div class="account-modal__select_selected-item-container">{{newsletter|capitalize}}</div>
+								<div class="account-modal__select_list">
+									<div class="account-modal__select_list-item" data-id="1">Never</div>
+									<div class="account-modal__select_list-item" data-id="daily">Daily</div>
+									<div class="account-modal__select_list-item" data-id="weekly">Weekly</div>
+									<div class="account-modal__select_list-item" data-id="monthly">Monthly</div>
+								</div>
+							</div>
+						</div>
+					</div>
                     <div class="account-modal__error">
                         <div class="account-modal__error_text">Error</div>
                     </div>
