@@ -78,7 +78,7 @@
     background-position: 13px 8px;
   }
   &__comments {
-    background-image: url(/static/images/icons/comment-icon.svg);
+    background-image: url(../images/icons/comment-icon.svg);
     background-position: center auto;
   }
   &__share {
@@ -116,12 +116,12 @@
       top: 5px;
     }
     .button__twitter {
-      background-image: url(/static/images/icons/twitter-white.svg);
+      background-image: url(../images/icons/twitter-white.svg);
       background-color: #1da0f2;
       right: 10px;
     }
     .button__linkedin {
-      background-image: url(/static/images/icons/linkedin-white.svg);
+      background-image: url(../images/icons/linkedin-white.svg);
       background-color: #0177b5;
       margin-left: 10px;
       margin-right: 4px!important;

@@ -557,7 +557,7 @@
 				color: $black;
 			}
 			.account-modal__image_upload {
-				background-image: url('/static/images/icons/account-modal-image-upload.svg');
+				background-image: url('../images/icons/account-modal-image-upload.svg');
 			}
 		}
 		&_content {
@@ -583,7 +583,7 @@
 			border-radius: 100%;
 			border: 2px solid $white;
 			cursor: pointer;
-			background-image: url('/static/images/icons/account-modal-image-upload.svg');
+			background-image: url('../images/icons/account-modal-image-upload.svg');
 			background-repeat: no-repeat;
 			background-position: center center;
 		}
@@ -627,7 +627,7 @@
 				top: 1px;
 				left: 0px;
 				border-radius: 3px;
-				background-image: url('/static/images/icons/checkbox-tick.png');
+				background-image: url('../images/icons/checkbox-tick.png');
 				@include image-background();
 			}
 		}

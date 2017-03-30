@@ -12,7 +12,7 @@
     @include transition(opacity 0.5s);
 
     &:after {
-        background-image:url('/static/images/tooltip.svg');
+        background-image:url('../images/tooltip.svg');
         background-position:70%;
         background-repeat:no-repeat;
         background-size:auto 100%;
@@ -41,31 +41,31 @@
         @include opacity(0.8);
 
         &--facebook {
-            background-image:url('/static/images/icons/facebook-white.svg');
+            background-image:url('../images/icons/facebook-white.svg');
             &:hover {
-                background-image:url('/static/images/icons/facebook.svg');
+                background-image:url('../images/icons/facebook.svg');
             }
         }
 
         &--twitter {
-            background-image:url('/static/images/icons/twitter-white.svg');
+            background-image:url('../images/icons/twitter-white.svg');
             &:hover {
-                background-image:url('/static/images/icons/twitter.svg');
+                background-image:url('../images/icons/twitter.svg');
             }
         }
 
         &--google-plus {
-            background-image:url('/static/images/icons/google-plus-white.svg');
+            background-image:url('../images/icons/google-plus-white.svg');
             width:58px;
             &:hover {
-                background-image:url('/static/images/icons/google-plus.svg');
+                background-image:url('../images/icons/google-plus.svg');
             }
         }
 
         &--linkedin {
-            background-image:url('/static/images/icons/linkedin-white.svg');
+            background-image:url('../images/icons/linkedin-white.svg');
             &:hover {
-                background-image:url('/static/images/icons/linkedin.svg');
+                background-image:url('../images/icons/linkedin.svg');
             }
         }
 
