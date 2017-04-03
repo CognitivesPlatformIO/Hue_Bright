@@ -108,3 +108,33 @@ div.channels {
     flex: 1 0 100%;
   }
 }
+.col-centered {      
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+.upper {
+	text-transform: uppercase;
+}
+.call-to-action {
+	color: $white;
+	position: relative;
+	padding: 50px 0; 
+	margin-bottom: 30px;
+	background-color: rgba(154, 110, 247, 0.4);
+	background-image: linear-gradient(-135deg, rgba(19,255,255,0.46) 0%, rgba(18,255,203,0.00) 75%);
+	.content-area {
+		padding:(0 40px);
+		position: relative;
+		h3 {
+			@include text-md($color: $white, $font-multiplier: 2.5);
+		}
+		p {
+			@include text-md($color: $white);
+			margin-bottom: 20px;
+		}
+	}
+}
+.image-covered {
+	@include image_background();
+}

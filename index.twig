@@ -47,6 +47,22 @@
             {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-quarter'}) | raw}}
         {% endif %}
     {% endfor %}
+	{% if articles[17] is defined %}
+	<div class="call-to-action image-covered">
+		<div class="overlay_layer"></div>
+		<div class="container">
+				<div class="col-md-5 col-sm-8 col-xs-12 col-centered text-center">
+					<div class="content-area">
+						<h3 class="upper">Mayank Test</h3>
+						<p>Mayank test1</p>
+						<div class="form-group">
+							<a class="button blue upper" href="#">test</a>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+    {% endif %}
 </div>
 
 {% set noDataCls = 'hide' %}
