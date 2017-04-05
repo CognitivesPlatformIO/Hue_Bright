@@ -141,11 +141,11 @@
                         {% if social.media['type'] == 'video' and social.media['videoUrl'] is not empty %}
                         <div class="card__text-wrap">
                             <img class="card__play-button video-player" data-source="{{social.source}}" data-url="{{social.media['videoUrl']}}" data-poster="{{social.media['path']}}" src="{{networkData.templatePath}}/static/images/icons/play-white.svg" alt="Play video button">
-                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:50] ~ '...'  | raw }}</p>
+                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:140] ~ '...'  | raw }}</p>
                         </div>
                         <p class="card__author">@{{social.user['name'] | lower }}</p>
                         {% else %}
-                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:50] ~ '...'  | raw }}</p>
+                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:140] ~ '...'  | raw }}</p>
                             <p class="card__author">{{ (social.source == _SocialFeed.getSocialArticleSourceIsTwitter()) ? '@' : ''}}{{ social.user['name'] | lower }}</p>
                         {% endif %}
                     </div>

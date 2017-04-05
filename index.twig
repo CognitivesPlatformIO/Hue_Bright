@@ -41,12 +41,14 @@
         {% endfor %}
     </div>
     {% endif %}
-    
+        
     {% for i in 13..16 %}
         {% if articles[i] %}
             {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-quarter'}) | raw}}
         {% endif %}
     {% endfor %}
+    
+    {{this.render('partials/_cta.twig',{keyword: 'cta_1'}) | raw}}
 </div>
 
 {% set noDataCls = 'hide' %}
