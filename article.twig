@@ -175,10 +175,11 @@
             </div>
         </div>
     {% endif %}
-    <div class="article__container" itemprop="articleBody">
-        
+    <div class="article__container" itemprop="articleBody">        
         {{article.content | raw}}
-        
+    </div>    
+        {{this.render('partials/_cta.twig',{keyword: 'cta_2'}) | raw}}  
+    <div class="article__container">       
         <!-- Disqus Plugin Render Here -->
         {% if network.thirdPartyIntegrations['disqus'] | length > 0 and network.thirdPartyIntegrations['disqus']['shortName'] != '' %}
             <h3 id="comments" class="comments__header">Comments</h3>
