@@ -37,8 +37,10 @@
         {{networkData.thirdPartyIntegrations['googleTagManager']['script'] | raw}}
     {% endif %}
     
+    {% set isPage = 'content_box_page' in _Page.getBodyClass() %}
+    
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1491207252165" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1492154444480" type="text/css" media="all">
     {% else %}
         <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.fancybox/source/jquery.fancybox.css" />
         <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.noty-2.3.8/demo/animate.css" />
@@ -46,7 +48,15 @@
         <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/index.css" type="text/css" media="all">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans:400,600,700|Chivo:400,900|PT+Sans:400,700" rel="stylesheet">
     {% endif %}
-    
+
+    {% if isPage %}
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/assets/minimalist-basic/content-bootstrap.css" rel="stylesheet" type="text/css" />
+
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/box/box.css" rel="stylesheet" type="text/css" />
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbox/contentbox.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/contentbox-breakup.css" type="text/css" media="all" />
+    {% endif %}
     <style>
     body, .body, p, a.header__navigation-link {
     font-family: "Open Sans", sans-serif;
@@ -77,7 +87,7 @@
 {{ this.head() }}
 </head>
 
-<body>
+<body class="{{_Page.getBodyClass()}}">
     {{ this.beginBody() }}
     
     <!-- Google Tag Manager(noscript) -->
