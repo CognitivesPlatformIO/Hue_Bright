@@ -61,6 +61,78 @@
     {% endif %}
     </style>
     
+    {% set themeColors = networkData['styling']['colours'] %}
+        <style type="text/css">
+        {% if primaryFont != "" %}
+            body, .body, p {
+                font-family: "{{primaryFont | replace({'+': ' '})}}" !important;
+            }
+        {% endif %}
+        {% if secFont != "" %}
+            h1, h2, h3, h4, h5, a.header__navigation-link {
+                font-family: "{{secFont | replace({'+': ' '})}}" !important;
+            }
+        {% endif %}
+        {% if themeColors.linkColor != "" %}
+            a {
+                color: {{themeColors.linkColor}} !important;
+            }
+        {% endif %}
+        {% if themeColors.linkHoverColor != "" %}
+            a:hover {
+                color: {{themeColors.linkHoverColor}} !important;
+            }
+        {% endif %}
+        {% if themeColors.headingColor != "" %}
+            h1, h2, h3, h4, h5 {
+                color: {{themeColors.headingColor}} !important;
+            }
+        {% endif %}
+        {% if themeColors.navigationColor != "" %}
+            .header__search-text, a.header__navigation-link {
+                color: {{themeColors.navigationColor}} !important;
+            }
+        {% endif %}
+        {% if themeColors.navigationHoverColor != "" %}
+            a.header__navigation-link:hover {
+                color: {{themeColors.navigationHoverColor}} !important;
+            }
+        {% endif %}
+        {% if themeColors.navigationActiveColor != "" %}
+            a.header__navigation-link.header__navigation-selected {
+                color: {{themeColors.navigationActiveColor}} !important;
+            }
+        {% endif %}
+        {% if themeColors.navigationBgColor != "" %}
+        .header__navigation {
+            background-color: {{themeColors.navigationBgColor}} !important;
+        }
+        {% endif %}
+        {% if themeColors.headerBgColor != "" %}
+        .header__heading {
+            background-color: {{themeColors.headerBgColor}} !important;
+        }
+        {% endif %}
+        {% if themeColors.footerBgColor != "" %}
+        .footer {
+            background-color: {{themeColors.footerBgColor}} !important;
+        }
+        {% endif %}
+        {% if themeColors.pageBgColor != "" %}
+        .body, .body > .section {
+            background-color: {{themeColors.pageBgColor}} !important;
+        }
+        .sub_header {
+            background-color: {{themeColors.pageBgColor}} !important;
+        }
+        {% endif %}
+
+        {% set customCss = networkData['styling']['customStyleSheet'] %}
+        {% if customCss != "" %}
+                {{customCss | raw }}
+        {% endif %}
+        </style>
+        
     {% if blogData.settings['GoogleAnalyticsID'] is defined and  blogData.settings['GoogleAnalyticsID'] is not empty  %}
         <!-- Google Analytics -->
         <script>
