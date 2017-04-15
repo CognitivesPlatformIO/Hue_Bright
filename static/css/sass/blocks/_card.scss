@@ -7,7 +7,7 @@
     .card__content-wrap {
       background-color: rgba(0, 0, 0, 0);
     }
-    .admin-actions {
+    .admin-actions { 
       display: flex;
     }
   }
@@ -118,7 +118,7 @@
     max-width: 750px;
     margin: auto auto auto 0;
     font-family: $heading-font-family;
-    @include text-sm($font-weight: 700, $color: $white, $font-multiplier: 1.4, $line-height: 1.2);
+    @include text-sm($font-weight: 700, $color: $white, $font-multiplier: 1.23, $line-height: 1.4);
     margin-bottom: 22px;
     &::before {
       content: '“';
@@ -274,9 +274,9 @@
     height: 100%;
     &__text {
       margin-bottom: 22px;
-      @include text-lg();
+      @include text-lg($line-height: 1.3);
       @include tablet {
-        font-size: 35px;
+        font-size: 30px;
         max-width: 500px!important;
       }
 

@@ -96,7 +96,7 @@ var socialCardTemplate =  '<div class="{{containerClass}}">'+
                         '</div>'+
                         '<p class="card__author">@{{social.user.name}}</p>'+
                         '{{else}}'+
-                            '<p class="card__text description" id="updateSocial{{socialId}}" data-update="0">{{{trimString social.content 50}}}</p>'+
+                            '<p class="card__text description" id="updateSocial{{socialId}}" data-update="0">{{{trimString social.content 140}}}</p>'+
                             '<p class="card__author">'+
                             '{{#if isTwitter}}'+
                                 '@{{social.user.name}}'+
