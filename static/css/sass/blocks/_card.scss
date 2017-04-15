@@ -118,7 +118,7 @@
     max-width: 750px;
     margin: auto auto auto 0;
     font-family: $heading-font-family;
-    @include text-sm($font-weight: 700, $color: $white, $font-multiplier: 1.23, $line-height: 1.4);
+    @include text-sm($font-weight: 700, $color: $white, $font-multiplier: 1.112, $line-height: 1.4);
     margin-bottom: 22px;
     &::before {
       content: '“';
