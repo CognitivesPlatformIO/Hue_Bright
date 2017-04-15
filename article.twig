@@ -72,7 +72,7 @@
     </div>
         <div class="themesArticle__header">
             <div class="themesArticle__header-container">
-                <div class="themesArticle__profile">
+                <div class="themesArticle-user__profile">
                     {% set creatorImage = _Media.getMediaUrl(article.createdBy['media'], 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'})%}
                     <span class="themesArticle-user__user-image" style="background-image:url('{{creatorImage}}');"></span>
                     <div class="themesArticle-user__author-wrap">
