@@ -16,7 +16,7 @@
 {% endif %}
 
 {{this.registerJs("HomeController.article();")}}
-<div class="article--category_{{article.blog['id']}} article--category" itemscope itemtype="http://schema.org/NewsArticle">
+<div class="themesArticle--category_{{article.blog['id']}} themesArticle--category" itemscope itemtype="http://schema.org/NewsArticle">
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
     <meta itemprop="url" content="{{article.url}}">
     <meta itemprop="dateModified" content="{{article.updatedAt}}">
@@ -49,12 +49,12 @@
            </div>
            {% for article in _Article.getRecentArticles({excludeArticleIds:{0:article.id}, limit: 10}) %}
                 {% if article is defined %}
-                    <a class="article-thumb" href="{{ article.url }}">
+                    <a class="themesArticle-thumb" href="{{ article.url }}">
                         {% if article.featuredMedia['articleCloudinaryId'] is defined and article.featuredMedia['articleCloudinaryId'] is not empty %}
                             {% set image = _Media.getMediaUrl(article.featuredMedia, 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'})%}
-                            <div class="article-thumb__image" style="background-image: url({{ image }})"></div>
+                            <div class="themesArticle-thumb__image" style="background-image: url({{ image }})"></div>
                         {% endif %}
-                        <div class="article-thumb__headline">{{ article.title|striptags[:50] ~ '...' }}</div>
+                        <div class="themesArticle-thumb__headline">{{ article.title|striptags[:50] ~ '...' }}</div>
                     </a>
                 {% endif %}
             {% endfor %}
@@ -64,20 +64,20 @@
 </header>
 <!-- end article banner -->
 
-<div class="article">
-    <div class="article__header-wrap">
-        <h1 class="article__headline" itemprop="headline">{{article.title}}</h1>
+<div class="themesArticle">
+    <div class="themesArticle__header-wrap">
+        <h1 class="themesArticle__headline" itemprop="headline">{{article.title}}</h1>
         {% set readingTime = Helper.getEstimatedReadingTime(article.content)%}
-        <span class="article__date"><span itemprop="datePublished">{{article.publishedDate}}</span>  •••  {{Helper.renderReadingTime(readingTime) | raw}}</span>
+        <span class="themesArticle__date"><span itemprop="datePublished">{{article.publishedDate}}</span>  •••  {{Helper.renderReadingTime(readingTime) | raw}}</span>
     </div>
-        <div class="article__header">
-            <div class="article__header-container">
-                <div class="article-user__profile">
+        <div class="themesArticle__header">
+            <div class="themesArticle__header-container">
+                <div class="themesArticle__profile">
                     {% set creatorImage = _Media.getMediaUrl(article.createdBy['media'], 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'})%}
-                    <span class="article-user__user-image" style="background-image:url('{{creatorImage}}');"></span>
-                    <div class="article-user__author-wrap">
-                        <span class="article-user__author" itemprop="author">{{article.createdBy['displayName'] | capitalize}}</span>
-                        <div class="article-user__button-wrap">
+                    <span class="themesArticle-user__user-image" style="background-image:url('{{creatorImage}}');"></span>
+                    <div class="themesArticle-user__author-wrap">
+                        <span class="themesArticle-user__author" itemprop="author">{{article.createdBy['displayName'] | capitalize}}</span>
+                        <div class="themesArticle__button-wrap">
                             
                             {% set status = 'follow' %}
                             {% set text = 'Follow' %}
@@ -93,11 +93,11 @@
                                 <a href="javascript:;" class="button button-sm button__follow followArticleBtn" data-guid="{{article.createdBy['guid']}}" data-status="{{status}}">{{text}}</a>
                             {% endif%}
                             
-                            <span class="article-user__author-bio">{{article.createdBy['bio']}}</span>
+                            <span class="themesArticle-user__author-bio">{{article.createdBy['bio']}}</span>
                         </div>
                     </div>
                 </div>
-                <div class="article__header-actions">
+                <div class="themesArticle__header-actions">
                     {% if network.thirdPartyIntegrations['disqus'] | length > 0 and network.thirdPartyIntegrations['disqus']['shortName'] != '' %}
                         <a href="#comments" class="button button__comments header_actions header_actions__comments">Comments</a>
                     {% endif %}
@@ -142,7 +142,7 @@
             </div>
         </div>
     {% if article.media | length > 0 %}
-        <div class="article__image">
+        <div class="themesArticle__image">
             <div class="slides">
                 {% for media in article.media %}
                     <div class="slide lazyload-remove" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" data-thumbnail="{{media.path}}" data-original="{{media.path}}" style="background-image: url({{media.path}})">

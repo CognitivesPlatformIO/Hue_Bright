@@ -40,7 +40,7 @@
     {% set isPage = 'content_box_page' in _Page.getBodyClass() %}
     
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1492242621897" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1492246262260" type="text/css" media="all">
     {% else %}
         <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.fancybox/source/jquery.fancybox.css" />
         <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.noty-2.3.8/demo/animate.css" />
@@ -61,7 +61,7 @@
     body, .body, p, a.header__navigation-link {
     font-family: "Open Sans", sans-serif;
     }
-    .article p, .article li, figcaption {
+    .themesArticle p, .themesArticle li, figcaption {
     font-family: 'PT Sans', sans-serif;
     }
     
@@ -191,8 +191,8 @@
 
     <div class="SwappingHelper" style="display:none">
         <div style="width: 270px; height: 105px; padding: 3px; background-color: #FFF; max-width: 270px; max-height: 105px; overflow: hidden; z-index: 999 !important;">
-            <img class="article-image" src="{{networkData.placeHolder100x100}}" style="width:97px; height: 97px; float: left;" />
-            <p class="article-text" style="width: 165px; float: left; padding-left: 3px;color: #394659;font-size: 14px; font-family: Droid Serif,serif; line-height: 20px; margin-top:0px;">Dummy text  </p>
+            <img class="themesArticle-image" src="{{networkData.placeHolder100x100}}" style="width:97px; height: 97px; float: left;" />
+            <p class="themesArticle-text" style="width: 165px; float: left; padding-left: 3px;color: #394659;font-size: 14px; font-family: Droid Serif,serif; line-height: 20px; margin-top:0px;">Dummy text  </p>
         </div>
     </div>
     {{ this.render('partials/account-modal.twig', {network: networkData}) | raw }}
