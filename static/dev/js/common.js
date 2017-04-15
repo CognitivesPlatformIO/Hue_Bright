@@ -6,7 +6,7 @@
 
         $('.article img').each(function () {
             if (!$(this).hasClass('share-popup__close')) {
-                $(this).attr('data-action', 'zoom');
+                // $(this).attr('data-action', 'zoom');
             }
         });
 
