@@ -136,7 +136,7 @@ body {
   }
 }
 
-.themesArticle-user {
+.article-user {
   &__author {
     @include text-sm($font-multiplier: 0.78);
     margin-bottom: 7px;

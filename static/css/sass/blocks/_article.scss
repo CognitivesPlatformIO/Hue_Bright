@@ -1,4 +1,4 @@
-.themesArticle, .static-page__body {
+.article, .static-page__body {
     padding: 0 15px;
     @include desktop {
         padding:0;
@@ -66,7 +66,7 @@
     }
 }
 
-.themesArticle { 
+.article { 
     &__image {
         height:300px;
         @include image_background;
@@ -119,7 +119,7 @@
             margin-right:0;
             width: 100%;
         }
-        .themesArticle-user__user-image {
+        .article-user__user-image {
             margin-right: 0;
             @include tablet {
                 margin-right: 24px;
