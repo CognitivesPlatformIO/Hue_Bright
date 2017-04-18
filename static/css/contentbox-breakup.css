@@ -124,7 +124,9 @@
 .content_box_page h6 {
     font-size: 1em;
 }
-
+.content_box_page .header__search-btn {
+    top: 7px;
+}
 
 
 /* Begin Media queries */
