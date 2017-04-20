@@ -10,7 +10,7 @@
         position: relative;
         z-index: 20;
     }
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3, h4, h5, h6 { 
         color: $body-text;
     }
     h1 {
@@ -29,6 +29,14 @@
         margin-top: 30px;
         @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1.1);
     }
+    h5 {
+        margin-top: 30px;
+        @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1.05);
+    }
+    h6 {
+        margin-top: 30px;
+        @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1);
+    }
     p {
         @include text-md($font-multiplier: 0.94, $color: $article-body-text, $line-height: 1.65);
         margin-top: 26px;
@@ -40,10 +48,19 @@
         @include text-md($font-multiplier: 0.94, $color: $article-body-text);
     }
     ol, ul {
+        overflow: hidden;
         margin-bottom: 20px;
-        margin-left: 20px;
+        padding-left: 25px;
         li {
-            list-style-position: inside;
+            @include text-md($font-multiplier: 0.94, $color: $article-body-text);
+            width: 100%;
+            float: left;
+            list-style-position: outside;
+            padding-left: 7px;
+            margin-bottom: 10px;
+            > p {
+                margin-bottom: 0px; 
+            }
         }
     }
     ul li {
