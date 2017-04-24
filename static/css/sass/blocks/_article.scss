@@ -49,7 +49,7 @@
     }
     ol, ul {
         overflow: hidden;
-        margin-bottom: 20px;
+        margin-top: 26px;
         padding-left: 25px;
         li {
             @include text-md($font-multiplier: 0.94, $color: $article-body-text);
@@ -57,7 +57,10 @@
             float: left;
             list-style-position: outside;
             padding-left: 7px;
-            margin-bottom: 10px;
+            
+            + li {
+                margin-top: 10px;
+            }
             > p {
                 margin-bottom: 0px; 
             }
@@ -80,6 +83,10 @@
             margin-left: -200px;
             margin-right: -200px;
         }
+    }
+    blockquote {
+        padding-left: 30px;
+        margin-bottom: 27px;   
     }
 }
 
@@ -112,9 +119,9 @@
         }
         a {
             border-bottom: 1px solid $dark-color !important;
-            color: $dark-color !important;
+            color: $dark-color;
             &:hover, &:focus {
-                color: $hover-color !important;
+                color: $hover-color;
                 border-color: $hover-color !important;
             }
         }

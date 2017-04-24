@@ -50,7 +50,7 @@
     height: 100vh !important;
 }
 .is-wrapper .is-light-text * {
-    color: inherit !important;
+    color: inherit;
 }
 .content_box_page .is-box .is-container {
     margin-top: 80px;
