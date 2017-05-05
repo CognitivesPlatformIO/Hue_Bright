@@ -45,7 +45,7 @@
         {% if userOwnerBlogs is defined and userOwnerBlogs | length > 0 %}
             <div class="user-posts-content__title">Contributes To:</div>
             <div class="user-posts-content__post-section">
-                {{this.render('partials/user-profile/_user_blogs.twig', {userOwnerBlogs : userOwnerBlogs}) | raw }}
+                {{this.render('partials/user-profile/_user_blogs.twig', {userOwnerBlogs : userOwnerBlogs, network: network}) | raw }}
             </div>
         {% endif %}
         
@@ -53,7 +53,7 @@
             <div class="user-posts-content__title">Following:</div>
             <div class="user-posts-content__post-section">
                 <div class="channel-thumb__container channels">
-                    {{this.render('partials/user-profile/_user_following_blog.twig', {myBlogs : myBlogs}) | raw }}                    
+                    {{this.render('partials/user-profile/_user_following_blog.twig', {myBlogs : myBlogs, network: network}) | raw }}                    
                 </div>
             </div>
         {% endif %}
@@ -62,7 +62,7 @@
             <div class="user-posts-content__title">Following Users:</div>
             <div class="user-posts-content__post-section">
                 <div class="card-container">
-                    {{this.render('partials/user-profile/_user_following_writer.twig', {myFollowings : myFollowings}) | raw }}
+                    {{this.render('partials/user-profile/_user_following_writer.twig', {myFollowings : myFollowings, network: network}) | raw }}
                 </div>
             </div>
         {% endif %}
