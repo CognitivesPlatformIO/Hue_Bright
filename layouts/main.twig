@@ -206,6 +206,7 @@
         </div>
         {{ this.render('partials/account-modal.twig', {network: networkData}) | raw }}
         {{ this.render('partials/_javascript.twig', {networkData: networkData}) | raw }}
+        <script src='https://www.google.com/recaptcha/api.js'></script>
         {{ this.endBody() }}
     </body>
 </html>

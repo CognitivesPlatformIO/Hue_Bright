@@ -1,5 +1,6 @@
 {{ set(this, 'title', 'User Profile') }}
 
+{% set network = _Network.getNetworkData()%}
 {{this.registerJs("$('.loginModal').loginModal({});")}}
 <div class="user-posts">
     <div class="user-posts-header">
@@ -11,10 +12,10 @@
             <div class="user-posts-header__title">
                 <h1 class="user-posts-header__text">{{Html.encode(userDetails.firstname)}} {{Html.encode(userDetails.lastname)}}</h1>
 
-                {% if _User.isGuest() %}
+                {% if _User.isGuest() and not _Network.isNetworkClosed(network) %}
                     <span class="user-posts-header__follow button button__profile-follow loginModal">Follow</span>
                 {% endif %}
-                {% if not _User.isGuest() and _User.getId() != userDetails.id %}
+                {% if not _User.isGuest() and _User.getId() != userDetails.id and not _Network.isNetworkClosed(network) %}
                     {% set isUserFollowing = _User.isUserFollowing('user', userDetails.id)  %}
                     <span class="user-posts-header__follow button button__profile-follow FollowProfileUser"  data-guid="{{userDetails.guid}}" data-status="{% if isUserFollowing == 'TRUE' %}unfollow{% else %} follow {% endif %}">{% if isUserFollowing == 'TRUE' %} Unfollow {% else %} Follow {% endif %}</span>
                 {% endif %}

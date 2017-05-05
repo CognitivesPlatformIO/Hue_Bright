@@ -5,13 +5,14 @@
 <div class="login">
     <div class="login__content">
         <ul class="login__tabs" role="tablist">
-            <li role="presentation" class="loginTab {{ (login is defined and login == 'TRUE') ? 'active' : '' }}"><a class="" href="#signIn" aria-controls="signIn" role="tab" data-toggle="tab">Login</a></li>
             {% if not _Network.isNetworkClosed(network)%}
-            <li role="presentation" class="signupTab {{ (signup is defined and signup == 'TRUE') ? 'active' : '' }}"><a  href="#signUp" aria-controls="signUp" role="tab" data-toggle="tab">Sign Up</a></li>
+                <li role="presentation" class="loginTab {{ (login is defined and login == 'TRUE') ? 'active' : '' }}"><a class="" href="#signIn" aria-controls="signIn" role="tab" data-toggle="tab">Login</a></li>
+                <li role="presentation" class="signupTab {{ (signup is defined and signup == 'TRUE') ? 'active' : '' }}"><a  href="#signUp" aria-controls="signUp" role="tab" data-toggle="tab">Sign Up</a></li>
             {% endif %}
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
+            {% if not _Network.isNetworkClosed(network)%}
             <div role="tabpanel" class="tab-pane login__content-wrapper {{ (login is defined and login == 'TRUE') ? 'active' : '' }}" id="signIn">
                 <div class="login__o-login_button-wrap">
                     <a href="{{_AppHelper.getSocialFacebookUrl(1)}}" class="login__button facebook-login">
@@ -51,7 +52,7 @@
                     </div>
                 </form>
             </div>
-           {% if not _Network.isNetworkClosed(network)%}
+           
             <div role="tabpanel" class="tab-pane sign-up {{ (signup is defined and signup == 'TRUE') ? 'active' : '' }}" id="signUp">
                 <div class="sign-up__o-login_button-wrap">
                     <a href="{{_AppHelper.getSocialFacebookUrl()}}" class="sign-up__button facebook-sign-up">
