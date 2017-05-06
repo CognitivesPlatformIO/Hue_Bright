@@ -1,10 +1,7 @@
 {# Article Twig template #} 
 {{ set(this, 'title', article.title) }}
 
-
-
 {% set network = _Network.getNetworkData() %}
-
 {% set publisher = {height: 60, width: 600, name: network.title, logo: ''} %}
 {% if network.logoMedia | length > 0 %}
     {% set publisher = publisher|merge({logo:_Media.getMediaUrl(network.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}

@@ -43,7 +43,9 @@
             </a>
             <div class="header__search-container">
                 <div class="header__heading visible_desktop">
-                    <a href="javascript:void(0)" class="header__heading-link" id="login">Sign In</a>
+                    {% if not _Network.isNetworkClosed(network)%}
+                        <a href="javascript:void(0)" class="header__heading-link" id="login">Sign In</a>
+                    {% endif %}
                     <div class="header__search">
                         <form class="searchArticleForm" action="{{blog.url}}/search" method="get" autocomplete="off">
                             <input type="text" class="header__search-text" placeholder="Search" name ="s" value="{{_AppHelper.getRequest('s')}}" required>

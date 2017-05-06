@@ -17,7 +17,9 @@
             </div>
             <div class="account-modal__navigation_list">
                 {% if not _User.isGuest()%}
-                    <div class="account-modal__navigation_item account-modal__navigation_item--following active">Following</div>
+                    {% if not _Network.isNetworkClosed(network)%}
+                        <div class="account-modal__navigation_item account-modal__navigation_item--following active">Following</div>
+                    {% endif %}
                     <div class="account-modal__navigation_item account-modal__navigation_item--profile">
                         Profile
                         {# Profile progress bar needs to be configured for cognitives platform #}
@@ -44,6 +46,7 @@
                 {% set followingBlogs = _User.getBlogsFollowedByUser(user.guid) %}
                 {% set followingUsers = _User.getUserFollowings(user.guid) %}
                 {# Following Content #}
+                {% if not _Network.isNetworkClosed(network)%}
                 <form id="followForm" class="account-modal__content_section account-modal__content_section--following active">
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     <div class="account-modal__content_title account-modal__content_title--no-margin">Topics</div>
@@ -112,6 +115,7 @@
                     </div>
                     <button class="account-modal__buttons_following account-button account-button--save">Save</button>
                 </form>
+                {% endif %}
                 {# Profile Content #}
                 <form id="profileForm" class="account-modal__content_section account-modal__content_section--profile">
                     <input type="hidden" name="user_id" value="{{user.id}}">
