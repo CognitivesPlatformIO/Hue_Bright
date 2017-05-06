@@ -1,15 +1,7 @@
 {# Article Twig template #} 
 {{ set(this, 'title', article.title) }}
 
-{% set status = 'follow' %}
-{% set text = 'Follow' %}
-{% if not _User.isGuset() and _User.isUserFollowing('blog', article.blog['id'])%}
-    {% set status = 'unfollow' %}
-    {% set text = 'Unfollow' %}
-{% endif %}
-
 {% set network = _Network.getNetworkData() %}
-
 {% set publisher = {height: 60, width: 600, name: network.title, logo: ''} %}
 {% if network.logoMedia | length > 0 %}
     {% set publisher = publisher|merge({logo:_Media.getMediaUrl(network.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
@@ -35,16 +27,24 @@
     <div class="banner__scroll-container">
         <div class="banner__container">
             <div class="banner__button-wrap">
-                {% if _User.isGuest() %}
-                    <div class="banner__button loginModal">
-                        <img class="banner__button-icon" src="{{network.templatePath}}/static/images/icons/follow.svg" alt="follow {{article.blog['title']}} icon">
-                        <span>Follow {{ article.blog['title'] | capitalize }}</span>
-                    </div> 
-                {% else %}
-                    <div class="banner__button followBlog" data-guid="{{article.blog['guid']}}" data-status="{{status}}" data-label="{{ article.blog['title'] | capitalize }}">
-                        <img class="banner__button-icon" src="{{network.templatePath}}/static/images/icons/follow.svg" alt="follow {{article.blog['title']}} icon">
-                        <span class="followTxt">{{text}} {{ article.blog['title'] | capitalize }}</span>
-                    </div>
+                {%if not _Network.isNetworkClosed(network)%}
+                    {% set status = 'follow' %}
+                    {% set text = 'Follow' %}
+                    {% if not _User.isGuset() and _User.isUserFollowing('blog', article.blog['id'])%}
+                        {% set status = 'unfollow' %}
+                        {% set text = 'Unfollow' %}
+                    {% endif %}
+                    {% if _User.isGuest() %}
+                        <div class="banner__button loginModal">
+                            <img class="banner__button-icon" src="{{network.templatePath}}/static/images/icons/follow.svg" alt="follow {{article.blog['title']}} icon">
+                            <span>Follow {{ article.blog['title'] | capitalize }}</span>
+                        </div> 
+                    {% else %}
+                        <div class="banner__button followBlog" data-guid="{{article.blog['guid']}}" data-status="{{status}}" data-label="{{ article.blog['title'] | capitalize }}">
+                            <img class="banner__button-icon" src="{{network.templatePath}}/static/images/icons/follow.svg" alt="follow {{article.blog['title']}} icon">
+                            <span class="followTxt">{{text}} {{ article.blog['title'] | capitalize }}</span>
+                        </div>
+                    {% endif %}
                 {% endif %}
            </div>
            {% for article in _Article.getRecentArticles({excludeArticleIds:{0:article.id}, limit: 10}) %}
@@ -77,22 +77,22 @@
                     <span class="article-user__user-image" style="background-image:url('{{creatorImage}}');"></span>
                     <div class="article-user__author-wrap">
                         <span class="article-user__author" itemprop="author">{{article.createdBy['displayName'] | capitalize}}</span>
-                        <div class="article-user__button-wrap">
-                            
-                            {% set status = 'follow' %}
-                            {% set text = 'Follow' %}
-                            {% set userFollowClass = '' %}
-                            {% if not _User.isGuest() and _User.isUserFollowing('writer', article.createdBy['id'])%}
-                                {% set status = 'unfollow' %}
-                                {% set text = 'Unfollow' %}
-                                {% set userFollowClass = 'active' %}
-                            {% endif %}
-                            {% if _User.isGuest() %}
-                                <a href="javascript:;" class="button button-sm button__follow loginModal">Follow</a>
-                            {% elseif article.createdBy['id'] != _User.getId() %}
-                                <a href="javascript:;" class="button button-sm button__follow followArticleBtn" data-guid="{{article.createdBy['guid']}}" data-status="{{status}}">{{text}}</a>
+                        <div class="article__button-wrap">
+                            {%if not _Network.isNetworkClosed(network)%}
+                                {% set status = 'follow' %}
+                                {% set text = 'Follow' %}
+                                {% set userFollowClass = '' %}
+                                {% if not _User.isGuest() and _User.isUserFollowing('writer', article.createdBy['id'])%}
+                                    {% set status = 'unfollow' %}
+                                    {% set text = 'Unfollow' %}
+                                    {% set userFollowClass = 'active' %}
+                                {% endif %}
+                                {% if _User.isGuest() %}
+                                    <a href="javascript:;" class="button button-sm button__follow loginModal">Follow</a>
+                                {% elseif article.createdBy['id'] != _User.getId() %}
+                                    <a href="javascript:;" class="button button-sm button__follow followArticleBtn" data-guid="{{article.createdBy['guid']}}" data-status="{{status}}">{{text}}</a>
+                                {% endif%}
                             {% endif%}
-                            
                             <span class="article-user__author-bio">{{article.createdBy['bio']}}</span>
                         </div>
                     </div>
@@ -175,10 +175,11 @@
             </div>
         </div>
     {% endif %}
-    <div class="article__container" itemprop="articleBody">
-        
+    <div class="article__container" itemprop="articleBody">        
         {{article.content | raw}}
-        
+    </div>    
+        {{this.render('partials/_cta.twig',{keyword: 'cta_2'}) | raw}}  
+    <div class="article__container">       
         <!-- Disqus Plugin Render Here -->
         {% if network.thirdPartyIntegrations['disqus'] | length > 0 and network.thirdPartyIntegrations['disqus']['shortName'] != '' %}
             <h3 id="comments" class="comments__header">Comments</h3>

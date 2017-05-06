@@ -10,7 +10,7 @@
         position: relative;
         z-index: 20;
     }
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3, h4, h5, h6 { 
         color: $body-text;
     }
     h1 {
@@ -29,6 +29,14 @@
         margin-top: 30px;
         @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1.1);
     }
+    h5 {
+        margin-top: 30px;
+        @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1.05);
+    }
+    h6 {
+        margin-top: 30px;
+        @include text-lg($color: $body-text, $line-height: 1.24, $font-multiplier-sm: 1);
+    }
     p {
         @include text-md($font-multiplier: 0.94, $color: $article-body-text, $line-height: 1.65);
         margin-top: 26px;
@@ -40,10 +48,22 @@
         @include text-md($font-multiplier: 0.94, $color: $article-body-text);
     }
     ol, ul {
-        margin-bottom: 20px;
-        margin-left: 20px;
+        overflow: hidden;
+        margin-top: 26px;
+        padding-left: 25px;
         li {
-            list-style-position: inside;
+            @include text-md($font-multiplier: 0.94, $color: $article-body-text);
+            width: 100%;
+            float: left;
+            list-style-position: outside;
+            padding-left: 7px;
+            
+            + li {
+                margin-top: 10px;
+            }
+            > p {
+                margin-bottom: 0px; 
+            }
         }
     }
     ul li {
@@ -64,9 +84,13 @@
             margin-right: -200px;
         }
     }
+    blockquote {
+        padding-left: 30px;
+        margin-bottom: 27px;   
+    }
 }
 
-.article {
+.article { 
     &__image {
         height:300px;
         @include image_background;
@@ -95,9 +119,9 @@
         }
         a {
             border-bottom: 1px solid $dark-color !important;
-            color: $dark-color !important;
+            color: $dark-color;
             &:hover, &:focus {
-                color: $hover-color !important;
+                color: $hover-color;
                 border-color: $hover-color !important;
             }
         }

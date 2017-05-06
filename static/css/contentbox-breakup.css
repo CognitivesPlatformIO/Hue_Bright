@@ -49,6 +49,9 @@
 .is-wrapper > div.is-section-100 {
     height: 100vh !important;
 }
+.is-wrapper .is-light-text * {
+    color: inherit;
+}
 .content_box_page .is-box .is-container {
     margin-top: 80px;
     margin-bottom: 80px;
@@ -124,7 +127,9 @@
 .content_box_page h6 {
     font-size: 1em;
 }
-
+.content_box_page .header__search-btn {
+    top: 8px;
+}
 
 
 /* Begin Media queries */

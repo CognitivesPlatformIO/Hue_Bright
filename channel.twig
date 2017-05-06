@@ -7,7 +7,7 @@
 {% set limit = 10 %}
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
-
+{% set networkData = _Network.getNetworkData() %}
 <div class="channel ajaxArticles" data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}" data-offset="{{limit}}">
     <div class="col-half">
         <article class="card--channel channel-1">
@@ -39,17 +39,18 @@
                                     </svg>
                                     Share  {{this.render('partials/share-popup.twig', {shareUrl: blogInfo.url }) | raw}}
                                 </div>
-                                {% if not _User.isGuest %}
-                                    {% set isUserFollowingBlog = _User.isUserFollowing('blog', blogInfo.id) %}
-                                    {% if isUserFollowingBlog %}
-                                        <button class="button button__follow button__follow button__follow--borderless followBlog" data-status="unfollow"  data-guid="{{blogInfo.guid}}">Following</button>
+                                {%if not _Network.isNetworkClosed(networkData) %}
+                                    {% if not _User.isGuest %}
+                                        {% set isUserFollowingBlog = _User.isUserFollowing('blog', blogInfo.id) %}
+                                        {% if isUserFollowingBlog %}
+                                            <button class="button button__follow button__follow button__follow--borderless followBlog" data-status="unfollow"  data-guid="{{blogInfo.guid}}">Following</button>
                                         {% else %}
                                             <button  class="button button__follow button__follow--borderless followBlog" data-status="follow"  data-guid="{{blogInfo.guid}}">Follow</button>
                                         {% endif %}
                                     {% else %}
-                                    <button  class="button button__follow button__follow button__follow--borderless loginModal">Follow</button>
+                                        <button  class="button button__follow button__follow button__follow--borderless loginModal">Follow</button>
                                     {% endif %}
-                                
+                                {% endif %}
                             </div>
                         </div>
                     </div>

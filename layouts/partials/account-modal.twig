@@ -17,7 +17,9 @@
             </div>
             <div class="account-modal__navigation_list">
                 {% if not _User.isGuest()%}
-                    <div class="account-modal__navigation_item account-modal__navigation_item--following active">Following</div>
+                    {% if not _Network.isNetworkClosed(network)%}
+                        <div class="account-modal__navigation_item account-modal__navigation_item--following active">Following</div>
+                    {% endif %}
                     <div class="account-modal__navigation_item account-modal__navigation_item--profile">
                         Profile
                         {# Profile progress bar needs to be configured for cognitives platform #}
@@ -44,6 +46,7 @@
                 {% set followingBlogs = _User.getBlogsFollowedByUser(user.guid) %}
                 {% set followingUsers = _User.getUserFollowings(user.guid) %}
                 {# Following Content #}
+                {% if not _Network.isNetworkClosed(network)%}
                 <form id="followForm" class="account-modal__content_section account-modal__content_section--following active">
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     <div class="account-modal__content_title account-modal__content_title--no-margin">Topics</div>
@@ -112,6 +115,7 @@
                     </div>
                     <button class="account-modal__buttons_following account-button account-button--save">Save</button>
                 </form>
+                {% endif %}
                 {# Profile Content #}
                 <form id="profileForm" class="account-modal__content_section account-modal__content_section--profile">
                     <input type="hidden" name="user_id" value="{{user.id}}">
@@ -163,26 +167,26 @@
                         </div>
                         <div class="account-modal__input_requirement"></div>
                     </div>
-					<div class="account-modal__content_item-container">
-						{% set newsletter = 'never'%}
-						{% if user.userSettings['isNewsletterEnable'] %} 
-							{% set newsletter = user.userSettings['newsletterFrequency'] %}
-						{% endif %}
-						<input type="hidden" name="newsletterFrequency" id="newsletterFrequency" value="{{user.userSettings['isNewsletterEnable']}}">
-						<div class="account-modal__select account-modal__select--more-margin">
-							<div class="account-modal__select_content">
-								<div class="account-modal__select_label">Newsletter</div>
-								<img class="account-modal__select_arrow" src="{{network.templatePath}}/static/images/icons/account-modal-select-arrow.svg" alt="Select dropdown arrow">
-								<div class="account-modal__select_selected-item-container">{{newsletter|capitalize}}</div>
-								<div class="account-modal__select_list">
-									<div class="account-modal__select_list-item" data-id="1">Never</div>
-									<div class="account-modal__select_list-item" data-id="daily">Daily</div>
-									<div class="account-modal__select_list-item" data-id="weekly">Weekly</div>
-									<div class="account-modal__select_list-item" data-id="monthly">Monthly</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                    <div class="account-modal__content_item-container">
+                            {% set newsletter = 'never'%}
+                            {% if user.userSettings['isNewsletterEnable'] %} 
+                                    {% set newsletter = user.userSettings['newsletterFrequency'] %}
+                            {% endif %}
+                            <input type="hidden" name="newsletterFrequency" id="newsletterFrequency" value="{{user.userSettings['isNewsletterEnable']}}">
+                            <div class="account-modal__select account-modal__select--more-margin">
+                                    <div class="account-modal__select_content">
+                                            <div class="account-modal__select_label">Newsletter</div>
+                                            <img class="account-modal__select_arrow" src="{{network.templatePath}}/static/images/icons/account-modal-select-arrow.svg" alt="Select dropdown arrow">
+                                            <div class="account-modal__select_selected-item-container">{{newsletter|capitalize}}</div>
+                                            <div class="account-modal__select_list">
+                                                    <div class="account-modal__select_list-item" data-id="1">Never</div>
+                                                    <div class="account-modal__select_list-item" data-id="daily">Daily</div>
+                                                    <div class="account-modal__select_list-item" data-id="weekly">Weekly</div>
+                                                    <div class="account-modal__select_list-item" data-id="monthly">Monthly</div>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
                     <div class="account-modal__error">
                         <div class="account-modal__error_text">Error</div>
                     </div>
@@ -255,7 +259,7 @@
                     </div>
                     <button class="account-modal__buttons_account account-button account-button--save">Save</button>
                 </form>
-            {% else %}
+            {% elseif not _Network.isNetworkClosed(network) %}
                 {# Login Content #}
                 <form name="loginForm" id="loginForm" class="account-modal__content_section account-modal__content_section--login active" action="javascript:void(0);" method="post" accept-charset="UTF-8">
 
@@ -403,21 +407,25 @@
                         </div>
                         
                     </div>
-                    <div class="account-modal__content_container">
-                        <div class="account-modal__content_item-container">
-                            <div class="account-modal__input-container">
-                                <div class="account-modal__input_content captcha">
-                                    {{_AppForm.captcha({class: 'account-modal__input account-modal__input--captcha', placeholder: 'Enter the text shown above'}) | raw }}
+                    {% if _Network.getCaptchaSiteKey() is defined and _Network.getCaptchaSiteKey() is not empty %}
+                        <div class="g-recaptcha" data-sitekey="{{_Network.getCaptchaSiteKey()}}" style="padding-bottom:30px;"></div>
+                    {% else %}           
+                        <div class="account-modal__content_container">
+                            <div class="account-modal__content_item-container">
+                                <div class="account-modal__input-container">
+                                    <div class="account-modal__input_content captcha">
+                                        {{_AppForm.captcha({class: 'account-modal__input account-modal__input--captcha', placeholder: 'Enter the text shown above'}) | raw }}
+                                    </div>
+                                    <div class="account-modal__input_requirement">
+                                        <span class="account-modal__input_requirement--standard">Required</span>
+                                        <span class="account-modal__input_requirement--error">Required</span>
+                                        <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
+                                        <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
+                                    </div>
                                 </div>
-                                <div class="account-modal__input_requirement">
-                                    <span class="account-modal__input_requirement--standard">Required</span>
-                                    <span class="account-modal__input_requirement--error">Required</span>
-                                    <img class="account-modal__input_requirement--tick" src="{{network.templatePath}}/static/images/icons/account-modal-select-tick.svg" alt="Select required tick">
-                                    <img class="account-modal__input_requirement--cross" src="{{network.templatePath}}/static/images/icons/account-modal-select-cross.svg" alt="Select required tick">
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
+                            </div>                        
+                        </div>
+                    {% endif %}
                     <div class="account-modal__error">
                         <div class="account-modal__error_text">Not all inputs entered correctly.</div>
                     </div>
@@ -436,7 +444,7 @@
             <div class="account-modal__content_container">
                 <div class="account-modal__input-container">
                     <div class="account-modal__input_content">
-                        <div class="account-modal__input_label">Email Adress</div>
+                        <div class="account-modal__input_label">Email Address</div>
                         <input class="account-modal__input account-modal__input--email" type="email" name="email">
                     </div>
                     <div class="account-modal__input_requirement">

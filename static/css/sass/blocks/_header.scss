@@ -1,334 +1,335 @@
 .header {
-  &__heading {
-    position: relative;
-    background-color: $header-color;
-    &-container {
-      @extend .container;
-      display: flex;
-      position: relative;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      @include tablet {
-        padding: 20px;
-        align-items: center;
-      }
-      @include desktop {
-        align-items: flex-start;
-        padding: 50px 0 70px;
-        height: auto;
-      }
-    }
-    &-highlight {
-      background-image: linear-gradient(to right, #ffca75, #ff987d 11%, #ff7b73 25%, #e1779f 39%, #6071d6 55%, #9a6ef7 66%, #5aeac4 80%, #5ed889);      height: 3px;
-    }
-    &-logo {
-      display: inline-block;
-      height: 80px;
-      max-height: 25px;
-      @include tablet {
-        width: auto;
-        max-height:35px;
-      }
-      @include desktop {
-        max-height: 65px;
-      }
-      img {
-        height: 100%;
-      }
-    }
-    &-link {
-      &, &:link, &:visited, &:active {
-        display: inline-block;
-      }
-
-      &#login {
-        display: none;
-      }
-      &--profile {
-        &, &:link, &:visited, &:active {
-          margin-right: 16px;
-          border-left: 1px solid rgba(88,97,125,0.20);
-          height: 100%;
-          display: flex;
-          align-items: center;
-          // Larger width and padding is for the border left
-          width: 51px;
-          padding-left: 16px;
-          @include tablet {
-            padding-left: 21px;
-            margin-right: 21px;
-            width: 61px;
-          }
-          @include desktop {
-            border-left: none;
-            margin-right: 8px;
-          }
-          img {
-            border-radius:100%;
-            width: 35px;
-            height: 35px;
+    &__heading {
+        position: relative;
+        background-color: $header-color;
+        &-container {
+            @extend .container;
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
             @include tablet {
-              width: 40px;
-              height: 40px;
+                padding: 20px;
+                align-items: center;
             }
             @include desktop {
-              height: 47px;
-              width: 47px;
-              // Funky fix for flex squishing image to 40px
-              min-width: 47px;
+                align-items: flex-start;
+                padding: 50px 0 70px;
+                height: auto;
             }
-          }
         }
-      }
-      &--responsive {
-        border-left: 1px solid rgba(88,97,125,0.20);
-        order: 1;
-        padding: 9px 0 9px 16px;
-        display: flex;
-        align-items: center;
-        // Removing funky line height from a tag
-        height: 100%;
-        line-height: 0;
-        @include tablet {
-          padding-left: 21px;
+        &-highlight {
+            background-image: linear-gradient(to right, #ffca75, #ff987d 11%, #ff7b73 25%, #e1779f 39%, #6071d6 55%, #9a6ef7 66%, #5aeac4 80%, #5ed889);      height: 3px;
         }
+        &-logo {
+            display: flex;
+            align-items: center;
+            height: 80px;
+            max-height: 25px;
+            @include tablet {
+                width: auto;
+                max-height:35px;
+            }
+            @include desktop {
+                max-height: 65px;
+            }
+            img {
+                max-height: 100%;
+            }
+        }
+        &-link {
+            &, &:link, &:visited, &:active {
+                display: inline-block;
+            }
+
+            &#login {
+                display: none;
+            }
+            &--profile {
+                &, &:link, &:visited, &:active {
+                    margin-right: 16px;
+                    border-left: 1px solid rgba(88,97,125,0.20);
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    // Larger width and padding is for the border left
+                    width: 51px;
+                    padding-left: 16px;
+                    @include tablet {
+                        padding-left: 21px;
+                        margin-right: 21px;
+                        width: 61px;
+                    }
+                    @include desktop {
+                        border-left: none;
+                        margin-right: 8px;
+                    }
+                    img {
+                        border-radius:100%;
+                        width: 35px;
+                        height: 35px;
+                        @include tablet {
+                            width: 40px;
+                            height: 40px;
+                        }
+                        @include desktop {
+                            height: 47px;
+                            width: 47px;
+                            // Funky fix for flex squishing image to 40px
+                            min-width: 47px;
+                        }
+                    }
+                }
+            }
+            &--responsive {
+                border-left: 1px solid rgba(88,97,125,0.20);
+                order: 1;
+                padding: 9px 0 9px 16px;
+                display: flex;
+                align-items: center;
+                // Removing funky line height from a tag
+                height: 100%;
+                line-height: 0;
+                @include tablet {
+                    padding-left: 21px;
+                }
+                @include desktop {
+                    display: none;
+                    border-left: none;
+                    height: 47px;
+                }
+                &.close {
+                    display: none;
+                }
+            }
+        }
+        &--left {
+            text-align: right;
+            @include desktop {
+                text-align: right;
+            }
+        }
+        &--right {
+            display: flex;
+            text-align: right;
+            align-items: center;
+            margin-top: -15px;
+            height: calc(35px + 30px);
+            margin-bottom: -15px;
+            @include tablet {
+                margin-top: -20px;
+                height: calc(35px + 40px);
+                margin-bottom: -20px;
+            }
+            @include desktop {
+                align-items: flex-end;
+            }
+        }
+    }
+    // Navigation only visible on desktop screen size
+    &__navigation {
+        background-color: $header-color;
+        display: none;
         @include desktop {
-          display: none;
-          border-left: none;
-          height: 47px;
+            display: flex;
         }
-        &.close {
-          display: none;
+        &-row {
+            justify-content: space-between;
+            display: flex;
+            width: 100%;
+            @include desktop {
+                align-items: flex-end;
+            }
         }
-      }
+        &-item {
+            display: inline-block;
+            background-color: #EAEBEE;
+            @include transition(background-color 0.4s ease);
+            &:active, &.active, &:hover, &:focus {
+                background-color: #FFFFFF;
+            }
+            &.dropdown {
+                box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.12), inset 1px 0px 0px 0px rgba(0, 0, 0, 0.12), inset 0px 2px 0px 0px #484848;
+            }
+        }
+        &-link {
+            @include text-sm($color: $link-color, $font-multiplier: 0.78, $line-height: 1.42, $font-weight: 700);
+            margin-right: 3px;
+            display: inline-block;
+            text-transform: uppercase;
+            padding: 18px 25px;
+            @include transition(color 0.4s ease);
+        }
     }
-    &--left {
-      text-align: right;
-      @include desktop {
-        text-align: right;
-      }
+    &__search {
+        position: relative;
+        &-container {
+            height: 100%;
+            @include desktop {
+                height: auto;
+                display: flex;
+            }
+        }
+        &-btn {
+            position: absolute;
+            background: transparent;
+            border: none;
+            right:16px;
+            top: 10px;
+            fill: $placeholder;
+        }
+        &-text {
+            width: 265px;
+            height: 47px;
+            border-radius: 100px;
+            background-color: #ffffff;
+            border: solid 1px rgba(#545a6d, 0.5);
+            padding: 8px 15px 8px 24px;
+            @include text-md($font-multiplier: 0.888);
+            font-family: $heading-font-family;
+            @include placeholder ($color: rgba($placeholder, 0.5));
+        }
     }
-    &--right {
-      display: flex;
-      text-align: right;
-      align-items: center;
-      margin-top: -15px;
-      height: calc(35px + 30px);
-      margin-bottom: -15px;
-      @include tablet {
-        margin-top: -20px;
-        height: calc(35px + 40px);
-        margin-bottom: -20px;
-      }
-      @include desktop {
-        align-items: flex-end;
-      }
+    &__search .footer__social-links {
+        display: none;
+        @include desktop {
+            display: block;
+        }
     }
-  }
-  // Navigation only visible on desktop screen size
-  &__navigation {
-    background-color: $header-color;
-    display: none;
-    @include desktop {
-      display: flex;
+    &__login {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 20px;
+        margin-right: 7px;
+        color: $body-text;
+        cursor: pointer;
+        @include desktop {
+            display: flex;
+        }
+        &__link {
+            display: block;
+            @include text-md($font-weight: 600, $font-multiplier: 0.7);
+            &--signup {
+                color: rgb(87, 211, 149);
+            }
+        }
+        &__divider {
+            display: block;
+            width: 113%;
+            height: 1px;
+            background: rgba($body-text, 0.3);
+            margin: 5px 10px;
+        }
     }
-    &-row {
-      justify-content: space-between;
-      display: flex;
-      width: 100%;
-      @include desktop {
-        align-items: flex-end;
-      }
+    .dropdown-menu {
+        width: 100%;
+        padding: 0;
     }
-    &-item {
-      display: inline-block;
-      background-color: #EAEBEE;
-      @include transition(background-color 0.4s ease);
-      &:active, &.active, &:hover, &:focus {
-        background-color: #FFFFFF;
-      }
-      &.dropdown {
-        box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.12), inset 1px 0px 0px 0px rgba(0, 0, 0, 0.12), inset 0px 2px 0px 0px #484848;
-      }
-    }
-    &-link {
-      @include text-sm($color: $link-color, $font-multiplier: 0.78, $line-height: 1.42, $font-weight: 700);
-      margin-right: 3px;
-      display: inline-block;
-      text-transform: uppercase;
-      padding: 18px 25px;
-      @include transition(color 0.4s ease);
-    }
-  }
-  &__search {
-    position: relative;
-    &-container {
-      height: 100%;
-      @include desktop {
-        height: auto;
-        display: flex;
-      }
-    }
-    &-btn {
-      position: absolute;
-      background: transparent;
-      border: none;
-      right:16px;
-      top: 10px;
-      fill: $placeholder;
-    }
-    &-text {
-      width: 265px;
-      height: 47px;
-      border-radius: 100px;
-      background-color: #ffffff;
-      border: solid 1px rgba(#545a6d, 0.5);
-      padding: 8px 15px 8px 24px;
-      @include text-md($font-multiplier: 0.888);
-      font-family: $heading-font-family;
-      @include placeholder ($color: rgba($placeholder, 0.5));
-    }
-  }
-  &__search .footer__social-links {
-    display: none;
-    @include desktop {
-      display: block;
-    }
-  }
-  &__login {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 20px;
-    margin-right: 7px;
-    color: $body-text;
-    cursor: pointer;
-    @include desktop {
-      display: flex;
-    }
-    &__link {
-      display: block;
-      @include text-md($font-weight: 600, $font-multiplier: 0.7);
-      &--signup {
-        color: rgb(87, 211, 149);
-      }
-    }
-    &__divider {
-      display: block;
-      width: 113%;
-      height: 1px;
-      background: rgba($body-text, 0.3);
-      margin: 5px 10px;
-    }
-  }
-  .dropdown-menu {
-    width: 100%;
-    padding: 0;
-  }
 }
 
 // User profile dropdown
 .user-dropdown {
-  display: none;
-  position: relative;
-  top: 170px;
-  right: 35px;
-  z-index: 3;
-  &__container {
-    @extend .container;
-  }
-  &__menu {
-    right:19px;
-    float:right;
-    padding:20px 26px;
-    position: absolute;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px 0 rgba(48, 50, 61, 0.07);
-    border: solid 1px #dcdcdc;
-    border-radius: 10px;
-    top: -15px;
-    @include tablet {
-      right:24px;
+    display: none;
+    position: relative;
+    top: 170px;
+    right: 35px;
+    z-index: 3;
+    &__container {
+        @extend .container;
     }
-    @include desktop {
-      right: 0;
-      top: -56px;
-    }
-    &-profile {
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-    }
-    &-image {
-      background-repeat:no-repeat;
-      background-size:100%;
-      border-radius: 45px;
-      margin-right: 18px;
-      height:56px;
-      width:56px;
-    }
-    &-content {
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    &-name {
-      @include text-sm($font-multiplier: 0.89, $line-height: 0.9, $letter-spacing: 0.01em);
-      margin: 5px 0 4px;
-    }
-    &-email {
-      @include text-sm($font-multiplier: 0.61, $line-height: 1.3, $letter-spacing: 0.01em, $color: #41a7cd);
-    }
-    &-navigation {
-      clear:both;
-      list-style:none;
-      margin-bottom:0px;
-      padding:0px;
-      &:last-child a {
-        border-bottom: none;
-      }
-      &-link {
-        &,
-        &:link,
-        &:visited,
-        &:active {
-          cursor: pointer;
-          display:block;
-          padding: 10px 0;
-          line-height:32px;
-          @include text-sm($font-multiplier: 0.89, $line-height: 1.31, $letter-spacing: 0.01em);
-          text-transform: capitalize;
-          border-top: solid 1px #ececec;
-          border-bottom: solid 1px #ececec;
+    &__menu {
+        right:19px;
+        float:right;
+        padding:20px 26px;
+        position: absolute;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px 0 rgba(48, 50, 61, 0.07);
+        border: solid 1px #dcdcdc;
+        border-radius: 10px;
+        top: -15px;
+        @include tablet {
+            right:24px;
         }
-        &.sign-out {
-          color: #e96269;
+        @include desktop {
+            right: 0;
+            top: -56px;
         }
-        &:hover {
-          color: #41a7cd;
-          &.sign-out {
-            color: #e9313f;
-          }
+        &-profile {
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
         }
-      }
+        &-image {
+            background-repeat:no-repeat;
+            background-size:100%;
+            border-radius: 45px;
+            margin-right: 18px;
+            height:56px;
+            width:56px;
+        }
+        &-content {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        &-name {
+            @include text-sm($font-multiplier: 0.89, $line-height: 0.9, $letter-spacing: 0.01em);
+            margin: 5px 0 4px;
+        }
+        &-email {
+            @include text-sm($font-multiplier: 0.61, $line-height: 1.3, $letter-spacing: 0.01em, $color: #41a7cd);
+        }
+        &-navigation {
+            clear:both;
+            list-style:none;
+            margin-bottom:0px;
+            padding:0px;
+            &:last-child a {
+                border-bottom: none;
+            }
+            &-link {
+                &,
+                &:link,
+                    &:visited,
+                    &:active {
+                    cursor: pointer;
+                    display:block;
+                    padding: 10px 0;
+                    line-height:32px;
+                    @include text-sm($font-multiplier: 0.89, $line-height: 1.31, $letter-spacing: 0.01em);
+                    text-transform: capitalize;
+                    border-top: solid 1px #ececec;
+                    border-bottom: solid 1px #ececec;
+                }
+                &.sign-out {
+                    color: #e96269;
+                }
+                &:hover {
+                    color: #41a7cd;
+                    &.sign-out {
+                        color: #e9313f;
+                    }
+                }
+            }
+        }
     }
-  }
-  &.active {
-    display: block;
-  }
+    &.active {
+        display: block;
+    }
 }
 
 #simplemodal-container {
-  width: 100%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  @include desktop {
-    width: 1170px;
-  }
-  @include desktop-lg {
-    width: 1580px!important;
-  }
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    @include desktop {
+        width: 1170px;
+    }
+    @include desktop-lg {
+        width: 1580px!important;
+    }
 }

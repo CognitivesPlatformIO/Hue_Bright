@@ -10,7 +10,9 @@
 			</div>
 			<ul class="user-dropdown__menu-navigation">
 				<li><a href="{{_AppHelper.buildUrl('user/my-news')}}" class="user-dropdown__menu-navigation-link">My News</a></li><!-- don't open modal, goes to /my-news -->
-                                <li><a href="javascript:void(0);" class="user-dropdown__menu-navigation-link account-modal-link link--following">Following</a></li><!-- open modal at Following Tab -->
+                                {% if not _Network.isNetworkClosed(network)%}
+                                    <li><a href="javascript:void(0);" class="user-dropdown__menu-navigation-link account-modal-link link--following">Following</a></li><!-- open modal at Following Tab -->
+                                {% endif %}
                                 <li><a class="user-dropdown__menu-navigation-link account-modal-link link--profile">Profile</a></li><!-- open modal at Profile Tab -->
 				{% if _User.isAdminUser() %}
                                     <li><a class="user-dropdown__menu-navigation-link" href="http://{{network.defaultDomain['domain']}}/admin/user/account">Settings</a></li>
