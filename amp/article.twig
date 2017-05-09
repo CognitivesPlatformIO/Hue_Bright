@@ -1,0 +1,100 @@
+{# Article Twig template #}
+{{ set(this, 'title', article.title) }}
+{% set network = _Network.getNetworkData() %}
+
+{% set publisher = {height: 60, width: 600, name: network.title, logo: ''} %}
+{% if network.logoMedia | length > 0 %}
+    {% set publisher = publisher|merge({logo:_Media.getMediaUrl(network.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
+{% endif %}
+
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": "{{article.url}}", 
+    "headline": "{{article.title}}",
+    "datePublished": "{{article.publishedDate}}",
+    "dateModified": "{{article.updatedAt}}",
+    "description": "{{article.content}}",
+    "author": {
+    "@type": "Person",
+    "name": "Sebastian Benz"
+    },
+    "publisher": {
+    "@type": "Organization",
+    "name": "{{publisher.name}}",
+    "logo": {
+    "@type": "ImageObject",
+    "url": "{{publisher.logo}}",
+    "width": {{publisher.width}},
+    "height": {{publisher.height}}
+    }
+    },
+    "image": {
+    "@type": "ImageObject",
+    "url": "{{publisher.logo}}",
+    "width": {{publisher.width}},
+    "height": {{publisher.height}}
+    }
+    }
+</script>
+
+<div>
+    {% if article.media|length %}
+        <amp-carousel width="1280" height="600" layout="responsive" type="slides" autoplay="" loop="">
+            {% for media in article.media %}
+                {% if media.type == 'video' %} 
+                    {% set mediaUrl = "" %}
+                    {% if media.isSystemVideo == 'TRUE'%}
+                        {% set mediaUrl = media.video_path  %}
+                    {% else %}
+                        {% if media.source == 'youtube' %}
+                            {% set mediaUrl = "https://www.youtube.com/embed/" ~ media.videoId  %}
+                        {% else %}
+                            {% set mediaUrl = "https://player.vimeo.com/video/" ~ media.videoId  %}
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="video-player">
+                        <amp-video id="myVideo" controls width="1280" height="550" layout="responsive" src="{{mediaUrl}}"></amp-video>
+
+                        <div id="myOverlay" class="click-to-play-overlay">
+                            <div class="play-icon" role="button" tabindex="0" on="tap:myOverlay.hide, myVideo.play"></div>
+                            <amp-img class="poster-image" layout="fill" src="{{media.path}}"></amp-img>
+                        </div>
+                    </div>
+                {% else %}
+                    <figure>
+                        <amp-img src="{{media.path}}" class="" layout="fill"></amp-img>
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        </amp-carousel>
+    {% endif %}
+    <div class="article__body">
+        <div class="article article--category_{{article.blog['id']}} article--category">
+            <div class="article__header">
+                <div class="article__profile">
+                    <a href="{{_AppHelper.buildUrl('profile/user-profile',{name: Html.encode(article.createdBy['username'])})}}">{{article.createdBy['username']}}</a>
+                    <p class="heading">
+                    <amp-social-share type="twitter" width="45" height="33"></amp-social-share>
+                    <amp-social-share type="facebook" width="45" height="33" data-attribution="531506617052166"></amp-social-share>
+                    <amp-social-share type="gplus" width="45" height="33"></amp-social-share>
+                    </p>
+                </div>
+            </div>
+            <div class="article__container">
+                <div class="article__channel_wrap">
+                    <div class="article__channel"><a href="{{article.blog['url']}}">{{ article.label | capitalize }}</a></div>
+                </div>
+                <h1 class="article__headline" itemprop="headline">{{article.title}}</h1>
+                <div class="article__date" itemprop="datePublished">{{article.publishedDate}}</div>
+                {% set readingTime = Helper.getEstimatedReadingTime(article.content)%}
+                <div class="article__intro">{{Helper.renderReadingTime(readingTime) | raw}}</div>
+                <div itemprop="articleBody">
+                    {{article.content | raw}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
