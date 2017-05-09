@@ -408,7 +408,13 @@
                         
                     </div>
                     {% if _Network.getCaptchaSiteKey() is defined and _Network.getCaptchaSiteKey() is not empty %}
-                        <div class="g-recaptcha" data-sitekey="{{_Network.getCaptchaSiteKey()}}" style="padding-bottom:30px;"></div>
+                        <div class="account-modal__content_container">
+                            <div class="account-modal__content_item-container">
+                                <div class="account-modal__input-container">
+                                    <div class="g-recaptcha account-modal__input account-modal__input--captcha" data-sitekey="{{_Network.getCaptchaSiteKey()}}" style="padding-bottom:30px;"></div>
+                                </div>
+                            </div>
+                        </div>
                     {% else %}           
                         <div class="account-modal__content_container">
                             <div class="account-modal__content_item-container">
