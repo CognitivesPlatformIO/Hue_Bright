@@ -51,12 +51,10 @@
         </li>
         {% endfor %}
     </ul>
-    {% if _User.isGuest()%}
+    {% if _User.isGuest() and not _Network.isNetworkClosed(network)%}
         <div class="side-navigation__login">
             <a href="{{_AppHelper.getLoginUrl()}}" class="side-navigation__link side-navigation__link--login">Log In</a>
-            {% if not _Network.isNetworkClosed(network)%}
-                <a href="{{_AppHelper.getSignupUrl()}}" class="side-navigation__link side-navigation__link--login">Sign Up</a>
-            {% endif %}
-        </div>
+            <a href="{{_AppHelper.getSignupUrl()}}" class="side-navigation__link side-navigation__link--login">Sign Up</a>
+       </div>
     {% endif %}
 </div> 

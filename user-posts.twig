@@ -10,10 +10,10 @@
         <div class="user-posts-header__content">
             <div class="user-posts-header__title">
                 <h1 class="user-posts-header__text">{{Html.encode(user.firstname)}} {{Html.encode(user.lastname)}}</h1>
-                {% if _User.isGuest() %}
+                {% if _User.isGuest() and not _Network.isNetworkClosed(networkData) %}
                     <span class="user-posts-header__follow button button__profile-follow loginModal">Follow</span>
                 {% endif %}
-                {% if not _User.isGuest() and _User.getId() != user.id %}
+                {% if not _User.isGuest() and _User.getId() != user.id and not _Network.isNetworkClosed(networkData) %}
                     {% set isUserFollowing = _User.isUserFollowing('user', user.id)  %}
                     <span class="user-posts-header__follow button button__profile-follow FollowProfileUser"  data-guid="{{user.guid}}" data-status="{% if isUserFollowing == 'TRUE' %}unfollow{% else %} follow {% endif %}">{% if isUserFollowing == 'TRUE' %} Unfollow {% else %} Follow {% endif %}</span>
                 {% endif %}
