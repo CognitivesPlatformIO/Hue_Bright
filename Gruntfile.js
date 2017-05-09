@@ -44,7 +44,8 @@ module.exports = function(grunt) {
                         'static/dev/js/search.js',
                         'static/dev/js/common.js',
                         'static/dev/js/account-modal.js',
-                        'static/dev/js/user-profile.js'
+                        'static/dev/js/user-profile.js',
+                        'static/dev/js/login.js'
                     ]
                 }
             }
