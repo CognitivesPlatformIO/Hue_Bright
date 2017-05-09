@@ -47,7 +47,7 @@
                 {% set followingUsers = _User.getUserFollowings(user.guid) %}
                 {# Following Content #}
                 {% if not _Network.isNetworkClosed(network)%}
-                <form id="followForm" class="account-modal__content_section account-modal__content_section--following active">
+                <form id="followForm" class="account-modal__content_section account-modal__content_section--following active" autocomplete="off">
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     <div class="account-modal__content_title account-modal__content_title--no-margin">Topics</div>
                     <p>Choose the sections or blogs to follow here. This content will appear in the <a href="{{_AppHelper.buildUrl('user/my-news')}}">My News</a> section.</p>
@@ -117,7 +117,7 @@
                 </form>
                 {% endif %}
                 {# Profile Content #}
-                <form id="profileForm" class="account-modal__content_section account-modal__content_section--profile">
+                <form id="profileForm" class="account-modal__content_section account-modal__content_section--profile" autocomplete="off">
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     <input type="hidden" name="user_guid" value="{{user.guid}}">
                     <input type="hidden" name="network_id" value="{{network.id}}">
@@ -193,7 +193,7 @@
                     <button class="account-modal__buttons_profile account-button account-button--save">Save</button>
                 </form>
                 {# Account Content #}
-                <form id="accountForm" class="account-modal__content_section account-modal__content_section--account">
+                <form id="accountForm" class="account-modal__content_section account-modal__content_section--account" autocomplete="off">
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     <input type="hidden" name="user_guid" value="{{user.guid}}">
                     <input type="hidden" name="network_id" value="{{network.id}}">
@@ -261,7 +261,7 @@
                 </form>
             {% elseif not _Network.isNetworkClosed(network) %}
                 {# Login Content #}
-                <form name="loginForm" id="loginForm" class="account-modal__content_section account-modal__content_section--login active" action="javascript:void(0);" method="post" accept-charset="UTF-8">
+                <form name="loginForm" id="loginForm" class="account-modal__content_section account-modal__content_section--login active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off">
 
                     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
 
@@ -305,7 +305,7 @@
                     <div class="account-modal__forgotten-password-link">Forgotten Password</div>
                 </form>
                 {# Signup Content #}
-                <form  name="signupForm" id="signupForm"  class="account-modal__content_section account-modal__content_section--signup">
+                <form  name="signupForm" id="signupForm"  class="account-modal__content_section account-modal__content_section--signup" autocomplete="off">
                     <div class="account-modal__content_title">Signup</div>
                     <ul class="account-modal__content_social">
                         <li class="facebook"><a href="{{_AppHelper.getSocialFacebookUrl(1)}}"><i class="fa fa-facebook"></i> Login with Facebook</a></li>
@@ -445,7 +445,7 @@
                 <div class="account-modal__input-container">
                     <div class="account-modal__input_content">
                         <div class="account-modal__input_label">Email Address</div>
-                        <input class="account-modal__input account-modal__input--email" type="email" name="email">
+                        <input class="account-modal__input account-modal__input--email" type="email" name="email" autocomplete="off">
                     </div>
                     <div class="account-modal__input_requirement">
                         <span class="account-modal__input_requirement--error">Invalid email address</span>
