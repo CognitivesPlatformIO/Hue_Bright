@@ -73,15 +73,43 @@
         list-style-type: decimal;
     }
     img {
-        width: calc(100% + 20px);
-        margin-left: -10px;
+        width: calc(100% + 20px) !important;
+        height: auto !important; 
+        margin-left: -10px; 
         margin-right: -10px;
         @include desktop {
-            width: 1170px;
+            width: 1170px !important;
             margin-top: 30px;
             margin-bottom: 60px;
             margin-left: -200px;
             margin-right: -200px;
+        }
+    }
+    figure {
+        position: relative;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        float: left;
+        img {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        figcaption {
+            width: calc(100% + 20px);
+            margin-left: -10px;
+            margin-right: -10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: rgba($black, 0.7) none repeat scroll 0 0;
+            color: $white;
+            z-index: 30;
+            padding: 10px 20px;
+            @include desktop {
+                width: 1170px !important;
+                margin-left: -200px;
+                margin-right: -200px;
+            } 
         }
     }
     blockquote {
