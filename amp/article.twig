@@ -32,13 +32,20 @@
         }
         {% if article.media | length > 0 %}
         ,
+        {% set i = 1 %}
         {% for media in article.media %}
+        {% if media.type != 'video' %} 
         "image": {
             "@type": "ImageObject",
             "url": "{{media.path}}",
             "width": {{media.width}},
             "height": {{media.height}}
         }
+        {% if article.media | length > i %}
+        ,
+        {% endif %}
+        {% endif %}
+        {% set i = i+1 %}
         {% endfor %}
         {% endif %}
     }
