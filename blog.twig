@@ -12,7 +12,7 @@
 {% endif %} 
 
 {% if blogInfo.media['cover']['path'] is not empty %}
-    {% set blogCoverImage = blogInfo.media['cover']['path'] %}
+    {% set blogCoverImage = _Media.getMediaUrl(blogInfo.media['cover'], 1170, 350, {crop:"fill"}) %}
     {% set hasBlogCoverImage = true %}
 {% endif %} 
 
