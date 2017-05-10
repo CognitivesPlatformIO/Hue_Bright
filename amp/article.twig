@@ -9,33 +9,38 @@
 
 <script type="application/ld+json">
     {
-    "@context": "http://schema.org",
-    "@type": "NewsArticle",
-    "mainEntityOfPage": "{{article.url}}", 
-    "headline": "{{article.title}}",
-    "datePublished": "{{article.publishedDate}}",
-    "dateModified": "{{article.updatedAt}}",
-    "description": "{{article.content}}",
-    "author": {
-    "@type": "Person",
-    "name": "{{article.createdBy['displayName']}}"
-    },
-    "publisher": {
-    "@type": "Organization",
-    "name": "{{publisher.name}}",
-    "logo": {
-    "@type": "ImageObject",
-    "url": "{{publisher.logo}}",
-    "width": {{publisher.width}},
-    "height": {{publisher.height}}
-    }
-    },
-    "image": {
-    "@type": "ImageObject",
-    "url": "{{publisher.logo}}",
-    "width": {{publisher.width}},
-    "height": {{publisher.height}}
-    }
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": "{{article.url}}", 
+        "headline": "{{article.title}}",
+        "datePublished": "{{article.publishedDate}}",
+        "dateModified": "{{article.updatedAt}}",
+        "description": "{{article.content}}",
+        "author": {
+            "@type": "Person",
+            "name": "{{article.createdBy['displayName']}}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{publisher.name}}",
+            "logo": {
+            "@type": "ImageObject",
+                "url": "{{publisher.logo}}",
+                "width": {{publisher.width}},
+                "height": {{publisher.height}}
+            }
+        }
+        {% if article.media | length > 0 %}
+        ,
+        {% for media in article.media %}
+        "image": {
+            "@type": "ImageObject",
+            "url": "{{media.path}}",
+            "width": {{media.width}},
+            "height": {{media.height}}
+        }
+        {% endfor %}
+        {% endif %}
     }
 </script>
 <div class="article--category_{{article.blog['id']}} article--category">
