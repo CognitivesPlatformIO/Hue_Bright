@@ -18,7 +18,7 @@
     "description": "{{article.content}}",
     "author": {
     "@type": "Person",
-    "name": "Sebastian Benz"
+    "name": "{{article.createdBy['displayName']}}"
     },
     "publisher": {
     "@type": "Organization",
@@ -38,63 +38,73 @@
     }
     }
 </script>
+<div class="article--category_{{article.blog['id']}} article--category">
 
-<div>
-    {% if article.media|length %}
-        <amp-carousel width="1280" height="600" layout="responsive" type="slides" autoplay="" loop="">
-            {% for media in article.media %}
-                {% if media.type == 'video' %} 
-                    {% set mediaUrl = "" %}
-                    {% if media.isSystemVideo == 'TRUE'%}
-                        {% set mediaUrl = media.video_path  %}
-                    {% else %}
-                        {% if media.source == 'youtube' %}
-                            {% set mediaUrl = "https://www.youtube.com/embed/" ~ media.videoId  %}
-                        {% else %}
-                            {% set mediaUrl = "https://player.vimeo.com/video/" ~ media.videoId  %}
-                        {% endif %}
-                    {% endif %}
-
-                    <div class="video-player">
-                        <amp-video id="myVideo" controls width="1280" height="550" layout="responsive" src="{{mediaUrl}}"></amp-video>
-
-                        <div id="myOverlay" class="click-to-play-overlay">
-                            <div class="play-icon" role="button" tabindex="0" on="tap:myOverlay.hide, myVideo.play"></div>
-                            <amp-img class="poster-image" layout="fill" src="{{media.path}}"></amp-img>
+    <div class="article">
+        <div class="article__header-wrap">
+            <h1 class="article__headline" itemprop="headline">{{article.title}}</h1>
+            {% set readingTime = Helper.getEstimatedReadingTime(article.content)%}
+            <span class="article__date"><span>{{article.publishedDate}}</span>  •••  {{Helper.renderReadingTime(readingTime) | raw}}</span>
+        </div>
+        <div class="article__header">
+            <div class="article__header-container">
+                <div class="article-user__profile">
+                    <div class="article-user__author-wrap">
+                        <span class="article-user__author">{{article.createdBy['displayName'] | capitalize}}</span>
+                        <div class="article__button-wrap">                            
+                            <span class="article-user__author-bio">{{article.createdBy['bio']}}</span>
                         </div>
                     </div>
-                {% else %}
-                    <figure>
-                        <amp-img src="{{media.path}}" class="" layout="fill"></amp-img>
-                    </figure>
-                {% endif %}
-            {% endfor %}
-        </amp-carousel>
-    {% endif %}
-    <div class="article__body">
-        <div class="article article--category_{{article.blog['id']}} article--category">
-            <div class="article__header">
-                <div class="article__profile">
-                    <a href="{{_AppHelper.buildUrl('profile/user-profile',{name: Html.encode(article.createdBy['username'])})}}">{{article.createdBy['username']}}</a>
-                    <p class="heading">
-                    <amp-social-share type="twitter" width="45" height="33"></amp-social-share>
-                    <amp-social-share type="facebook" width="45" height="33" data-attribution="531506617052166"></amp-social-share>
-                    <amp-social-share type="gplus" width="45" height="33"></amp-social-share>
-                    </p>
                 </div>
-            </div>
-            <div class="article__container">
-                <div class="article__channel_wrap">
-                    <div class="article__channel"><a href="{{article.blog['url']}}">{{ article.label | capitalize }}</a></div>
-                </div>
-                <h1 class="article__headline" itemprop="headline">{{article.title}}</h1>
-                <div class="article__date" itemprop="datePublished">{{article.publishedDate}}</div>
-                {% set readingTime = Helper.getEstimatedReadingTime(article.content)%}
-                <div class="article__intro">{{Helper.renderReadingTime(readingTime) | raw}}</div>
-                <div itemprop="articleBody">
-                    {{article.content | raw}}
+                <div class="article__header-actions">                    
+                    <div class="button button__share header_actions header_actions__share">
+                        <p class="heading">
+                        <amp-social-share type="twitter" width="45" height="33"></amp-social-share>
+                        <amp-social-share type="facebook" width="45" height="33" data-attribution="531506617052166"></amp-social-share>
+                        <amp-social-share type="gplus" width="45" height="33"></amp-social-share>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+        {% if article.media | length > 0 %}
+            <div class="article__image">
+                <div class="slides">
+                    <amp-carousel width="1280" height="600" layout="responsive" type="slides" autoplay="" loop="">
+                        {% for media in article.media %}
+                            {% if media.type == 'video' %} 
+                                {% set mediaUrl = "" %}
+                                {% if media.isSystemVideo == 'TRUE'%}
+                                    {% set mediaUrl = media.video_path  %}
+                                    <div class="video-player">
+                                        <amp-video id="myVideo" controls width="1280" height="550" layout="responsive" src="{{mediaUrl}}"></amp-video>
+
+                                        <div id="myOverlay" class="click-to-play-overlay">
+                                            <div class="play-icon" role="button" tabindex="0" on="tap:myOverlay.hide, myVideo.play"></div>
+                                            <amp-img class="poster-image" layout="fill" src="{{media.path}}"></amp-img>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {% if media.source == 'youtube' %}
+                                        <amp-youtube data-videoid="{{media.videoId}}" layout="responsive" width="480" height="270"></amp-youtube>
+                                        {% else %}
+                                        <amp-vimeo data-videoid="{{media.videoId}}" layout="responsive" width="500" height="281"></amp-vimeo>
+                                        {% endif %}
+                                    {% endif %}
+
+
+                            {% else %}
+                                <figure>
+                                    <amp-img src="{{media.path}}" class="" layout="fill"></amp-img>
+                                </figure>
+                            {% endif %}
+                        {% endfor %}
+                    </amp-carousel>
+                </div>
+            </div>
+        {% endif %}
+        <div class="article__container">        
+            {{article.content | raw}}
+        </div>   
     </div>
 </div>
