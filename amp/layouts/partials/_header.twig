@@ -11,12 +11,12 @@
                 {% if network.logoMedia | length > 0 %}
                     {% set logo = _Media.getMediaUrl(network.logoMedia, 177, 65, {'crop': 'limit'} )%}
                 {% endif %}
-                <a href="{{logoUrl}}" class="">
+                <a href="{{logoUrl}}" class="header__heading-logo">
                     <amp-img src="{{logo}}" width="177" height="65" layout="responsive"></amp-img>
                 </a>
             </div>
             <div class="header__heading--right">
-                <button class="header-icon-1" on='tap:sidebar.open'><i class="fa fa-navicon"></i></button>
+                <button class="header-icon-2 " on='tap:sidebar.open'><i class="fa fa-navicon"></i></button>
             </div>
         </div>
     </div>
