@@ -3,6 +3,17 @@
     //$('.video-player').videoPlayer();
 
     $(document).ready(function () {
+        $('.is-arrow-down a').click(function (e) {
+            if ($(this).parents(".is-section").nextAll('div:not(.is-hidden)').html()) { /* .hidden class can be used as an exception */
+                $('html,body').animate({
+                    scrollTop: $(this).parents(".is-section").nextAll('div:not(.is-hidden)').offset().top - parseInt($('.is-wrapper').css('padding-top')) /* + 1 Adjustment due to topbar height*/
+                }, 800);
+            }
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
+        });
+        
 
         $('.article img').each(function () {
             if (!$(this).hasClass('share-popup__close')) {
