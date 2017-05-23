@@ -31,7 +31,7 @@
         {% endif %}
 
         <link rel="alternate" type="application/rss+xml" title="{{_Network.getNetworkTitle()}} -  RSS Feeds" href="http://{{networkData.defaultDomain['domain']}}/feed/rss" />
-
+        
         <!-- Google Tag Manager -->
         {% if networkData.thirdPartyIntegrations['googleTagManager'] | length > 0 %}
             {{networkData.thirdPartyIntegrations['googleTagManager']['script'] | raw}}
