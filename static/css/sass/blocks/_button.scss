@@ -92,7 +92,7 @@
       margin-right: 10px;
     }
     .share-popup .share-popup__close {
-      width: auto;
+      width: auto !important;    
       margin: 0;
     }
     &--borderless {
