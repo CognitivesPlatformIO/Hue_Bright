@@ -42,7 +42,8 @@
         {% set bodyClass = _Page.getBodyClass() | replace({('article') : 'article__page'}) %}
 
         {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-            <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1497347444770" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1498194424322" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/print.min.css" type="text/css" media="print" />
         {% else %}
             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.fancybox/source/jquery.fancybox.css" />
             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.noty-2.3.8/demo/animate.css" />
@@ -57,7 +58,7 @@
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/box/box.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbox/contentbox.css" rel="stylesheet" type="text/css" />
-            <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/contentbox-breakup.css?rel=1497347444770" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/contentbox-breakup.css?rel=1498194424322" type="text/css" media="all" />
         {% endif %}
         <style>
             body, .body, p, a.header__navigation-link {
@@ -65,6 +66,11 @@
             }
             .themesArticle p, .themesArticle li, figcaption {
                 font-family: 'PT Sans', sans-serif;
+            }
+            @media print {
+                header, footer, .header, .banner, .article__header, .article__image {
+                    display: none !important;
+                }
             }
 
             {% set customCss = networkData['styling']['customStyleSheet'] %}

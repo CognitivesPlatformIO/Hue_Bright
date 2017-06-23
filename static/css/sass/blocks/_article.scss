@@ -72,7 +72,7 @@
     ol li {
         list-style-type: decimal;
     }
-    img {
+    /* img {
         width: calc(100% + 20px) !important;
         height: auto !important; 
         margin-left: -10px; 
@@ -83,6 +83,16 @@
             margin-bottom: 60px;
             margin-left: -200px;
             margin-right: -200px;
+        }
+    } */
+    img {
+        width: 100%;
+        height: auto !important; 
+        margin-left: 0px; 
+        margin-right: 0px;
+        @include desktop {
+            margin-top: 30px;
+            margin-bottom: 60px;
         }
     }
     figure {
@@ -95,9 +105,10 @@
             margin-bottom: 0px;
         }
         figcaption {
-            width: calc(100% + 20px);
+            /* width: calc(100% + 20px);
             margin-left: -10px;
-            margin-right: -10px;
+            margin-right: -10px; */
+            width: 100%;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -105,11 +116,11 @@
             color: $white;
             z-index: 30;
             padding: 10px 20px;
-            @include desktop {
+            /* @include desktop {
                 width: 1170px !important;
                 margin-left: -200px;
                 margin-right: -200px;
-            } 
+            } */
         }
     }
     blockquote {
@@ -153,6 +164,11 @@
                 border-color: $hover-color !important;
             }
         }
+        /* img {
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+            width: auto !important;
+        } */
     }
     &__channel_wrap {
         text-align: center;
