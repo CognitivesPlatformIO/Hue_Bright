@@ -24,7 +24,7 @@
         {% set secFont = networkData['styling']['fonts']['secondaryFont'] %}
 
         {% if primaryFont != "" and secFont != "" and primaryFont == secFont %}
-        <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
+            <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
         {% elseif primaryFont != "" %}
             <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
         {% if secFont != "" %}
