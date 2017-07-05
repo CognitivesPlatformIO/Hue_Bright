@@ -23,11 +23,15 @@
         {% set primaryFont = networkData['styling']['fonts']['primaryFont'] %}
         {% set secFont = networkData['styling']['fonts']['secondaryFont'] %}
 
-        {% if primaryFont != "" %}
-            <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css' />
-        {% endif %}
+        {% if primaryFont != "" and secFont != "" and primaryFont == secFont %}
+        <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
+        {% elseif primaryFont != "" %}
+            <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
         {% if secFont != "" %}
-            <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css' />
+            <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
+        {% endif %}
+        {% elseif secFont != "" %}
+            <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
         {% endif %}
 
         <link rel="alternate" type="application/rss+xml" title="{{_Network.getNetworkTitle()}} -  RSS Feeds" href="http://{{networkData.defaultDomain['domain']}}/feed/rss" />
