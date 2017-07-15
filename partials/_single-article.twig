@@ -84,7 +84,7 @@
                         </div>
                         {% set articleTitle = Html.encode(article.title)| raw %}
                         {% if article.title|length > 80 %}
-                            {% set articleTitle = Html.encode(article.title) [:80] ~ '...' | raw %}
+                            {% set articleTitle = article.title [:80] ~ '...' | raw %}
                         {% endif %}
                         <h3 class="card__headline" itemprop="headline">{{articleTitle}}</h3>
                         
