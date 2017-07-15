@@ -250,6 +250,11 @@
         @include text-md($font-multiplier:1.16, $line-height: 1.57, $color: $body-text);
         margin-bottom: 15px;
     }
+    &--category {
+        .followTxt {
+            text-transform: capitalize;
+        }
+    }
 }
 
 .comments__header {

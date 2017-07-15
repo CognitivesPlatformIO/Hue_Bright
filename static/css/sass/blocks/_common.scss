@@ -140,6 +140,7 @@ body {
   &__author {
     @include text-sm($font-multiplier: 0.78);
     margin-bottom: 7px;
+    text-transform: capitalize;
   }
   &__user-image {
     width: 57px;
