@@ -82,15 +82,15 @@
                         <div class="card__channel-wrap">
                             <h5 class="card__channel">{{article.label | raw}}</h5>
                         </div>
-                        {% set articleTitle = Html.encode(article.title)| raw %}
+                        {% set articleTitle = article.title | raw %}
                         {% if article.title|length > 80 %}
                             {% set articleTitle = article.title [:80] ~ '...' | raw %}
                         {% endif %}
                         <h3 class="card__headline" itemprop="headline">{{articleTitle}}</h3>
                         
-                        {% set articleExcerpt = Html.encode(article.excerpt)| raw %}
-                        {% if article.excerpt|length > 150 %}
-                            {% set articleExcerpt = Html.encode(article.excerpt) [:150] ~ '...' | raw %}
+                        {% set articleExcerpt = article.excerpt | raw %}
+                        {% if article.excerpt |length > 150 %}
+                            {% set articleExcerpt = article.excerpt [:150] ~ '...' | raw %}
                         {% endif %}
                         <p class="card__text" itemprop="description">{{articleExcerpt}}</p>
                          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
