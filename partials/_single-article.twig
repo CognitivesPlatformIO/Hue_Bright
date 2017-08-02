@@ -82,8 +82,17 @@
                         <div class="card__channel-wrap">
                             <h5 class="card__channel">{{article.label | raw}}</h5>
                         </div>
-                        <h3 class="card__headline" itemprop="headline">{{article.title | raw}}</h3>
-                        <p class="card__text" itemprop="description">{{Html.encode(article.excerpt) | raw}}</p>
+                        {% set articleTitle = article.title | raw %}
+                        {% if article.title|length > 80 %}
+                            {% set articleTitle = article.title [:80] ~ '...' | raw %}
+                        {% endif %}
+                        <h3 class="card__headline" itemprop="headline">{{articleTitle}}</h3>
+                        
+                        {% set articleExcerpt = article.excerpt | raw %}
+                        {% if article.excerpt |length > 150 %}
+                            {% set articleExcerpt = article.excerpt [:150] ~ '...' | raw %}
+                        {% endif %}
+                        <p class="card__text" itemprop="description">{{articleExcerpt}}</p>
                          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
                              <meta itemprop="name" content="{{article.createdBy['displayName']}}"/>
                         </div>
@@ -141,11 +150,11 @@
                         {% if social.media['type'] == 'video' and social.media['videoUrl'] is not empty %}
                         <div class="card__text-wrap">
                             <img class="card__play-button video-player" data-source="{{social.source}}" data-url="{{social.media['videoUrl']}}" data-poster="{{social.media['path']}}" src="{{networkData.templatePath}}/static/images/icons/play-white.svg" alt="Play video button">
-                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:140] ~ '...'  | raw }}</p>
+                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags| raw }}</p>
                         </div>
                         <p class="card__author">@{{social.user['name'] | lower }}</p>
                         {% else %}
-                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags[:140] ~ '...'  | raw }}</p>
+                            <p class="card__text description" id="updateSocial{{article.socialId}}" data-update="0">{{ social.content|striptags| raw }}</p>
                             <p class="card__author">{{ (social.source == _SocialFeed.getSocialArticleSourceIsTwitter()) ? '@' : ''}}{{ social.user['name'] | lower }}</p>
                         {% endif %}
                     </div>

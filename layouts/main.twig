@@ -23,14 +23,18 @@
         {% set primaryFont = networkData['styling']['fonts']['primaryFont'] %}
         {% set secFont = networkData['styling']['fonts']['secondaryFont'] %}
 
-        {% if primaryFont != "" %}
-            <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css' />
-        {% endif %}
+        {% if primaryFont != "" and secFont != "" and primaryFont == secFont %}
+            <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
+        {% elseif primaryFont != "" %}
+            <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
         {% if secFont != "" %}
-            <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css' />
+            <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
+        {% endif %}
+        {% elseif secFont != "" %}
+            <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
         {% endif %}
 
-        <link rel="alternate" type="application/rss+xml" title="{{_Network.getNetworkTitle()}} -  RSS Feeds" href="http://{{networkData.defaultDomain['domain']}}/feed/rss" />
+        <link rel="alternate" type="application/rss+xml" title="{{_Network.getNetworkTitle()}} -  RSS Feeds" href="{{_AppHelper.getBaseUrl()}}/feed/rss" />
         
         <!-- Google Tag Manager -->
         {% if networkData.thirdPartyIntegrations['googleTagManager'] | length > 0 %}
@@ -42,7 +46,7 @@
         {% set bodyClass = _Page.getBodyClass() | replace({('article') : 'article__page'}) %}
 
         {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-            <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1498194424322" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/output.min.css?rel=1500120156723" type="text/css" media="all" />
             <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/print.min.css" type="text/css" media="print" />
         {% else %}
             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/js/plugins/jquery.fancybox/source/jquery.fancybox.css" />
@@ -58,7 +62,7 @@
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/box/box.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbox/contentbox.css" rel="stylesheet" type="text/css" />
-            <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/contentbox-breakup.css?rel=1498194424322" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/contentbox-breakup.css?rel=1500120156723" type="text/css" media="all" />
         {% endif %}
         <style>
             body, .body, p, a.header__navigation-link {
@@ -151,23 +155,25 @@
             {% endif %}
         </style>
 
+        {% set googleAnalyitcsId = ''%}
         {% if blogData.settings['GoogleAnalyticsID'] is defined and  blogData.settings['GoogleAnalyticsID'] is not empty  %}
+            {% set googleAnalyitcsId = blogData.settings['GoogleAnalyticsID']%}
+        {% endif %}
+
+        {% if networkData.thirdPartyIntegrations['googleAnalytics']['id'] is defined and  networkData.thirdPartyIntegrations['googleAnalytics']['id'] is not empty  %}
+            {% set googleAnalyitcsId = networkData.thirdPartyIntegrations['googleAnalytics']['id'] %}
+        {% endif %}
+
+        {% if googleAnalyitcsId is defined and googleAnalyitcsId is not empty%}
             <!-- Google Analytics -->
             <script>
-                (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-                    a = s.createElement(o),
-                            m = s.getElementsByTagName(o)[0];
-                    a.async = 1;
-                    a.src = g;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-                ga('create', '{{blogData.settings['GoogleAnalyticsID']}}', 'auto');
-                ga('send', 'pageview');
+            ga('create', '{{googleAnalyitcsId}}', 'auto');
+            ga('send', 'pageview');
             </script>
             <!-- End Google Analytics -->
         {% endif %}
@@ -212,7 +218,7 @@
         </div>
         {{ this.render('partials/account-modal.twig', {network: networkData}) | raw }}
         {{ this.render('partials/_javascript.twig', {networkData: networkData}) | raw }}
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src='https://www.google.com/recaptcha/api.js' async></script>
         {{ this.endBody() }}
     </body>
 </html>
