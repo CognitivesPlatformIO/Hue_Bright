@@ -72,10 +72,12 @@
                             <span>{{pinTxt}}</span>
                             <img src="{{networkData.templatePath}}/static/images/icons/editor/pin.svg" alt="pin card">
                         </div>
-                        <div class="admin-actions__action admin-actions__action--edit" onclick="window.location = '{{article.editUrl}}'; return false;">
-                            <span>EDIT</span>
-                            <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
-                        </div>
+                        {% if article.userHasEditArticleAccess == '1' %}
+                            <div class="admin-actions__action admin-actions__action--edit" onclick="window.location = '{{article.editUrl}}'; return false;">
+                                <span>EDIT</span>
+                                <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
+                            </div>
+                        {% endif %}
                     </div>
                     {% endif %}
                     <div class="card__content">
