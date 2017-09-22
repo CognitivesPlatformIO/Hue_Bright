@@ -5,8 +5,9 @@
 var systemCardTemplate =
         '<div itemscope itemtype="http://schema.org/NewsArticle"  class="{{containerClass}} ">'+
         '<article class="card--article channel-6 {{blogClass}} swap" id="Article{{articleId}}" data-id="{{articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{imageUrl}}" data-article-text="{{title}}">'+
-        '<a  itemscope itemtype="http://schema.org/NewsArticle"  itemprop="url" href="{{url}}" class="card card--entertainment link  {{#unless hasMedia}} card__no-image {{/unless}}" {{#if hasMedia}} style="background-image: url({{imageUrl}})" {{/if}}>'+
-        '<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{url}}"/>'+
+        '<a  itemscope itemtype="http://schema.org/NewsArticle" href="{{url}}" class="card card--entertainment link  {{#unless hasMedia}} card__no-image {{/unless}}" {{#if hasMedia}} style="background-image: url({{imageUrl}})" {{/if}}>'+
+        '<meta itemprop="url" content="{{absoluteUrl}}" />'+
+        '<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{absoluteUrl}}"/>'+
         '{{#if hasMedia}}  '+
         '<div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">'+
             '<meta itemprop="url" content="{{featuredMedia.media.url}}"/>'+
@@ -39,10 +40,12 @@ var systemCardTemplate =
                             '<span>{{pinText}}</span>'+
                             '<img src="{{templatePath}}/static/images/icons/editor/pin.svg" alt="pin card">'+
                         '</div>'+
-                        '<div class="admin-actions__action admin-actions__action--edit"  onclick="window.location=\'{{{editUrl}}}\'; return false;">'+
-                            '<span>EDIT</span>'+
-                            '<img src="{{templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">'+
-                        '</div>'+
+                        '{{#if userHasEditArticleAccess}}'+
+                            '<div class="admin-actions__action admin-actions__action--edit"  onclick="window.location=\'{{{editUrl}}}\'; return false;">'+
+                                '<span>EDIT</span>'+
+                                '<img src="{{templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">'+
+                            '</div>'+
+                        "{{/if}}"+
                     '</div>'+
                     "{{/if}}"+
                     '<div class="card__content">'+
@@ -79,12 +82,14 @@ var socialCardTemplate =  '<div class="{{containerClass}}">'+
                             '<span>{{pinText}}</span>'+
                             '<img src="{{templatePath}}/static/images/icons/editor/pin.svg" alt="pin card">'+
                         '</div>'+
-                        '<div class="admin-actions__action admin-actions__action--edit" data-social="1" onClick="window.open(\'/admin/social-funnel/update-social?guid={{social.blog.guid}}&socialguid={{social.guid}}\', \'_blank\', \'toolbar=yes,scrollbars=yes,resizable=yes,width=360,height=450\'); return false;">'+
-                            '<span>EDIT</span>'+
-                            '<img src="{{templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">'+
-                        '</div>'+
+                        '{{#if userHasEditArticleAccess}}'+
+                            '<div class="admin-actions__action admin-actions__action--edit" data-social="1" onClick="window.open(\'/admin/social-funnel/update-social?guid={{social.blog.guid}}&socialguid={{social.guid}}\', \'_blank\', \'toolbar=yes,scrollbars=yes,resizable=yes,width=360,height=450\'); return false;">'+
+                                '<span>EDIT</span>'+
+                                '<img src="{{templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">'+
+                            '</div>'+
+                        "{{/if}}"+
                     '</div>'+	
-                     "{{/if}}"+
+                    "{{/if}}"+
                     '<div class="card__content">'+
                         '<div class="card__channel-wrap">'+
                             '<h5 class="card__channel">{{social.blog.title }}</h5>'+

@@ -29,8 +29,9 @@
 {% set blogClass = 'card--blog_'~article.blog['id'] %}
 <div itemscope itemtype="http://schema.org/NewsArticle" class="{{containerClass}}">
     <article class="card--article channel-6 {{blogClass}} swap" id="Article{{article.articleId}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}">
-        <a   itemprop="url" href="{{article.url}}" class="card card--entertainment link {{cardImageClass}}" style="{{bgImg}}">
-        <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
+        <a href="{{article.url}}" class="card card--entertainment link {{cardImageClass}}" style="{{bgImg}}">
+        <meta itemprop="url" content="{{article.absoluteUrl}}" />
+        <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.absoluteUrl}}"/>
         {% if article.featuredMedia['media'] is defined and  article.featuredMedia['media'] | length > 0%}
             <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
                 <meta itemprop="url" content="{{article.featuredMedia['media']['url']}}"/>
@@ -72,10 +73,12 @@
                             <span>{{pinTxt}}</span>
                             <img src="{{networkData.templatePath}}/static/images/icons/editor/pin.svg" alt="pin card">
                         </div>
-                        <div class="admin-actions__action admin-actions__action--edit" onclick="window.location = '{{article.editUrl}}'; return false;">
-                            <span>EDIT</span>
-                            <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
-                        </div>
+                        {% if article.userHasEditArticleAccess == '1' %}
+                            <div class="admin-actions__action admin-actions__action--edit" onclick="window.location = '{{article.editUrl}}'; return false;">
+                                <span>EDIT</span>
+                                <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
+                            </div>
+                        {% endif %}
                     </div>
                     {% endif %}
                     <div class="card__content">
@@ -137,10 +140,12 @@
                             <span>{{pinTxt}}</span>
                             <img src="{{networkData.templatePath}}/static/images/icons/editor/pin.svg" alt="pin card">
                         </div>
-                        <div class="admin-actions__action admin-actions__action--edit" data-social="1" onClick="window.open('/admin/social-funnel/update-social?guid={{social.blog['guid']}}&socialguid={{social.guid}}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=360,height=450'); return false;">
-                            <span>EDIT</span>
-                            <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
-                        </div>
+                        {% if article.userHasEditArticleAccess == '1' %}
+                            <div class="admin-actions__action admin-actions__action--edit" data-social="1" onClick="window.open('/admin/social-funnel/update-social?guid={{social.blog['guid']}}&socialguid={{social.guid}}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=360,height=450'); return false;">
+                                <span>EDIT</span>
+                                <img src="{{networkData.templatePath}}/static/images/icons/editor/edit.svg" alt="edit card">
+                            </div>
+                        {% endif %}  
                     </div>	
                     {% endif %}
                     <div class="card__content">
