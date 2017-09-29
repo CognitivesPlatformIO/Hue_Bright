@@ -6,9 +6,10 @@
 
 {% set limit = 20 %}
 {% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search}) %}
+{% set articlesCount = _Search.searchArticles({'countOnly': 1, 'search': search}) %}
 {% set blog = _Blog.getBlog() %}
 <div class="search__container">
-    <h1 class="search__heading">{{ articles|length }} Search results for:</h1>
+    <h1 class="search__heading">{{ articlesCount }} Search results for:</h1>
     <div class="search__form-big">
         <form class="searchArticleForm" action="{{blog.url}}/search" method="get" autocomplete="off">
             <input type="text" class="header__search-text" placeholder="{{ articles|length }} Search results for " name="s" value="{{ search }}">
