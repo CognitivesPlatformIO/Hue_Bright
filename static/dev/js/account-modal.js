@@ -486,7 +486,13 @@
                     if (data.success === 1) {
                         location.reload();
                     } else {
-                        $('#loginForm').find('.account-modal__error').removeClass('hide').addClass('active');
+                        var error = '';
+                        for(var key in data.error) {
+                            for (var i = 0; i < data.error[key].length; i++) {
+                                error += '<div class="account-modal__error_text">'+data.error[key]+'</div>';
+                            }
+                        }
+                        $('#loginForm').find('.account-modal__error').removeClass('hide').addClass('active').html(error);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
