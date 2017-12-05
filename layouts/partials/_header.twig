@@ -4,7 +4,9 @@
 {% endif %}
 <div class="header__heading header__container">
     <div class="header__heading-highlight"></div>
-    {{ this.render('user-dropdown.twig', {network: network, user: user}) | raw }}
+	{% if not _Network.isNetworkClosed(network)%}
+		{{ this.render('user-dropdown.twig', {network: network, user: user}) | raw }}
+	{% endif %}
     <div class="header__heading-container">
         <div class="header__heading--left">
             {% set logo = network.templatePath~'/static/images/themeLogo.svg'%}
