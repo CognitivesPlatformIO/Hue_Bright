@@ -15,24 +15,78 @@ var HomeController = (function ($) {
 HomeController.Listing = (function ($) {
 
     var bindPinUnpinArticle = function(){
-        $('.PinArticleBtn').Ajax_pinUnpinArticle({
-            onSuccess: function(data, obj){
-                var status = $(obj).data('status');
-                (status == 1) 
-                    ? $(obj).attr('title', 'Un-Pin Article') 
-                    : $(obj).attr('title', 'Pin Article');
-               (status == 1) 
-                    ? $(obj).find('span').first().html('UN-PIN') 
-                    : $(obj).find('span').first().html('PIN');
-            }
+        $('.PinArticleBtn').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var obj = $(this);
+            var articleId = parseInt($(obj).data('id'));
+            var position = parseInt($(obj).data('position'));
+            var existingStatus = $(obj).data('status');
+            var isSocial = $(obj).data('social');
+            $.fn.pinUnpinArticle({
+                articleId: articleId,
+                isPinned: existingStatus,
+                position: position,
+                isSocialArticle: isSocial,
+                onSuccess: function (data) {
+                    $(obj).data('status', ((existingStatus == 1) ? 0 : 1));
+                    (existingStatus == 1) ? $(obj).removeClass('selected') : $(obj).addClass('selected');
+                    var status = $(obj).data('status');
+                    (status == 1)
+                            ? $(obj).attr('title', 'Un-Pin Article')
+                            : $(obj).attr('title', 'Pin Article');
+                    (status == 1)
+                            ? $(obj).find('span').first().html('UN-PIN')
+                            : $(obj).find('span').first().html('PIN');
+                    var message = (status == 1)
+                            ? 'Article pinned successfully'
+                            : 'Article unpinned successfully';
+							
+					noty({
+                        type: 'success',
+                        text: message,
+                        layout: 'topRight',
+                        timeout: 2000,
+                        dismissQueue: true,
+                        animation: {
+                            open: 'animated bounceInRight', // jQuery animate function property object
+                            close: 'animated bounceOutRight', // jQuery animate function property object
+                            easing: 'swing', // easing
+                            speed: 500 // opening & closing animation speed
+                        }
+                    });
+                },
+                beforeSend: function () {
+                    $(obj).find('.fa').addClass('fa fa-spin fa-spinner').removeClass('fa-map-marker');
+                },
+                onComplete: function () {
+                    $(obj).find('.fa').removeClass('fa-spin fa-spinner').addClass('fa-map-marker');
+                }
+            });
         });
     };
     
-    var bindDeleteHideArticle = function(){
-        $('.HideBlogArticle').Ajax_deleteArticle({
-            onSuccess: function(data, obj){
-                $(obj).closest('article').parent('div').remove();
+    var bindDeleteHideArticle = function () {
+        $('.HideBlogArticle').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var obj = $(this);
+            var isSocial = $(obj).data('social');
+            var articleGuid = $(obj).data('guid');		
+            var msgStr = (isSocial == 1) ? "Do you really want to delete this article?" : "Do you really want to hide this article?";
+            var result = confirm(msgStr);
+            if (result !== true) {
+                    return;
             }
+            $.fn.deleteArticle({
+                articleGuid: articleGuid,
+                isSocialArticle: isSocial,
+                onSuccess: function (data) {
+                    $(obj).closest('div.card_view').remove();
+                },
+                beforeSend: function (obj) {
+                }
+            });
         });
     };
     

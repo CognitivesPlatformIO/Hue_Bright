@@ -27,7 +27,7 @@
         {% set bgImg = "background-image: url('"~articleImg~"');" %}
     {% endif %}
 {% set blogClass = 'card--blog_'~article.blog['id'] %}
-<div itemscope itemtype="http://schema.org/NewsArticle" class="{{containerClass}}">
+<div itemscope itemtype="http://schema.org/NewsArticle" class="card_view {{containerClass}}">
     <article class="card--article channel-6 {{blogClass}} swap" id="Article{{article.articleId}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}">
         <a href="{{article.url}}" class="card card--entertainment link {{cardImageClass}}" style="{{bgImg}}">
         <meta itemprop="url" content="{{article.absoluteUrl}}" />
@@ -117,7 +117,7 @@
         {% set mediaClass = '' %}
         {% set bgImgSocial = "background-image: url('"~social.media['path']~"');" %}
     {% endif %}    
-<div class="{{containerClass}}">
+<div class="card_view {{containerClass}}">
     <article class="card--social channel-4 swap {{social.media.type}}" id="Social{{article.socialId}}" data-source="{{social.source}}"  data-id="{{article.socialId}}" data-la2bel="{{social.blog['title']}}" data-position="{{position}}" data-social="1" data-article-image="{{social.media['path']}}" data-article-text="{{Helper.htmlToText(social.content, -1) | raw | escape('html')}}" data-user-image="{{social.user['media']['path']}}" data-user-name="{{ social.user['name'] | lower }}">
         <a href="{{ social.url }}" class="card card--{{social.blog['title'] | raw }} link card__{{social.source}} {{mediaClass}} socialCard" style="{{bgImgSocial}}" target="_blank" data-blog-guid="{{social.blog['guid']}}" data-guid="{{social.guid}}">
             <div class="card__overlay">

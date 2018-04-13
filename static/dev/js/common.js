@@ -21,7 +21,7 @@
             }
         });
 
-        $('.playVideo').videoPlayer({});
+//        $('.playVideo').videoPlayer({});
     });
 
     $(document).on('click', '.loginModal', function (e) {
@@ -153,22 +153,22 @@
      *                  USER EDIT PROFILE PAGE JS
      ************************************************************************************/
 
-    $('.uploadFileBtn').uploadFile({
-        onSuccess: function (data, obj) {
-            var resultJsonStr = JSON.stringify(data);
-
-            var imgClass = $(obj).data('imgcls');
-            $('.' + imgClass).css('background-image', 'url(' + data.url + ')');
-
-            var fieldId = $(obj).data('id');
-            $('#' + fieldId).val(resultJsonStr);
-
-            $().General_ShowNotification({message: 'Image added successfully'});
-        },
-        onError: function (obj, errorMessage) {
-            $().General_ShowNotification({message: errorMessage, type: 'error', timeout: 4000});
-        }
-    });
+//    $('.uploadFileBtn').uploadFile({
+//        onSuccess: function (data, obj) {
+//            var resultJsonStr = JSON.stringify(data);
+//
+//            var imgClass = $(obj).data('imgcls');
+//            $('.' + imgClass).css('background-image', 'url(' + data.url + ')');
+//
+//            var fieldId = $(obj).data('id');
+//            $('#' + fieldId).val(resultJsonStr);
+//
+//            $().General_ShowNotification({message: 'Image added successfully'});
+//        },
+//        onError: function (obj, errorMessage) {
+//            $().General_ShowNotification({message: errorMessage, type: 'error', timeout: 4000});
+//        }
+//    });
 
 
     $('.searchArticle').on('click', function (e) {
