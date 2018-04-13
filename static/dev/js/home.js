@@ -94,6 +94,10 @@ HomeController.Listing = (function ($) {
         $('#content').on('click', 'div.admin-actions__action--edit', function(e){
             e.stopPropagation();
         });
+        $('#content').on('click', '.close__lg-modal', function (e) {
+            e.stopPropagation();
+            $('.modal .modal-content').html('');
+        });
         
         var bindSocialPostPopup = function(){
             var isScialRequestSent = false;
@@ -245,11 +249,22 @@ HomeController.Listing = (function ($) {
                         data: postData,
                         dataType: 'json',
                         success: function(data){
-                            if(data.success) {
-                                $.fn.General_ShowNotification({message: "Articles swapped successfully"});
+                            if (data.success) {
+                                noty({
+                                    type: "success",
+                                    text: "Articles swapped successfully",
+                                    layout: 'topRight',
+                                    timeout: 2000,
+                                    dismissQueue: true,
+                                    animation: {
+                                        open: 'animated bounceInRight', // jQuery animate function property object
+                                        close: 'animated bounceOutRight', // jQuery animate function property object
+                                        easing: 'swing', // easing
+                                        speed: 500 // opening & closing animation speed
+                                    }
+                                });
                             }
-                            
-                            $(".card p, .card h1").dotdotdot();
+//                            $(".card p, .card h1").dotdotdot();
                             
                             initSwap();
                             
@@ -283,8 +298,12 @@ HomeController.Listing = (function ($) {
         
         $('.loadMoreArticles').on('click', function(e){
             e.preventDefault();
+            e.stopPropagation();
             var btnObj = $(this);
-            $.fn.Ajax_LoadBlogArticles({
+            $.fn.LoadBlogArticles({
+                offset: $('.ajaxArticles').data('offset'),
+                limit: 20,
+                viewTotalNonPinnedPost: $('.ajaxArticles').data('existing-nonpinned-count'),
                 onSuccess: function(data, textStatus, jqXHR){
                     if (data.success == 1) {
                         $('.ajaxArticles').data('existing-nonpinned-count', data.existingNonPinnedCount);
@@ -305,7 +324,7 @@ HomeController.Listing = (function ($) {
                                data.articles[i]['blogClass']= data.articles[i].blog['title'].replace(' ', '').toLowerCase();
                             }  
                             
-                            var ImageUrl = $.image({media:data.articles[i]['featuredMedia'], mediaOptions:{width: 500 ,height:350, crop: 'limit'} });
+                            var ImageUrl = $.fn.image({media: data.articles[i]['featuredMedia'], mediaOptions: {width: 500, height: 350, crop: 'limit'}});
                             data.articles[i]['imageUrl'] = ImageUrl;
 
                             Handlebars.registerHelper('trimString', function(passedString,len) {
