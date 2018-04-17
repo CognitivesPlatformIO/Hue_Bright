@@ -169,8 +169,34 @@
 //            $().General_ShowNotification({message: errorMessage, type: 'error', timeout: 4000});
 //        }
 //    });
-
-
+    $('.uploadFileBtn').on('click', function () {
+        var object = $(this);
+        $.fn.uploadImagesModal({
+            onSuccess: function (data, obj) {
+                var resultJsonStr = JSON.stringify(data);
+                var imgClass = $(object).data('imgcls');
+                $('.' + imgClass).css('background-image', 'url(' + data.url + ')');
+                var fieldId = $(object).data('id');
+                $('#' + fieldId).val(resultJsonStr);
+                noty({
+                    type: "success",
+                    text: 'Image added successfully',
+                    layout: 'topRight',
+                    timeout: 2000,
+                    dismissQueue: true,
+                    animation: {
+                        open: 'animated bounceInRight', // jQuery animate function property object
+                        close: 'animated bounceOutRight', // jQuery animate function property object
+                        easing: 'swing', // easing
+                        speed: 500 // opening & closing animation speed
+                    }
+                });
+            },
+            onError: function (obj, errorMessage) {
+                $.fn.General_ShowNotification({message: errorMessage, type: 'error', timeout: 4000});
+            }
+        });
+    });
     $('.searchArticle').on('click', function (e) {
         var searchTerm = $(this).parent('.searchArticleForm').find('input').val().trim();
         $(this).parent('.searchArticleForm').find('input').val(searchTerm);
