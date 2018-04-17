@@ -90,66 +90,67 @@ HomeController.Listing = (function ($) {
         });
     };
     
-    var attachEvents = function () {
-        $('#content').on('click', 'div.admin-actions__action--edit', function(e){
+    var bindSocialPostPopup = function () {
+
+        $('body').on('click', 'div.admin-actions__action--edit', function (e) {
             e.stopPropagation();
         });
-        $('#content').on('click', '.close__lg-modal', function (e) {
+        
+        $('body').on('click', '.close__lg-modal', function (e) {
             e.stopPropagation();
             $('.modal .modal-content').html('');
         });
-        
-        var bindSocialPostPopup = function(){
-            var isScialRequestSent = false;
-            $(document).on('click', 'a.socialCard', function (e) {
-                e.preventDefault();
 
-                var blogGuid = $(this).data('blog-guid');
-                var postGuid = $(this).data('guid');
+        $('body').on('click', 'a.socialCard', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var blogGuid = $(this).data('blog-guid');
+            var postGuid = $(this).data('guid');
 
-                if (!isScialRequestSent) {
-                    var csrfToken = $('meta[name="csrf-token"]').attr("content");
-                    $.ajax({
-                        type: 'POST',
-                        url: _appJsConfig.appHostName + '/api/social/get-social-post',
-                        dataType: 'json',
-                        data: {blog_guid: blogGuid, guid: postGuid, _csrf: csrfToken},
-                        success: function (data, textStatus, jqXHR) {
-                            data.hasMediaVideo = false;
-                            if (data.media['type'] === 'video') {
-                                data.hasMediaVideo = true;
-                            }
-                            
-                            if (data.source == 'youtube') {
-                                var watch = data.media.videoUrl.split("=");
-                                data.media.videoUrl = "https://www.youtube.com/embed/" + watch[1];
-                            }
-                            
-                            data.templatePath = _appJsConfig.templatePath;
+            var csrfToken = $('meta[name="csrf-token"]').attr("content");
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/social/get-social-post',
+                dataType: 'json',
+                data: {blog_guid: blogGuid, guid: postGuid, _csrf: csrfToken},
+                success: function (data, textStatus, jqXHR) {
+                    data.hasMediaVideo = false;
+                    if (data.media['type'] === 'video') {
+                        data.hasMediaVideo = true;
+                    }
+                    data.templatePath = _appJsConfig.templatePath;
 
-                            var articleTemplate = Handlebars.compile(socialPostPopupTemplate);
-                            var article = articleTemplate(data);
+                    if (data.source == 'youtube') {
+                        var watch = data.media.videoUrl.split("=");
+                        data.media.videoUrl = "https://www.youtube.com/embed/" + watch[1];
+                    }
 
-                            $('.modal .modal-content').html(article);
-                            //$('body').modalmanager('loading');
-                            setTimeout(function () {
-                                $('.modal').modal('show');
-                            }, 500);
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            isScialRequestSent = false;
-                        },
-                        beforeSend: function (jqXHR, settings) {
-                            isScialRequestSent = true;
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            isScialRequestSent = false;
-                        }
-                    });
+                    if (data.source == 'twitter') {
+                        data.user.name = '@' + data.user.name;
+                    }
+
+                    var articleTemplate = Handlebars.compile(socialPostPopupTemplate);
+                    var article = articleTemplate(data);
+
+                    $('.modal .modal-content').html(article);
+                    setTimeout(function () {
+                        $('.modal').modal('show');
+                    }, 500);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                },
+                beforeSend: function (jqXHR, settings) {
+
+                },
+                complete: function (jqXHR, textStatus) {
+
                 }
             });
-        };
-        
+        });
+    };
+    
+    var attachEvents = function () { 
         bindSocialPostPopup();
         
         if(_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
